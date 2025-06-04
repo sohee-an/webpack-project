@@ -1,0 +1,6 @@
+node_modules
+
+env
+
+# 빌드
+/dist
