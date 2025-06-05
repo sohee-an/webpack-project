@@ -15,7 +15,9 @@ function Header() {
           placeholder="검색어를 입력하세요"
           icon={<Search className="w-4 h-4 text-white mr-2" />}
         />
-        <Button size="sm">로그인</Button>
+        <Button size="sm" variant="ghost">
+          로그인
+        </Button>
         <Button size="sm">회원가입</Button>
       </div>
     </header>
