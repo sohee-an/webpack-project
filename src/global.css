@@ -8,6 +8,7 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-size: 14px;
     }
     /* ✅ 추가: 기본 헤딩 스타일 */
     h1 {
