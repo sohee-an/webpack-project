@@ -1,4 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { ChevronLeft } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 type Props = {
   items: React.ReactNode[];
@@ -32,9 +34,9 @@ export default function Carousel({ items }: Props) {
       <button
         onClick={() => scrollToIndex(index - 1)}
         disabled={index === 0}
-        className="absolute left-4 top-1/2 z-10 -translate-y-1/2 p-2 bg-black bg-opacity-50 text-white"
+        className="absolute left-4 top-1/2 z-10 -translate-y-1/2 p-2  "
       >
-        ←
+        <ChevronLeft />
       </button>
 
       <div
@@ -51,9 +53,9 @@ export default function Carousel({ items }: Props) {
       <button
         onClick={() => scrollToIndex(index + 1)}
         disabled={index === items.length - 1}
-        className="absolute right-4 top-1/2 z-10 -translate-y-1/2 p-2 bg-black bg-opacity-50 text-white"
+        className="absolute right-4 top-1/2 z-10 -translate-y-1/2 p-2  text-white"
       >
-        →
+        <ChevronRight />
       </button>
     </div>
   );
