@@ -1,8 +1,8 @@
 import React from 'react';
 import MenuTab from './MenuTab';
 import { Search } from 'lucide-react';
-import Input from '@/stories/Input';
-import Button from '@/stories/Button';
+import { Input } from '../share/Input';
+import { Button } from '../share/Button';
 
 const TAB_LIST = ['구독', '개별 구매'];
 
