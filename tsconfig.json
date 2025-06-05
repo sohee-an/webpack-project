@@ -1,14 +1,17 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "lib": ["ES2020", "DOM"],
-    "jsx": "react",
+    "jsx": "react-jsx",
     "module": "esnext",
     "moduleResolution": "Node",
     "target": "es5",
     "strict": true,
     "resolveJsonModule": true,
+    "allowJs": true,
+    "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
@@ -28,5 +31,6 @@
       "esModuleInterop": true
     }
   },
+  "include": ["src/**/*", ".storybook/**/*"],
   "exclude": ["node_modules", "dist", "build", "**/*.test.ts", "**/__tests__"]
 }
