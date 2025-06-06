@@ -2,7 +2,7 @@ import React from 'react';
 import Carousel from '@/components/share/Carousel/Carousel';
 import MovieCard from '@/components/share/MovieCard/MovieCard';
 import RowCarousel from '@/components/share/Carousel/RowCarousel';
-import { useMovieList } from '@/hooks/useMovieList';
+import { useMovieList } from '@hooks/useMovieList';
 
 export const dummydata = [
   {
