@@ -2,6 +2,7 @@ import React from 'react';
 import Carousel from '@/components/share/Carousel/Carousel';
 import MovieCard from '@/components/share/MovieCard/MovieCard';
 import RowCarousel from '@/components/share/Carousel/RowCarousel';
+import { useMovieList } from '@/hooks/useMovieList';
 
 export const dummydata = [
   {
@@ -76,6 +77,12 @@ export const dummydata = [
   },
 ];
 function Home() {
+  const { data, isLoading, error } = useMovieList();
+
+  if (isLoading) return <p>로딩 중...</p>;
+  if (error) return <p>에러 발생!</p>;
+
+  console.log('data', data);
   return (
     <div className=" ">
       <Carousel
