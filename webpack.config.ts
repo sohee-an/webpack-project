@@ -7,8 +7,6 @@ import { Configuration as WebpackConfiguration } from 'webpack';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
-console.log('[DEBUG] Dotenv:', Dotenv);
-
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 interface Configuration extends WebpackConfiguration {
