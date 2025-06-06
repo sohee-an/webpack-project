@@ -1,10 +1,13 @@
 import path from 'path';
+import Dotenv from 'dotenv-webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
 import { Configuration as WebpackConfiguration } from 'webpack';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+
+console.log('[DEBUG] Dotenv:', Dotenv);
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
@@ -74,16 +77,16 @@ const config: Configuration = {
       },
     ],
   },
-  plugins: [
-    // new Dotenv({
-    //   path: `./.env.${process.env.NODE_ENV}`, // 환경별 .env 파일 경로
-    // }),
-  ],
+  plugins: [],
 };
 
 if (config.plugins) {
   if (isDevelopment) {
     config.plugins.push(
+      new Dotenv({
+        path: './.env',
+        systemvars: true, // process.env에서 시스템 변수도 쓸 수 있게
+      }),
       new ReactRefreshWebpackPlugin(),
       new HtmlWebpackPlugin({
         template: './public/index.html',
