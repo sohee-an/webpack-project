@@ -29,7 +29,7 @@ export default function RowCarousel({ children }: Props) {
         className="flex  overflow-x-hidden no-scrollbar scroll-smooth snap-x snap-mandatory gap-4 px-8"
       >
         {children.map((child, i) => (
-          <div key={i} className="snap-start flex-shrink-0 w-2/3 sm:w-1/2 md:w-1/3 lg:w-1/4 ">
+          <div key={i} className="snap-start flex-shrink-0 w-2/3 sm:w-1/2 md:w-1/3 lg:w-1/3 ">
             {child}
           </div>
         ))}
