@@ -1,11 +1,15 @@
 import React from 'react';
 import { TMovie } from '@/hooks/useMoviePopular';
 
-function MovieCard({ item }: { item: TMovie }) {
+function MovieCard({ item, movieList = true }: { item: TMovie; movieList?: boolean }) {
   return (
     <div className="flex flex-col gap-1 text-white cursor-pointer">
-      <div className="text-sm text-gray-400">{item.title}</div>
-      <div>{item.original_title}</div>
+      {!movieList && (
+        <>
+          <div className="text-sm text-gray-400">{item.title}</div>
+          <div>{item.original_title}</div>
+        </>
+      )}
       {/* <div className="text-gray-400">{item.overview}</div> */}
 
       <div className="relative group">

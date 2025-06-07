@@ -3,9 +3,13 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 type Props = {
   children: React.ReactNode[];
+  itemClassName?: string;
 };
 
-export default function RowCarousel({ children }: Props) {
+export default function RowCarousel({
+  children,
+  itemClassName = 'w-2/3 sm:w-1/2 md:w-1/3 lg:w-1/3',
+}: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const scroll = (dir: 'left' | 'right') => {
@@ -29,9 +33,12 @@ export default function RowCarousel({ children }: Props) {
         className="flex  overflow-x-hidden no-scrollbar scroll-smooth snap-x snap-mandatory gap-4 px-8"
       >
         {children.map((child, i) => (
-          <div key={i} className="snap-start flex-shrink-0 w-2/3 sm:w-1/2 md:w-1/3 lg:w-1/3 ">
+          <div key={i} className={`snap-start flex-shrink-0 ${itemClassName}`}>
             {child}
           </div>
+          // <div key={i} className="snap-start flex-shrink-0 ">
+          //   {child}
+          // </div>
         ))}
       </div>
 

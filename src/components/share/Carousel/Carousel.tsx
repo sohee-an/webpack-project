@@ -13,8 +13,6 @@ export default function Carousel({ items }: Props) {
   const [index, setIndex] = useState(0);
   const [width, setWidth] = useState(0);
 
-  console.log('nowplying', data);
-
   useEffect(() => {
     const handleResize = () => {
       if (containerRef.current) {
