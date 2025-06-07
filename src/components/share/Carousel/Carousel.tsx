@@ -8,12 +8,20 @@ type Props = {
 };
 
 export default function Carousel({ items }: Props) {
-  const { data } = useMoviePopular({ language: 'ko-KR', page: 1 });
   const containerRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const [width, setWidth] = useState(0);
+  const [page, setPage] = useState(1);
+  const { data } = useMoviePopular({ language: 'ko-KR', page });
 
-  console.log('nowplying', data);
+  const random = Math.floor(Math.random() * 50) + 1;
+
+  /**
+   * 랜덤하게 나오게
+   */
+  useEffect(() => {
+    setPage(random);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {

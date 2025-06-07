@@ -1,28 +1,154 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Carousel from '@/components/share/Carousel/Carousel';
 import MovieCard from '@/components/share/MovieCard/MovieCard';
 import RowCarousel from '@/components/share/Carousel/RowCarousel';
 import { useMoviePopular } from '@/hooks/useMoviePopular';
+import { useMovieGeneres } from '@/hooks/useMovieGeneres';
+import { useTopRated } from '@/hooks/useTopRated';
+import { useUpcoming } from '@/hooks/useUpcoming';
+
+import { tv } from 'tailwind-variants';
+
+export const MOVIE_GENRES = [
+  { id: 0, name: '전체' },
+  { id: 28, name: '액션' },
+  // { id: 12, name: '모험' },
+  { id: 16, name: '애니메이션' },
+  { id: 35, name: '코미디' },
+  // { id: 80, name: '범죄' },
+  { id: 99, name: '다큐멘터리' },
+  { id: 18, name: '드라마' },
+  { id: 10751, name: '가족' },
+  { id: 14, name: '판타지' },
+  // { id: 36, name: '역사' },
+  // { id: 27, name: '공포' },
+  // { id: 10402, name: '음악' },
+  // { id: 9648, name: '미스터리' },
+  // { id: 10749, name: '로맨스' },
+  { id: 878, name: 'SF' },
+  // { id: 10770, name: 'TV 영화' },
+  // { id: 53, name: '스릴러' },
+  // { id: 10752, name: '전쟁' },
+  // { id: 37, name: '서부' },
+];
 
 function Home() {
-  const { data, isLoading, error } = useMoviePopular({ language: 'ko-KR', page: 1 });
+  const [generesId, setGeneresId] = useState(0);
+  const [topRagePage] = useState(1);
 
-  if (isLoading) return <p>로딩 중...</p>;
-  if (error) return <p>에러 발생!</p>;
+  const {
+    data: popularData,
+    isLoading: popularLoading,
+    error: popularError,
+  } = useMoviePopular({
+    language: 'ko-KR',
+    page: 1,
+  });
 
-  console.log('data', data);
+  const { data: generesData } = useMovieGeneres({
+    language: 'ko-KR',
+    page: 1,
+    generesId,
+  });
+
+  const { data: topRatedData } = useTopRated({
+    language: 'ko-KR',
+    page: topRagePage,
+  });
+
+  const { data: useUpcomingData } = useUpcoming({
+    language: 'ko-KR',
+    page: topRagePage,
+  });
+
+  if (popularLoading) return <p>로딩 중...</p>;
+  if (popularError) return <p>에러 발생!</p>;
+
+  const handleClick = (id: number) => {
+    setGeneresId(id);
+  };
+
+  const buttonVariants = tv({
+    base: 'py-1 px-3 border rounded-full transition-colors duration-200',
+    variants: {
+      variant: {
+        default: 'bg-white text-black border-white',
+        outline: 'text-gray-400 border-gray-400 hover:border-gray-200',
+      },
+    },
+    defaultVariants: {
+      variant: 'outline',
+    },
+  });
+
   return (
-    <div className=" ">
+    <div>
       <Carousel
         items={Array.from({ length: 10 }, (_, i) => (
           <div className="w-full h-[630px] bg-white p-4 text-center">Item {i + 1}</div>
         ))}
       />
-      <section>
-        <RowCarousel>
-          {data ? data.results.map((item) => <MovieCard key={item.id} item={item} />) : []}
-        </RowCarousel>
-      </section>
+      {/* 인기 영화들 */}
+      <RowCarousel height="tall">
+        {popularData
+          ? popularData.results.map((item) => <MovieCard height="tall" key={item.id} item={item} />)
+          : []}
+      </RowCarousel>
+
+      {/* 전체, 장르별로 영화들 */}
+      <div className="flex gap-4 px-8 mb-4 ">
+        {MOVIE_GENRES.map(({ name, id }) => {
+          return (
+            <button
+              key={id}
+              onClick={() => handleClick(id)}
+              className={buttonVariants({
+                variant: generesId === id ? 'default' : 'outline',
+              })}
+            >
+              {name}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* 전체 및 장르별 영화들 */}
+      <RowCarousel height="medium" itemClassName="w-1/2 sm:w-1/3 md:w-1/6">
+        {generesData
+          ? generesData.results.map((item) => (
+              <MovieCard height="medium" movieList={true} key={item.id} item={item} />
+            ))
+          : []}
+      </RowCarousel>
+
+      {/* 인기있는 영화들들 */}
+      <div className="text-white text-[20px] px-8 font-bold">인기 있는 콘텐츠</div>
+      <RowCarousel height="medium" itemClassName="w-1/2 sm:w-1/3 md:w-1/6">
+        {popularData
+          ? popularData.results.map((item) => (
+              <MovieCard height="medium" movieList={true} key={item.id} item={item} />
+            ))
+          : []}
+      </RowCarousel>
+
+      {/*  최고평점영화*/}
+      <div className="text-white text-[20px] px-8 font-bold">최고평점영화</div>
+      <RowCarousel height="medium" itemClassName="w-1/2 sm:w-1/3 md:w-1/6">
+        {topRatedData
+          ? topRatedData.results.map((item) => (
+              <MovieCard height="medium" movieList={true} key={item.id} item={item} />
+            ))
+          : []}
+      </RowCarousel>
+
+      <div className="text-white text-[20px] px-8 font-bold">곧 만나게 될 영화화</div>
+      <RowCarousel height="medium" itemClassName="w-1/2 sm:w-1/3 md:w-1/6">
+        {useUpcomingData
+          ? useUpcomingData.results.map((item) => (
+              <MovieCard height="medium" movieList={true} key={item.id} item={item} />
+            ))
+          : []}
+      </RowCarousel>
     </div>
   );
 }
