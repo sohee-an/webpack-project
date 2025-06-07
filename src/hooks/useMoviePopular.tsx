@@ -16,10 +16,9 @@ type TPopularMovie = {
   results: TMovie[];
 };
 
-export const useMoviePopular = ({ language = 'ko-KR', page = 1 }: TPopularMiviePrameter) => {
+export const useMoviePopular = ({ language = 'ko-KR', page }: TPopularMiviePrameter) => {
   return useQuery<TPopularMovie>({
-    queryKey: ['movieList'],
+    queryKey: ['popularMovie', language, page],
     queryFn: () => fetcher(`movie/popular?language=${language}&page=${page}`),
-    staleTime: 1000 * 60 * 5,
   });
 };

@@ -4,11 +4,19 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 type Props = {
   children: React.ReactNode[];
   itemClassName?: string;
+  height?: 'short' | 'medium' | 'tall';
+};
+
+const heightMap = {
+  short: 'h-48',
+  medium: 'h-72',
+  tall: 'h-[620px]',
 };
 
 export default function RowCarousel({
   children,
   itemClassName = 'w-2/3 sm:w-1/2 md:w-1/3 lg:w-1/3',
+  height,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -20,7 +28,7 @@ export default function RowCarousel({
   };
 
   return (
-    <div className="relative w-full py-4 px-10">
+    <div className={`mb-4 mt-2 relative w-full  px-10 ${heightMap[height ?? 'medium']} `}>
       <button
         onClick={() => scroll('left')}
         className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black bg-opacity-50 text-white p-2"
@@ -36,9 +44,6 @@ export default function RowCarousel({
           <div key={i} className={`snap-start flex-shrink-0 ${itemClassName}`}>
             {child}
           </div>
-          // <div key={i} className="snap-start flex-shrink-0 ">
-          //   {child}
-          // </div>
         ))}
       </div>
 
