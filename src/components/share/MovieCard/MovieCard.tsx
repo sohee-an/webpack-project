@@ -1,5 +1,5 @@
 import React from 'react';
-import { TMovie } from '@/hooks/useMoviePopular';
+import { TMovie } from '@/hooks/movie/useMoviePopular';
 
 type TProps = {
   item: TMovie;

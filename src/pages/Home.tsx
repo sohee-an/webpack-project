@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import Carousel from '@/components/share/Carousel/Carousel';
 import MovieCard from '@/components/share/MovieCard/MovieCard';
 import RowCarousel from '@/components/share/Carousel/RowCarousel';
-import { useMoviePopular } from '@/hooks/useMoviePopular';
-import { useMovieGeneres } from '@/hooks/useMovieGeneres';
-import { useTopRated } from '@/hooks/useTopRated';
-import { useUpcoming } from '@/hooks/useUpcoming';
+import { useMoviePopular } from '@/hooks/movie/useMoviePopular';
+import { useMovieGeneres } from '@/hooks/movie/useMovieGeneres';
+import { useTopRated } from '@/hooks/movie/useTopRated';
+import { useUpcoming } from '@/hooks/movie/useUpcoming';
 import { MOVIE_GENRES } from '@/constants/movie';
 
 import { tv } from 'tailwind-variants';

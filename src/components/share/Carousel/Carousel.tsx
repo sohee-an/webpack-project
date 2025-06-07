@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { ChevronRight } from 'lucide-react';
-import { useMoviePopular } from '@/hooks/useMoviePopular';
+import { useMoviePopular } from '@/hooks/movie/useMoviePopular';
 
 type Props = {
   items: React.ReactNode[];
