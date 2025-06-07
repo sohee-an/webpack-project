@@ -1,15 +1,19 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { ChevronRight } from 'lucide-react';
+import { useMoviePopular } from '@/hooks/useMoviePopular';
 
 type Props = {
   items: React.ReactNode[];
 };
 
 export default function Carousel({ items }: Props) {
+  const { data } = useMoviePopular({ language: 'ko-KR', page: 1 });
   const containerRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const [width, setWidth] = useState(0);
+
+  console.log('nowplying', data);
 
   useEffect(() => {
     const handleResize = () => {
@@ -30,24 +34,32 @@ export default function Carousel({ items }: Props) {
   };
 
   return (
-    <div className="relative w-full overflow-hidden">
+    <div className="relative w-full overflow-hidden h-[620px]">
       <button
         onClick={() => scrollToIndex(index - 1)}
         disabled={index === 0}
-        className="absolute left-4 top-1/2 z-10 -translate-y-1/2 p-2  "
+        className="absolute left-4 top-1/2 z-10 -translate-y-1/2 p-2  text-white "
       >
         <ChevronLeft />
       </button>
 
       <div
         ref={containerRef}
-        className="flex transition-all duration-500 ease-in-out overflow-hidden"
+        className="flex transition-all duration-500 ease-in-out overflow-hidden cursor-pointer "
       >
-        {items.map((item, i) => (
-          <div key={i} className="flex-shrink-0 h-full" style={{ width: `${width}px` }}>
-            {item}
-          </div>
-        ))}
+        {data &&
+          data.results.map((item, i) => (
+            <div
+              key={i}
+              className="flex-shrink-0 w-full h-full flex items-center justify-center px-2"
+            >
+              <img
+                src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                alt={`${item.title} Poster`}
+                className="h-full w-auto object-cover "
+              />
+            </div>
+          ))}
       </div>
 
       <button
