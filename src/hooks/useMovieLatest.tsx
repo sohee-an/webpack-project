@@ -3,7 +3,6 @@ import { fetcher } from '@/api/fetcher';
 
 type TPopularMiviePrameter = {
   language: string;
-  page: number;
 };
 export type TMovie = {
   id: number;
@@ -16,9 +15,10 @@ type TPopularMovie = {
   results: TMovie[];
 };
 
-export const useNowPlaying = ({ language = 'ko-KR', page = 1 }: TPopularMiviePrameter) => {
+export const useMovieLatest = ({ language = 'ko-KR' }: TPopularMiviePrameter) => {
   return useQuery<TPopularMovie>({
-    queryKey: ['movieList'],
-    queryFn: () => fetcher(`movie/now_playing?language=${language}&page=${page}`),
+    queryKey: ['movielatest', language],
+    queryFn: () => fetcher(`movie/latest`),
+    staleTime: 1000 * 60 * 5,
   });
 };

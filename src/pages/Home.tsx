@@ -4,6 +4,8 @@ import MovieCard from '@/components/share/MovieCard/MovieCard';
 import RowCarousel from '@/components/share/Carousel/RowCarousel';
 import { useMoviePopular } from '@/hooks/useMoviePopular';
 import { useMovieGeneres } from '@/hooks/useMovieGeneres';
+import { useTopRated } from '@/hooks/useTopRated';
+import { useUpcoming } from '@/hooks/useUpcoming';
 
 import { tv } from 'tailwind-variants';
 
@@ -32,6 +34,7 @@ export const MOVIE_GENRES = [
 
 function Home() {
   const [generesId, setGeneresId] = useState(0);
+  const [topRagePage] = useState(1);
 
   const {
     data: popularData,
@@ -42,10 +45,20 @@ function Home() {
     page: 1,
   });
 
-  const { data: similarData } = useMovieGeneres({
+  const { data: generesData } = useMovieGeneres({
     language: 'ko-KR',
     page: 1,
     generesId,
+  });
+
+  const { data: topRatedData } = useTopRated({
+    language: 'ko-KR',
+    page: topRagePage,
+  });
+
+  const { data: useUpcomingData } = useUpcoming({
+    language: 'ko-KR',
+    page: topRagePage,
   });
 
   if (popularLoading) return <p>로딩 중...</p>;
@@ -99,9 +112,39 @@ function Home() {
         })}
       </div>
 
+      {/* 전체 및 장르별 영화들 */}
       <RowCarousel height="medium" itemClassName="w-1/2 sm:w-1/3 md:w-1/6">
-        {similarData
-          ? similarData.results.map((item) => (
+        {generesData
+          ? generesData.results.map((item) => (
+              <MovieCard height="medium" movieList={true} key={item.id} item={item} />
+            ))
+          : []}
+      </RowCarousel>
+
+      {/* 인기있는 영화들들 */}
+      <div className="text-white text-[20px] px-8 font-bold">인기 있는 콘텐츠</div>
+      <RowCarousel height="medium" itemClassName="w-1/2 sm:w-1/3 md:w-1/6">
+        {popularData
+          ? popularData.results.map((item) => (
+              <MovieCard height="medium" movieList={true} key={item.id} item={item} />
+            ))
+          : []}
+      </RowCarousel>
+
+      {/*  최고평점영화*/}
+      <div className="text-white text-[20px] px-8 font-bold">최고평점영화</div>
+      <RowCarousel height="medium" itemClassName="w-1/2 sm:w-1/3 md:w-1/6">
+        {topRatedData
+          ? topRatedData.results.map((item) => (
+              <MovieCard height="medium" movieList={true} key={item.id} item={item} />
+            ))
+          : []}
+      </RowCarousel>
+
+      <div className="text-white text-[20px] px-8 font-bold">곧 만나게 될 영화화</div>
+      <RowCarousel height="medium" itemClassName="w-1/2 sm:w-1/3 md:w-1/6">
+        {useUpcomingData
+          ? useUpcomingData.results.map((item) => (
               <MovieCard height="medium" movieList={true} key={item.id} item={item} />
             ))
           : []}
