@@ -1,4 +1,4 @@
-const REACT_APP_API_URL = process.env.REACT_APP_API_URL || '';
+export const REACT_APP_API_URL = process.env.REACT_APP_API_URL || '';
 const REACT_APP_API_TOKEN = process.env.REACT_APP_API_TOKEN || '';
 
 export async function fetcher<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
