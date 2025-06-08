@@ -1,4 +1,4 @@
-
+// eslint-disable-next-line storybook/no-renderer-packages
 import type { Meta, StoryObj } from '@storybook/react';
 import Carousel from './Carousel';
 
@@ -21,5 +21,5 @@ const sampleItems = Array.from({ length: 5 }, (_, i) => (
 ));
 
 export const Default: Story = {
-  render: () => <Carousel items={sampleItems} />,
+  render: () => <Carousel onClick={() => {}} items={sampleItems} />,
 };

@@ -15,6 +15,7 @@ function Detail() {
     language: 'ko-KR',
     mid: mid ?? '',
   });
+  console.log('data', data);
 
   const { data: similarData } = useSimilar({
     language: 'ko-KR',
@@ -46,14 +47,16 @@ function Detail() {
               ))}
             </div>
             <div>러닝타입: {data.runtime}분</div>
-            <div className="flex gap-2">
-              <span>번역 : </span>
+            {data.spoken_languages.length !== 0 ? (
               <div className="flex gap-2">
-                {data.spoken_languages.map((item) => {
-                  return <div>{item.name}</div>;
-                })}
+                <span>번역 : </span>
+                <div className="flex gap-2">
+                  {data.spoken_languages.map((item) => {
+                    return <div>{item.name}</div>;
+                  })}
+                </div>
               </div>
-            </div>
+            ) : null}
 
             <span className="text-gray-400">{data.overview}</span>
           </div>

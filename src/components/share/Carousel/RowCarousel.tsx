@@ -2,9 +2,11 @@ import React, { useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 type Props = {
-  children: React.ReactNode[];
+  children: React.ReactNode;
   itemClassName?: string;
   height?: 'short' | 'medium' | 'tall';
+  onNext?: () => void;
+  onPrev?: () => void;
 };
 
 const heightMap = {
@@ -17,6 +19,8 @@ export default function RowCarousel({
   children,
   itemClassName = 'w-2/3 sm:w-1/2 md:w-1/3 lg:w-1/3',
   height,
+  onNext,
+  onPrev,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -24,7 +28,13 @@ export default function RowCarousel({
     if (!containerRef.current) return;
     const container = containerRef.current;
     const scrollAmount = container.offsetWidth;
-    container.scrollBy({ left: dir === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
+    container.scrollBy({
+      left: dir === 'left' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth',
+    });
+
+    if (dir === 'left') onPrev?.();
+    else onNext?.();
   };
 
   return (
@@ -40,11 +50,16 @@ export default function RowCarousel({
         ref={containerRef}
         className="flex  overflow-x-hidden no-scrollbar scroll-smooth snap-x snap-mandatory gap-4 px-8"
       >
-        {children.map((child, i) => (
+        {React.Children.toArray(children).map((child, i) => (
           <div key={i} className={`snap-start flex-shrink-0 ${itemClassName}`}>
             {child}
           </div>
         ))}
+        {/* {children.map((child, i) => (
+          <div key={i} className={`snap-start flex-shrink-0 ${itemClassName}`}>
+            {child}
+          </div>
+        ))} */}
       </div>
 
       <button

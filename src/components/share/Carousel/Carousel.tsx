@@ -5,9 +5,10 @@ import { useMoviePopular } from '@/hooks/movie/useMoviePopular';
 
 type Props = {
   items: React.ReactNode[];
+  onClick: (mid: number) => void;
 };
 
-export default function Carousel({ items }: Props) {
+export default function Carousel({ items, onClick }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const [width, setWidth] = useState(0);
@@ -58,6 +59,7 @@ export default function Carousel({ items }: Props) {
         {data &&
           data.results.map((item, i) => (
             <div
+              onClick={() => onClick(item.id)}
               key={i}
               className="flex-shrink-0 w-full h-full flex items-center justify-center px-2"
             >
