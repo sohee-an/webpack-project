@@ -8,6 +8,7 @@ import MovieCard from '@/components/share/MovieCard/MovieCard';
 import { useCredits } from '@/hooks/movie/detail/useCredits';
 import TrailerSection from '@/components/share/TrailerSection';
 import OverviewSection from '@/components/share/OverviewSection';
+import { DetailSkeleton } from '@/components/skeleton/DetailSkeleton';
 
 function Detail() {
   const { mid } = useParams();
@@ -32,8 +33,8 @@ function Detail() {
     navigate(`/${mid}`);
   };
 
-  if (!data) {
-    return <div>데이터가 없습니다.</div>;
+  if (!data || !similarData || !creditsData) {
+    return <DetailSkeleton />;
   }
 
   return (
