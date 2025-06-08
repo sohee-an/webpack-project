@@ -5,11 +5,14 @@ import { useDetail } from '@/hooks/movie/detail/useDetail';
 
 export default function TrailerSection() {
   const { mid } = useParams();
-  const { data: videoData } = useMovieVideos({ mid: mid ?? '' });
+  const { data: videoData, isLoading: videoLoading } = useMovieVideos({ mid: mid ?? '' });
   const { data: movieData } = useDetail({ mid: mid ?? '', language: 'ko-KR' });
 
   const trailer = videoData?.results.find((video) => video.site === 'YouTube');
 
+  if (videoLoading) {
+    return null;
+  }
   if (trailer) {
     return (
       <div className="aspect-video w-[400px] max-w-2xl">
