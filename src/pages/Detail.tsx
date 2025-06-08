@@ -96,14 +96,14 @@ function Detail() {
         <div className="flex gap-4">
           {creditsData &&
             creditsData.crew.slice(0, 2).map((crew) => (
-              <div>
+              <div className="flex flex-col justify-center items-center">
                 {crew.profile_path ? (
                   <img
                     className="w-[90px] h-[110px] mb-1"
                     src={`https://image.tmdb.org/t/p/w500${crew.profile_path}`}
                   />
                 ) : (
-                  <div className="w-20 h-[120px] bg-gray-700" />
+                  <div className="w-[90px] h-[120px] bg-gray-700" />
                 )}
                 <div key={crew.id}>{crew.name}</div>
               </div>
