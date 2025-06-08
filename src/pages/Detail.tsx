@@ -7,10 +7,12 @@ import RowCarousel from '@/components/share/Carousel/RowCarousel';
 import MovieCard from '@/components/share/MovieCard/MovieCard';
 import { useCredits } from '@/hooks/movie/detail/useCredits';
 import TrailerSection from '@/components/share/TrailerSection';
+import OverviewSection from '@/components/share/OverviewSection';
 
 function Detail() {
   const { mid } = useParams();
   const navigate = useNavigate();
+
   const { data } = useDetail({
     language: 'ko-KR',
     mid: mid ?? '',
@@ -58,7 +60,7 @@ function Detail() {
               </div>
             ) : null}
 
-            <span className="text-gray-400">{data.overview}</span>
+            <OverviewSection overview={data.overview} />
           </div>
           <TrailerSection />
           {/* 

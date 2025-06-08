@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const [generesId, setGeneresId] = useState(0);
-
   const navigate = useNavigate();
 
   const {
@@ -102,7 +101,6 @@ function Home() {
             ))
           : []}
       </RowCarousel> */}
-
       <PaginatedCarousel title="인기 콘텐츠" endpoint="movie/popular" queryKey={['popular']} />
       <PaginatedCarousel title="최고 평점" endpoint="movie/top_rated" queryKey={['topRated']} />
       <PaginatedCarousel title="개봉 예정" endpoint="movie/upcoming" queryKey={['upcoming']} />
