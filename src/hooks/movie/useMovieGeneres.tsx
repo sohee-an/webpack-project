@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetcher } from '@/api/fetcher';
 
-type TPopularMiviePrameter = {
+type TMovieGeneresPrameter = {
   language: string;
   page: number;
   generesId: number;
@@ -13,11 +13,11 @@ export type TMovie = {
   poster_path: string;
   original_title: string;
 };
-type TPopularMovie = {
+type TMovieGeneres = {
   results: TMovie[];
 };
 
-export const useMovieGeneres = ({ language = 'ko-KR', page, generesId }: TPopularMiviePrameter) => {
+export const useMovieGeneres = ({ language = 'ko-KR', page, generesId }: TMovieGeneresPrameter) => {
   const queryString = new URLSearchParams({
     language,
     page: String(page),
@@ -27,7 +27,7 @@ export const useMovieGeneres = ({ language = 'ko-KR', page, generesId }: TPopula
     queryString.append('with_genres', String(generesId));
   }
 
-  return useQuery<TPopularMovie>({
+  return useQuery<TMovieGeneres>({
     queryKey: ['movieGeneres', language, page, generesId],
     queryFn: () => fetcher(`discover/movie?${queryString.toString()}`),
   });

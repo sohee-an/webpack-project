@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetcher } from '@/api/fetcher';
 
-type TPopularMiviePrameter = {
+type TNowPlayingPrameter = {
   language: string;
   page: number;
 };
@@ -12,12 +12,12 @@ export type TMovie = {
   poster_path: string;
   original_title: string;
 };
-type TPopularMovie = {
+type TNowPlaying = {
   results: TMovie[];
 };
 
-export const useNowPlaying = ({ language = 'ko-KR', page = 1 }: TPopularMiviePrameter) => {
-  return useQuery<TPopularMovie>({
+export const useNowPlaying = ({ language = 'ko-KR', page = 1 }: TNowPlayingPrameter) => {
+  return useQuery<TNowPlaying>({
     queryKey: ['movieList'],
     queryFn: () => fetcher(`movie/now_playing?language=${language}&page=${page}`),
   });
