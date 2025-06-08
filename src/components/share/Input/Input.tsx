@@ -11,7 +11,7 @@ function Input({ icon, ...props }: Tprops) {
       <input
         {...props}
         type="text"
-        className="bg-transparent outline-none text-white placeholder-white flex-1"
+        className="bg-transparent outline-none text-white placeholder-white flex-1 text-sm"
       />
     </div>
   );
