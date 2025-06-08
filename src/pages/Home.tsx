@@ -9,10 +9,12 @@ import { useUpcoming } from '@/hooks/movie/useUpcoming';
 import { MOVIE_GENRES } from '@/constants/movie';
 
 import { tv } from 'tailwind-variants';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const [generesId, setGeneresId] = useState(0);
   const [topRagePage] = useState(1);
+  const navigate = useNavigate();
 
   const {
     data: popularData,
@@ -38,6 +40,10 @@ function Home() {
     language: 'ko-KR',
     page: topRagePage,
   });
+
+  const handleDetailClick = (mid: number) => {
+    navigate(`/${mid}`);
+  };
 
   if (popularLoading) return <p>로딩 중...</p>;
   if (popularError) return <p>에러 발생!</p>;
@@ -69,7 +75,9 @@ function Home() {
       {/* 인기 영화들 */}
       <RowCarousel height="tall">
         {popularData
-          ? popularData.results.map((item) => <MovieCard height="tall" key={item.id} item={item} />)
+          ? popularData.results.map((item) => (
+              <MovieCard onClick={handleDetailClick} height="tall" key={item.id} item={item} />
+            ))
           : []}
       </RowCarousel>
 
@@ -94,7 +102,13 @@ function Home() {
       <RowCarousel height="medium" itemClassName="w-1/2 sm:w-1/3 md:w-1/6">
         {generesData
           ? generesData.results.map((item) => (
-              <MovieCard height="medium" movieList={true} key={item.id} item={item} />
+              <MovieCard
+                onClick={handleDetailClick}
+                height="medium"
+                movieList={true}
+                key={item.id}
+                item={item}
+              />
             ))
           : []}
       </RowCarousel>
@@ -104,7 +118,13 @@ function Home() {
       <RowCarousel height="medium" itemClassName="w-1/2 sm:w-1/3 md:w-1/6">
         {popularData
           ? popularData.results.map((item) => (
-              <MovieCard height="medium" movieList={true} key={item.id} item={item} />
+              <MovieCard
+                onClick={handleDetailClick}
+                height="medium"
+                movieList={true}
+                key={item.id}
+                item={item}
+              />
             ))
           : []}
       </RowCarousel>
@@ -114,7 +134,13 @@ function Home() {
       <RowCarousel height="medium" itemClassName="w-1/2 sm:w-1/3 md:w-1/6">
         {topRatedData
           ? topRatedData.results.map((item) => (
-              <MovieCard height="medium" movieList={true} key={item.id} item={item} />
+              <MovieCard
+                onClick={handleDetailClick}
+                height="medium"
+                movieList={true}
+                key={item.id}
+                item={item}
+              />
             ))
           : []}
       </RowCarousel>
@@ -123,7 +149,13 @@ function Home() {
       <RowCarousel height="medium" itemClassName="w-1/2 sm:w-1/3 md:w-1/6">
         {useUpcomingData
           ? useUpcomingData.results.map((item) => (
-              <MovieCard height="medium" movieList={true} key={item.id} item={item} />
+              <MovieCard
+                onClick={handleDetailClick}
+                height="medium"
+                movieList={true}
+                key={item.id}
+                item={item}
+              />
             ))
           : []}
       </RowCarousel>

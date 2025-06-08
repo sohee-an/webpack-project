@@ -19,6 +19,5 @@ export const useMovieLatest = ({ language = 'ko-KR' }: TPopularMiviePrameter) =>
   return useQuery<TPopularMovie>({
     queryKey: ['movielatest', language],
     queryFn: () => fetcher(`movie/latest`),
-    staleTime: 1000 * 60 * 5,
   });
 };

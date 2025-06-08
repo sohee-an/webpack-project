@@ -5,6 +5,7 @@ type TProps = {
   item: TMovie;
   movieList?: boolean;
   height: 'short' | 'medium' | 'tall';
+  onClick: (mid: number) => void;
 };
 
 const heightMap = {
@@ -13,12 +14,12 @@ const heightMap = {
   tall: 'h-[620px]',
 };
 
-function MovieCard({ item, movieList = false, height }: TProps) {
+function MovieCard({ item, movieList = false, height, onClick }: TProps) {
   return (
     <div
+      onClick={() => onClick(item.id)}
       className={`flex flex-col gap-1 text-white cursor-pointer overflow-hidden ${heightMap[height]}`}
     >
-      {/* 텍스트 영역 */}
       {!movieList && (
         <div className="flex flex-col px-1 pt-1">
           <div className="text-sm text-gray-400 truncate">{item.title}</div>
@@ -26,7 +27,6 @@ function MovieCard({ item, movieList = false, height }: TProps) {
         </div>
       )}
 
-      {/* 이미지 영역: 남은 높이를 모두 차지하도록 flex-grow 사용 */}
       <div className="relative group flex-grow overflow-hidden">
         <img
           src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
