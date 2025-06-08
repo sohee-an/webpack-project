@@ -23,7 +23,7 @@ function MovieCard({ item, movieList = false, height, onClick }: TProps) {
       {!movieList && (
         <div className="flex flex-col px-1 pt-1">
           <div className="text-sm text-gray-400 truncate">{item.title}</div>
-          <div className="text-xs truncate">{item.original_title}</div>
+          <div className="text-lg text-bold truncate">{item.original_title}</div>
         </div>
       )}
 
