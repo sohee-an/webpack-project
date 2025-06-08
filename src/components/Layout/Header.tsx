@@ -4,7 +4,10 @@ import { Search } from 'lucide-react';
 import { Input } from '../share/Input';
 import { Button } from '../share/Button';
 
-const TAB_LIST = ['구독', '개별 구매'];
+const TAB_LIST = [
+  { name: '구독', link: '/' },
+  { name: '개별 구매', link: '/' },
+];
 
 function Header() {
   return (

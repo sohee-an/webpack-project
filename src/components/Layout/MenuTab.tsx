@@ -1,13 +1,15 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 type TProps = {
-  tabs: string[];
+  tabs: { name: string; link: string }[];
 };
 
 function MenuTab({ tabs }: TProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0 });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const currentTab = tabRefs.current[activeIndex];
@@ -23,21 +25,26 @@ function MenuTab({ tabs }: TProps) {
     }
   }, [activeIndex]);
 
+  const handleNavClick = (link: string, index: number) => {
+    setActiveIndex(index);
+    navigate(link);
+  };
+
   return (
     <div className="relative w-fit border-b border-gray-700 ">
       <button className="flex">
-        {tabs.map((label, index) => (
+        {tabs.map(({ name, link }, index) => (
           <button
-            key={label}
+            key={name}
             ref={(el) => {
               tabRefs.current[index] = el;
             }}
-            onClick={() => setActiveIndex(index)}
+            onClick={() => handleNavClick(link, index)}
             className={`px-4 py-2 text-sm ${
               activeIndex === index ? 'text-white' : 'text-gray-400'
             }`}
           >
-            {label}
+            {name}
           </button>
         ))}
       </button>
