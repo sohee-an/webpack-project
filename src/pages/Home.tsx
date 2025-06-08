@@ -145,7 +145,7 @@ function Home() {
           : []}
       </RowCarousel>
 
-      <div className="text-white text-[20px] px-8 font-bold">곧 만나게 될 영화화</div>
+      <div className="text-white text-[20px] px-8 font-bold">곧 만나게 될 영화</div>
       <RowCarousel height="medium" itemClassName="w-1/2 sm:w-1/3 md:w-1/6">
         {useUpcomingData
           ? useUpcomingData.results.map((item) => (
