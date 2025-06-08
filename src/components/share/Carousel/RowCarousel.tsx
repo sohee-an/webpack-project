@@ -55,11 +55,6 @@ export default function RowCarousel({
             {child}
           </div>
         ))}
-        {/* {children.map((child, i) => (
-          <div key={i} className={`snap-start flex-shrink-0 ${itemClassName}`}>
-            {child}
-          </div>
-        ))} */}
       </div>
 
       <button

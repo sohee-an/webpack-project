@@ -66,7 +66,7 @@ export default function Carousel({ items, onClick }: Props) {
               <img
                 src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
                 alt={`${item.title} Poster`}
-                className="h-full w-auto object-cover "
+                className="h-full w-auto object-fit "
               />
             </div>
           ))}

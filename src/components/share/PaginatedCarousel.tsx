@@ -17,7 +17,7 @@ export default function PaginatedCarousel({ endpoint, queryKey, title, params }:
 
   const handleDetailClick = (mid: number) => {
     window.scrollTo(0, 0);
-    location.href = `/${mid}`; // 또는 navigate
+    location.href = `/${mid}`;
   };
 
   return (
