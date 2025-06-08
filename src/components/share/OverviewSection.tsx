@@ -3,29 +3,30 @@ import React, { useState, useRef, useEffect } from 'react';
 export default function OverviewSection({ overview }: { overview: string }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [shouldShowToggle, setShouldShowToggle] = useState(false);
-  const contentRef = useRef<HTMLDivElement>(null);
+  const hiddenRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (contentRef.current) {
-      const el = contentRef.current;
+    if (hiddenRef.current) {
+      const el = hiddenRef.current;
       const lineHeight = parseFloat(getComputedStyle(el).lineHeight);
-      const visibleLineCount = el.clientHeight / lineHeight;
+      const totalLineCount = el.clientHeight / lineHeight;
 
-      setShouldShowToggle(visibleLineCount > 5);
+      setShouldShowToggle(totalLineCount > 3);
     }
   }, [overview]);
 
   return (
     <div className="text-gray-400">
+      <div className={`${isExpanded ? '' : 'line-clamp-3'} text-gray-400`}>{overview}</div>
+
       <div
-        ref={contentRef}
-        className={`relative transition-all duration-300 ${
-          isExpanded ? 'max-h-[2000px]' : 'max-h-[360px] overflow-hidden'
-        }`}
-        style={{ lineHeight: '24px' }}
+        ref={hiddenRef}
+        className="absolute invisible pointer-events-none h-auto whitespace-pre-wrap w-full"
+        style={{ position: 'absolute', zIndex: -9999, visibility: 'hidden' }}
       >
         {overview}
       </div>
+
       {shouldShowToggle && (
         <button
           onClick={() => setIsExpanded((prev) => !prev)}
