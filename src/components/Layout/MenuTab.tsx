@@ -32,7 +32,7 @@ function MenuTab({ tabs }: TProps) {
 
   return (
     <div className="relative w-fit border-b border-gray-700 ">
-      <button className="flex">
+      <div className="flex">
         {tabs.map(({ name, link }, index) => (
           <button
             key={name}
@@ -47,7 +47,7 @@ function MenuTab({ tabs }: TProps) {
             {name}
           </button>
         ))}
-      </button>
+      </div>
 
       <div
         className="absolute bottom-0 h-[2px] bg-white transition-all duration-300"
