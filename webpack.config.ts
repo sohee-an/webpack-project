@@ -14,7 +14,7 @@ interface Configuration extends WebpackConfiguration {
 }
 
 const config: Configuration = {
-  name: 'webpack-study',
+  name: 'webpack-project',
   mode: isDevelopment ? 'development' : 'production',
   resolve: {
     modules: ['node_modules', 'src'],
