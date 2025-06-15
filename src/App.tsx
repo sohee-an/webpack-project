@@ -1,43 +1,27 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Layout from './components/Layout/Layout';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import Detail from './pages/Detail';
-import Search from './pages/Search';
+import Layout from './components/Layout/Layout';
+
+const Home = lazy(() => import('./pages/Home'));
+const Search = lazy(() => import('./pages/Search'));
+const Detail = lazy(() => import('./pages/Detail'));
+
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Layout>
-                <Home />
-              </Layout>
-            }
-          />
-          <Route
-            path="/search"
-            element={
-              <Layout>
-                <Search />
-              </Layout>
-            }
-          />
-
-          <Route
-            path="/:mid"
-            element={
-              <Layout>
-                <Detail />
-              </Layout>
-            }
-          />
-        </Routes>
+        <Layout>
+          <Suspense fallback={<div className="text-white p-4">로딩 중...</div>}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/:mid" element={<Detail />} />
+            </Routes>
+          </Suspense>
+        </Layout>
       </Router>
     </QueryClientProvider>
   );
