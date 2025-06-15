@@ -2,10 +2,10 @@
   "name": "webpack-study",
   "scripts": {
     "start": "node index.js",
-    "dev": "webpack serve ",
-    "build": "webpack --mode production",
+    "dev": "webpack serve --config webpack/dev.ts",
+    "build": "webpack --config webpack/prod.ts",
+    "analyze": "webpack --config webpack/analyze.ts",
     "build:bundle": "cross-env NODE_ENV=production webpack --config webpack.config.ts",
-    "analyze": "cross-env ANALYZE=true webpack --mode production",
     "preview": "npx serve dist",
     "typecheck": "tsc -p ./tsconfig.build.json",
     "ci:build": "yarn typecheck && yarn build",
