@@ -7,7 +7,11 @@ import commonConfig from './common';
 
 const devConfig: Configuration & { devServer?: DevServerConfig } = merge(commonConfig, {
   mode: 'development',
-  devtool: 'source-map',
+  devtool: 'eval-source-map',
+  optimization: {
+    //개발이니깐 압축안하기
+    minimize: false,
+  },
   plugins: [new ReactRefreshWebpackPlugin(), new Dotenv({ path: './.env', systemvars: true })],
   devServer: {
     static: './public',
