@@ -31,11 +31,49 @@ const config: Configuration = {
   },
   entry: './src/index.tsx',
 
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    clean: true,
+  optimization: {
+    splitChunks: {
+      // 동적 + 정적 import 모두 분리 대상이 된다.기본설정으로 하게 되면 main.js에 다 들어감
+      //  all로 하면venders.js로 나뉨
+      chunks: 'all',
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+          priority: -10,
+        },
+
+        share: {
+          test: /[\\/]components[\\/]share[\\/]/,
+          name: 'share',
+          chunks: 'all',
+          minChunks: 1,
+          priority: -5,
+          // enforce: true, //강제로 분리
+        },
+        hooks: {
+          test: /[\\/]hooks[\\/]/,
+          name: 'hooks',
+          chunks: 'all',
+          minChunks: 1,
+          priority: -5,
+        },
+      },
+    },
   },
+
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[contenthash].js',
+    chunkFilename: '[name].[contenthash].chunk.js', // lazy chunk 파일
+    clean: true, // dist 폴더 빌드 시 자동 정리
+  },
+  // output: {
+  //   filename: 'bundle.js',
+  //   path: path.resolve(__dirname, 'dist'),
+  //   clean: true,
+  // },
   devtool: isDevelopment ? 'source-map' : 'hidden-source-map',
   devServer: {
     static: './public',
