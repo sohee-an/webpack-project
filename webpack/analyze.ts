@@ -1,5 +1,5 @@
 import { merge } from 'webpack-merge';
-import prodConfig from './prode';
+import prodConfig from './prod';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { Configuration } from 'webpack';
 
