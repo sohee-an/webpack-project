@@ -6,6 +6,7 @@ import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-serv
 import { Configuration as WebpackConfiguration } from 'webpack';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
@@ -127,6 +128,11 @@ if (config.plugins) {
       new HtmlWebpackPlugin({
         template: './public/index.html',
         filename: 'index.html',
+      }),
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'static', // 리포트를 static HTML 파일로 생성
+        openAnalyzer: true, // 빌드 후 자동으로 브라우저에서 열기
+        reportFilename: 'bundle-report.html', // 생성될 리포트 파일 이름
       }),
     );
   }
