@@ -1,8 +1,8 @@
-import React, { ErrorInfo } from 'react';
+import React, { ErrorInfo, ReactNode } from 'react';
 
 type ErrorBoundaryProps = {
-  fallback: React.ReactNode;
-  children: React.ReactNode;
+  fallback: ReactNode;
+  children: ReactNode;
 };
 
 type ErrorBoundaryState = {

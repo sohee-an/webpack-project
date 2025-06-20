@@ -1,10 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, ReactNode } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { ChevronRight } from 'lucide-react';
 import { useMoviePopular } from '@/hooks/movie/useMoviePopular';
 
 type Props = {
-  items: React.ReactNode[];
+  items: ReactNode[];
   onClick: (mid: number) => void;
 };
 

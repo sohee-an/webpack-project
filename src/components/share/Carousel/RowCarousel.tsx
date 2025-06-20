@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useRef, ReactNode } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
   itemClassName?: string;
   height?: 'short' | 'medium' | 'tall';
   onNext?: () => void;

@@ -1,7 +1,7 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 
 type Tprops = {
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   className?: string;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 

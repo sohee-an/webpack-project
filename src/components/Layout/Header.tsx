@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEventHandler } from 'react';
 import MenuTab from './MenuTab';
 import { Search } from 'lucide-react';
 import { Input } from '../share/Input';
@@ -19,7 +19,7 @@ function Header() {
     searchInputRef.current?.focus();
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     const inputValue = searchInputRef.current?.value || '';
     if (inputValue.trim()) {
