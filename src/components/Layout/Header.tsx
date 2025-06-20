@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import MenuTab from './MenuTab';
 import { Search } from 'lucide-react';
 import { Input } from '../share/Input';
@@ -13,7 +13,6 @@ const TAB_LIST = [
 function Header() {
   const searchInputRef = React.useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
-  const [keywords, setKeywords] = useState('');
 
   const handleSearch = () => {
     navigate('/search');
@@ -21,15 +20,11 @@ function Header() {
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // 폼 기본 제출 동작 방지
-    if (keywords.trim()) {
-      // 빈 검색어 방지
-      navigate(`/search?query=${encodeURIComponent(keywords)}&domain=all`);
+    e.preventDefault();
+    const inputValue = searchInputRef.current?.value || '';
+    if (inputValue.trim()) {
+      navigate(`/search?query=${encodeURIComponent(inputValue)}&domain=all`);
     }
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeywords(e.target.value);
   };
 
   return (
@@ -38,8 +33,6 @@ function Header() {
       <form onSubmit={handleSubmit} className="flex items-center space-x-4">
         <Input
           ref={searchInputRef}
-          value={keywords}
-          onChange={handleInputChange} // onChange 핸들러 추가
           onFocus={handleSearch}
           placeholder="검색어를 입력하세요"
           icon={<Search className="w-4 h-4 text-white mr-2" />}
