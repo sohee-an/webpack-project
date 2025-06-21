@@ -4,11 +4,11 @@ import { fetcher } from '@/api/fetcher';
 type TMovieDetail = {
   title: string;
   genres: { id: number; name: string }[];
-  vote_average: number;
+  voteAverage: number;
   overview: string;
-  poster_path: string;
+  posterPath: string;
   runtime: number;
-  spoken_languages: { english_name: string; iso_639_1: string; name: string }[];
+  spokenLanguages: { englishName: string; iso_639_1: string; name: string }[];
 };
 
 type TParmas = {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TMovie } from '@/hooks/movie/useMoviePopular';
+import { TMovie } from '@/types/movie';
 
 type TProps = {
   item: TMovie;
@@ -23,13 +23,13 @@ function MovieCard({ item, movieList = false, height, onClick }: TProps) {
       {!movieList && (
         <div className="flex flex-col px-1 pt-1">
           <div className="text-sm text-gray-400 truncate">{item.title}</div>
-          <div className="text-lg text-bold truncate">{item.original_title}</div>
+          <div className="text-lg text-bold truncate">{item.originalTitle}</div>
         </div>
       )}
 
       <div className="relative group flex-grow overflow-hidden">
         <img
-          src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+          src={`https://image.tmdb.org/t/p/w500${item.posterPath}`}
           alt={`${item.title} Poster`}
           className="w-full h-full object-cover"
         />

@@ -22,6 +22,8 @@ function Home() {
     page: 1,
   });
 
+  console.log('pop', popularData);
+
   // const { data: generesData } = useMovieGeneres({
   //   language: 'ko-KR',
   //   page: 1,

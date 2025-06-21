@@ -64,7 +64,7 @@ export default function Carousel({ items, onClick }: Props) {
               className="flex-shrink-0 w-full h-full flex items-center justify-center px-2"
             >
               <img
-                src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                src={`https://image.tmdb.org/t/p/w500${item.posterPath}`}
                 alt={`${item.title} Poster`}
                 className="h-full w-auto object-fit "
               />

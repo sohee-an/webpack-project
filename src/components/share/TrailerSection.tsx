@@ -26,11 +26,11 @@ export default function TrailerSection() {
     );
   }
 
-  if (movieData?.poster_path) {
+  if (movieData?.posterPath) {
     return (
       <img
         className="w-[300px] h-[400px] object-fit"
-        src={`https://image.tmdb.org/t/p/w500${movieData.poster_path}`}
+        src={`https://image.tmdb.org/t/p/w500${movieData.posterPath}`}
         alt={`${movieData.title} Poster`}
       />
     );

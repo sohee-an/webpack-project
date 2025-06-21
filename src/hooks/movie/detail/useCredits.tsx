@@ -3,29 +3,29 @@ import { fetcher } from '@/api/fetcher';
 
 export type TCast = {
   adult: boolean;
-  cast_id: number;
+  castId: number;
   character: string;
-  credit_id: string;
+  creditId: string;
   gender: number;
   id: number;
-  known_for_department: string;
+  knownForDepartment: string;
   name: string;
   order: number;
-  original_name: string;
+  originalName: string;
   popularity: number;
-  profile_path: string;
+  profilePath: string;
 };
 type TCrew = {
-  credit_id: string;
+  creditId: string;
   department: string;
   gender: number;
   id: number;
   job: string;
   known_for_department: string;
   name: string;
-  original_name: string;
+  originalName: string;
   popularity: number;
-  profile_path: string;
+  profilePath: string;
 };
 type TCredits = {
   cast: TCast[];

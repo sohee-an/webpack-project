@@ -1,17 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetcher } from '@/api/fetcher';
-
-export type TMovie = {
-  id: number;
-  title: string;
-  overview: string;
-  poster_path: string;
-  original_title: string;
-};
-
-type TMovieResult = {
-  results: TMovie[];
-};
+import { TMovieResult } from '@/types/movie';
 
 export const useSearchMovies = ({
   language = 'ko-KR',

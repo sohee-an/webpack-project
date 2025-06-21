@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TMovie } from '@/hooks/movie/useKeywords';
+import { TMovie } from '@/types/movie';
 import PaginatedCarousel from '@/components/share/PaginatedCarousel';
 import { useMoviePopular } from '@/hooks/movie/useMoviePopular';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -87,9 +87,9 @@ function Search() {
                   className="cursor-pointer group"
                 >
                   <div className="aspect-[2/3] bg-gray-800 rounded-lg overflow-hidden mb-2">
-                    {movie.poster_path ? (
+                    {movie.posterPath ? (
                       <img
-                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                        src={`https://image.tmdb.org/t/p/w500${movie.posterPath}`}
                         alt={movie.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
                       />

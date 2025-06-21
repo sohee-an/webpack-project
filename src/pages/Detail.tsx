@@ -18,7 +18,6 @@ function Detail() {
     language: 'ko-KR',
     mid: mid ?? '',
   });
-  console.log('data', data);
 
   const { data: similarData } = useSimilar({
     language: 'ko-KR',
@@ -43,18 +42,18 @@ function Detail() {
         <div className="flex justify-between">
           <div className="flex flex-col gap-1 mb-8 w-[50%]">
             <h1>{data.title}</h1>
-            <span>평균: {data.vote_average}</span>
+            <span>평균: {data.voteAverage}</span>
             <div className="flex gap-2 text-gray-300">
               {data.genres.map((item) => (
                 <div key={item.id}>{item.name}</div>
               ))}
             </div>
             <div>러닝타입: {data.runtime}분</div>
-            {data.spoken_languages.length !== 0 ? (
+            {data.spokenLanguages.length !== 0 ? (
               <div className="flex gap-2">
                 <span>번역 : </span>
                 <div className="flex gap-2">
-                  {data.spoken_languages.map((item) => {
+                  {data.spokenLanguages.map((item) => {
                     return <div>{item.name}</div>;
                   })}
                 </div>
@@ -84,7 +83,7 @@ function Detail() {
               <div>
                 <img
                   className="w-[90px] h-[110px] mb-1"
-                  src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
+                  src={`https://image.tmdb.org/t/p/w500${actor.profilePath}`}
                 />
                 <div key={actor.id}>{actor.name}</div>
               </div>
@@ -98,10 +97,10 @@ function Detail() {
           {creditsData &&
             creditsData.crew.slice(0, 2).map((crew) => (
               <div className="flex flex-col justify-center items-center">
-                {crew.profile_path ? (
+                {crew.profilePath ? (
                   <img
                     className="w-[90px] h-[110px] mb-1"
-                    src={`https://image.tmdb.org/t/p/w500${crew.profile_path}`}
+                    src={`https://image.tmdb.org/t/p/w500${crew.profilePath}`}
                   />
                 ) : (
                   <div className="w-[90px] h-[120px] bg-gray-700" />
