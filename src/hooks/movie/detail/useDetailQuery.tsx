@@ -16,7 +16,7 @@ type TParmas = {
   mid: string;
 };
 
-export const useDetail = ({ language = 'ko-KR', mid }: TParmas) => {
+export const useDetailQuery = ({ language = 'ko-KR', mid }: TParmas) => {
   return useQuery<TMovieDetail>({
     queryKey: ['movieDetail', language, mid],
     queryFn: () => fetcher(`movie/${mid}?language=${language}`),

@@ -1,11 +1,11 @@
 import React from 'react';
-import { useDetail } from '@/hooks/movie/detail/useDetail';
+import { useDetailQuery } from '@/hooks/movie/detail/useDetailQuery';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@/components/share/Button';
-import { useSimilar } from '@/hooks/movie/detail/useSimilar';
+import { useSimilarQuery } from '@/hooks/movie/detail/useSimilarQuery';
 import RowCarousel from '@/components/share/Carousel/RowCarousel';
 import MovieCard from '@/components/share/MovieCard/MovieCard';
-import { useCredits } from '@/hooks/movie/detail/useCredits';
+import { useCreditsQuery } from '@/hooks/movie/detail/useCreditsQuery';
 import TrailerSection from '@/components/share/TrailerSection';
 import OverviewSection from '@/components/share/OverviewSection';
 import { DetailSkeleton } from '@/components/skeleton/DetailSkeleton';
@@ -14,16 +14,16 @@ function Detail() {
   const { mid } = useParams();
   const navigate = useNavigate();
 
-  const { data } = useDetail({
+  const { data } = useDetailQuery({
     language: 'ko-KR',
     mid: mid ?? '',
   });
 
-  const { data: similarData } = useSimilar({
+  const { data: similarData } = useSimilarQuery({
     language: 'ko-KR',
     mid: mid ?? '',
   });
-  const { data: creditsData } = useCredits({
+  const { data: creditsData } = useCreditsQuery({
     language: 'ko-KR',
     mid: mid ?? '',
   });

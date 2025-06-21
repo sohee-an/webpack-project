@@ -7,7 +7,7 @@ type TNowPlayingPrameter = {
   page: number;
 };
 
-export const useNowPlaying = ({ language = 'ko-KR', page = 1 }: TNowPlayingPrameter) => {
+export const useNowPlayingQuery = ({ language = 'ko-KR', page = 1 }: TNowPlayingPrameter) => {
   return useQuery<TMovieResult>({
     queryKey: ['movieList'],
     queryFn: () => fetcher(`movie/now_playing?language=${language}&page=${page}`),

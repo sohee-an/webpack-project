@@ -7,7 +7,7 @@ type TUpcomingPrameter = {
   page: number;
 };
 
-export const useUpcoming = ({ language = 'ko-KR', page = 1 }: TUpcomingPrameter) => {
+export const useUpcomingQuery = ({ language = 'ko-KR', page = 1 }: TUpcomingPrameter) => {
   return useQuery<TMovieResult>({
     queryKey: ['movieUpcoming', language, page],
     queryFn: () => fetcher(`movie/upcoming?language=${language}&page=${page}`),

@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, ReactNode } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { ChevronRight } from 'lucide-react';
-import { useMoviePopular } from '@/hooks/movie/useMoviePopular';
+import { useMoviePopularQuery } from '@/hooks/movie/useMoviePopularQuery';
 
 type Props = {
   items: ReactNode[];
@@ -13,7 +13,7 @@ export default function Carousel({ items, onClick }: Props) {
   const [index, setIndex] = useState(0);
   const [width, setWidth] = useState(0);
   const [page, setPage] = useState(1);
-  const { data } = useMoviePopular({ language: 'ko-KR', page });
+  const { data } = useMoviePopularQuery({ language: 'ko-KR', page });
 
   const random = Math.floor(Math.random() * 50) + 1;
 

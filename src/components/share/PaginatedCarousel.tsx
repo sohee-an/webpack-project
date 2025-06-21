@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import RowCarousel from './Carousel/RowCarousel';
 import MovieCard from './MovieCard/MovieCard';
-import { usePaginatedMovies } from '@/hooks/movie/usePaginatedMovies';
+import { usePaginatedMoviesQuery } from '@/hooks/movie/usePaginatedMoviesQuery';
 
 type Props = {
   endpoint: string;
@@ -13,7 +13,7 @@ type Props = {
 
 export default function PaginatedCarousel({ endpoint, queryKey, title, params }: Props) {
   const [page, setPage] = useState(1);
-  const { data } = usePaginatedMovies(endpoint, page, queryKey, params);
+  const { data } = usePaginatedMoviesQuery(endpoint, page, queryKey, params);
 
   const handleDetailClick = (mid: number) => {
     window.scrollTo(0, 0);

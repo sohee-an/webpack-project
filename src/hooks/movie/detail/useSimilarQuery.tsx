@@ -7,7 +7,7 @@ type TParmas = {
   mid: string;
 };
 
-export const useSimilar = ({ language = 'ko-KR', mid }: TParmas) => {
+export const useSimilarQuery = ({ language = 'ko-KR', mid }: TParmas) => {
   return useQuery<TMovieResult>({
     queryKey: ['movieSimilar', language, mid],
     queryFn: () => fetcher(`movie/${mid}/similar?language=${language}`),

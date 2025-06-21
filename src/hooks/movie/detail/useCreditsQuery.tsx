@@ -37,7 +37,7 @@ type TParmas = {
   mid: string;
 };
 
-export const useCredits = ({ language = 'ko-KR', mid }: TParmas) => {
+export const useCreditsQuery = ({ language = 'ko-KR', mid }: TParmas) => {
   return useQuery<TCredits>({
     queryKey: ['movieCredits', language, mid],
     queryFn: () => fetcher(`movie/${mid}/credits?language=${language}`),

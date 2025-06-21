@@ -7,7 +7,7 @@ type TTopRatedPrameter = {
   page: number;
 };
 
-export const useTopRated = ({ language = 'ko-KR', page = 1 }: TTopRatedPrameter) => {
+export const useTopRatedQuery = ({ language = 'ko-KR', page = 1 }: TTopRatedPrameter) => {
   return useQuery<TMovieResult>({
     queryKey: ['movieTopRated', language, page],
     queryFn: () => fetcher(`movie/top_rated?language=${language}&page=${page}`),

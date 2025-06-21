@@ -6,7 +6,7 @@ type TMovieLatestPrameter = {
   language: string;
 };
 
-export const useMovieLatest = ({ language = 'ko-KR' }: TMovieLatestPrameter) => {
+export const useMovieLatestQuery = ({ language = 'ko-KR' }: TMovieLatestPrameter) => {
   return useQuery<TMovieResult>({
     queryKey: ['movielatest', language],
     queryFn: () => fetcher(`movie/latest`),

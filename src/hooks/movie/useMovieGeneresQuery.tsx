@@ -8,7 +8,11 @@ type TMovieGeneresPrameter = {
   generesId: number;
 };
 
-export const useMovieGeneres = ({ language = 'ko-KR', page, generesId }: TMovieGeneresPrameter) => {
+export const useMovieGeneresQuery = ({
+  language = 'ko-KR',
+  page,
+  generesId,
+}: TMovieGeneresPrameter) => {
   const queryString = new URLSearchParams({
     language,
     page: String(page),

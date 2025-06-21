@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { TMovie } from '@/types/movie';
 import PaginatedCarousel from '@/components/share/PaginatedCarousel';
-import { useMoviePopular } from '@/hooks/movie/useMoviePopular';
+import { useMoviePopularQuery } from '@/hooks/movie/useMoviePopularQuery';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useSearchMovies } from '@/hooks/movie/useKeywords';
+import { useSearchMoviesQuery } from '@/hooks/movie/useKeywordsQuery';
 
 type RankingItemProps = {
   movie: TMovie;
@@ -42,7 +42,7 @@ function Search() {
     data: popularData,
     isLoading: popularLoading,
     error: popularError,
-  } = useMoviePopular({
+  } = useMoviePopularQuery({
     language: 'ko-KR',
     page: 1,
   });
@@ -51,7 +51,7 @@ function Search() {
     data: keywordData,
     isLoading: keywordsLoading,
     error: keywordsError,
-  } = useSearchMovies({
+  } = useSearchMoviesQuery({
     language: 'ko-KR',
     page: 1,
     keywords,

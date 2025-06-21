@@ -2,7 +2,7 @@ import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { fetcher } from '@/api/fetcher';
 import { TMovieResult } from '@/types/movie';
 
-export const usePaginatedMovies = (
+export const usePaginatedMoviesQuery = (
   endpoint: string,
   page: number,
   queryKey: string[],
