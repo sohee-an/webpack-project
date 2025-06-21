@@ -7,17 +7,17 @@ import { useSearchMoviesQuery } from '@/hooks/movie/useKeywordsQuery';
 
 type RankingItemProps = {
   movie: TMovie;
-  index: number;
+  rank: number;
   onClick: () => void;
 };
 
-const RankingItem = ({ movie, index, onClick }: RankingItemProps) => (
+const RankingItem = ({ movie, rank, onClick }: RankingItemProps) => (
   <div
     onClick={onClick}
     className="flex items-center space-x-3 p-3 rounded-lg cursor-pointer transition-all duration-200 hover: group"
   >
     <span className="text-2xl font-bold text-red-500 w-8 group-hover:scale-110 transition-transform duration-200">
-      {index + 1}
+      {rank + 1}
     </span>
     <span className="text-white text-lg group-hover:scale-105 group-hover:text-gray-200 transition-all duration-200">
       {movie.title}
@@ -125,7 +125,7 @@ function Search() {
                 onClick={() => handleRankClick(movie.id)}
                 key={movie.id}
                 movie={movie}
-                index={index}
+                rank={index}
               />
             ))}
           </div>
@@ -136,7 +136,7 @@ function Search() {
                 onClick={() => handleRankClick(movie.id)}
                 key={movie.id}
                 movie={movie}
-                index={index + 5}
+                rank={index + 5}
               />
             ))}
           </div>
