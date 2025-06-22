@@ -17,7 +17,7 @@
     [
       "@babel/preset-env",
       {
-        "useBuiltIns": "usage",
+        "useBuiltIns": "usage", //내가 실제로 사용한 API 만 폴리피 해줘!
         "corejs": 3
       }
     ],
@@ -28,7 +28,7 @@
     [
       "@babel/plugin-transform-runtime",
       {
-        "corejs": 3,
+        "corejs": false, //같은 core-js가 중복 삽입될 수 있으니 false
         "regenerator": true,
         "helpers": true
       }

@@ -22,6 +22,7 @@
     "@tanstack/react-query": "^5.80.6",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "core-js": "3",
     "init": "^0.1.2",
     "lucide-react": "^0.503.0",
     "react": "^19.1.0",
@@ -98,10 +99,11 @@
     ]
   },
   "browserslist": [
-    "chrome 64",
-    "edge 79",
-    "firefox 67",
-    "opera 51",
-    "safari 12"
+    "Chrome >= 91",
+    "Firefox >= 90",
+    "Edge >= 91",
+    "Safari >= 15",
+    "iOS >= 15",
+    "Opera >= 77"
   ]
 }
