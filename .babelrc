@@ -1,9 +1,24 @@
 {
+  // 최신문법을 어떤 버전까지 스랜스파일할지 결정
+  // 그러나 Promise 등 이런 API는 전혀 Polyfill 하지 않음
+  // "presets": [
+  //   [
+  //     "@babel/preset-env",
+  //     {
+  //       "targets": "> 0.25%, not dead"
+  //     }
+  //   ],
+  //   "@babel/preset-react",
+  //   "@babel/preset-typescript"
+  // ],
+
+  //역할: 사용한 코드에서 필요한 polyfill(core-js)만 자동 삽입
   "presets": [
     [
       "@babel/preset-env",
       {
-        "targets": "> 0.25%, not dead"
+        "useBuiltIns": "usage",
+        "corejs": 3
       }
     ],
     "@babel/preset-react",
