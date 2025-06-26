@@ -1,0 +1,19 @@
+{
+  "name": "my-webpack-monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "pnpm -r run dev",
+    "dev:app": "pnpm --filter app run dev",
+    "build": "pnpm -r run build",
+    "install:app": "pnpm install --filter app",
+    "install:shared": "pnpm install --filter @shared",
+    "build:shared": "pnpm --filter @shared run build"
+  },
+  "devDependencies": {
+    "@tailwindcss/line-clamp": "^0.4.4"
+  }
+}

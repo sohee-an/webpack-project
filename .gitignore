@@ -1,0 +1,16 @@
+# 전역 node_modules 제외
+node_modules/
+
+env
+
+# 빌드
+/dist
+
+*storybook.log
+storybook-static
+
+.env
+
+# pnpm 전용 캐시도 제외
+.pnpm-debug.log
+.pnpm-store
