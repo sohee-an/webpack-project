@@ -1,26 +1,18 @@
 {
   "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["DOM", "ES2020"],
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "lib": ["ES2020", "DOM"],
-    "jsx": "react-jsx",
-    "module": "esnext",
-    "moduleResolution": "Node",
-    "target": "es5",
-    "strict": true,
     "resolveJsonModule": true,
-    "allowJs": true,
+    "strict": true,
     "skipLibCheck": true,
+    "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@components/*": ["components/*"],
-      "@layouts/*": ["layouts/*"],
-      "@pages/*": ["pages/*"],
-      "@utils/*": ["utils/*"],
-      "@typings/*": ["typings/*"]
+      "@shared/*": ["packages/shared/src/*"]
     }
   },
   "ts-node": {
@@ -31,6 +23,6 @@
       "esModuleInterop": true
     }
   },
-  "include": ["src/**/*", ".storybook/**/*"],
-  "exclude": ["node_modules", "dist", "build", "**/*.test.ts", "**/__tests__"]
+  "references": [{ "path": "./packages/shared" }, { "path": "./packages/app" }],
+  "files": []
 }

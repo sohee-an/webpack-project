@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 node_modules
+=======
+# 전역 node_modules 제외
+node_modules/
+>>>>>>> 1574105139d142e96878080e28af9a0fd0e8ae61
 
 env
 
@@ -8,4 +13,12 @@ env
 *storybook.log
 storybook-static
 
+<<<<<<< HEAD
 .env
+=======
+.env
+
+# pnpm 전용 캐시도 제외
+.pnpm-debug.log
+.pnpm-store
+>>>>>>> 1574105139d142e96878080e28af9a0fd0e8ae61
