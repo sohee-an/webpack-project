@@ -11,6 +11,9 @@ importers:
       '@tailwindcss/line-clamp':
         specifier: ^0.4.4
         version: 0.4.4(tailwindcss@3.4.17(ts-node@10.9.2(@swc/core@1.12.6)(@types/node@24.0.4)(typescript@5.8.3)))
+      globals:
+        specifier: ^16.0.0
+        version: 16.2.0
       lint-staged:
         specifier: ^15.5.2
         version: 15.5.2
@@ -183,9 +186,6 @@ importers:
       html-webpack-plugin:
         specifier: ^5.6.3
         version: 5.6.3(webpack@5.99.9)
-      husky:
-        specifier: ^8.0.0
-        version: 8.0.3
       lint-staged:
         specifier: ^15.5.1
         version: 15.5.2
@@ -3708,11 +3708,6 @@ packages:
   human-signals@5.0.0:
     resolution: {integrity: sha512-AXcZb6vzzrFAUE61HnN4mpLqd/cSIwNQjtNWR0euPm6y0iqx3G4gOXaIDdtdDwZmhwe82LA6+zinmW4UBWVePQ==}
     engines: {node: '>=16.17.0'}
-
-  husky@8.0.3:
-    resolution: {integrity: sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==}
-    engines: {node: '>=14'}
-    hasBin: true
 
   hyperdyperid@1.2.0:
     resolution: {integrity: sha512-Y93lCzHYgGWdrJ66yIktxiaGULYc6oGiABxhcO5AufBeOyoIdZF7bIfLaOrbM0iGIOXQQgxxRrFEnb+Y6w1n4A==}
@@ -9536,8 +9531,6 @@ snapshots:
       - debug
 
   human-signals@5.0.0: {}
-
-  husky@8.0.3: {}
 
   hyperdyperid@1.2.0: {}
 

@@ -45,6 +45,7 @@ export default function Carousel({ items, onClick }: Props) {
   return (
     <div className="relative w-full overflow-hidden h-[620px]">
       <button
+        aria-label="이전 슬라이드로 이동"
         onClick={() => scrollToIndex(index - 1)}
         disabled={index === 0}
         className="absolute left-4 top-1/2 z-10 -translate-y-1/2 p-2  text-white "
@@ -64,15 +65,18 @@ export default function Carousel({ items, onClick }: Props) {
               className="flex-shrink-0 w-full h-full flex items-center justify-center px-2"
             >
               <img
-                src={`https://image.tmdb.org/t/p/w500${item.posterPath}`}
+                src={`https://image.tmdb.org/t/p/w400${item.posterPath}`}
                 alt={`${item.title} Poster`}
-                className="h-full w-auto object-fit "
+                loading={i === 0 ? 'eager' : 'lazy'} // 이미지를 얼마나 빨리 가져올지~
+                fetchPriority={i === 0 ? 'high' : 'auto'} // 리소스 요청 우선순위
+                className="h-full w-auto object-fit"
               />
             </div>
           ))}
       </div>
 
       <button
+        aria-label="다음 슬라이드로 이동"
         onClick={() => scrollToIndex(index + 1)}
         disabled={index === items.length - 1}
         className="absolute right-4 top-1/2 z-10 -translate-y-1/2 p-2  text-white"

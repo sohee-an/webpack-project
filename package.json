@@ -15,8 +15,7 @@
   },
   "devDependencies": {
     "@tailwindcss/line-clamp": "^0.4.4",
+    "globals": "^16.0.0",
     "lint-staged": "^15.5.2"
   }
- 
-  
 }

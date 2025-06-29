@@ -5,8 +5,8 @@ import Layout from '@shared/components/Layout/Layout';
 import ErrorBoundary from '@shared/components/ErrorBoundary';
 import ErrorFallback from '@shared/components/ErrorFallback';
 import type { FallbackProps } from 'react-error-boundary';
-import Home from '@/pages/Home';
-// const Home = lazy(() => import('../pages/Home'));
+// import Home from '@/pages/Home';
+const Home = lazy(() => import('../pages/Home'));
 const Search = lazy(() => import('../pages/SearchPage'));
 const Detail = lazy(() => import('../pages/Detail'));
 

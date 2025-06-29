@@ -9,7 +9,6 @@
     "preview": "npx serve dist",
     "typecheck": "tsc -p ./tsconfig.build.json",
     "ci:build": "yarn typecheck && yarn build",
-    "prepare": "husky install",
     "tw:init": "npx tailwindcss init -p",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -72,7 +71,6 @@
     "fork-ts-checker-webpack-plugin": "^9.1.0",
     "globals": "^16.0.0",
     "html-webpack-plugin": "^5.6.3",
-    "husky": "^8.0.0",
     "lint-staged": "^15.5.1",
     "mini-css-extract-plugin": "^2.9.2",
     "postcss": "^8.5.3",

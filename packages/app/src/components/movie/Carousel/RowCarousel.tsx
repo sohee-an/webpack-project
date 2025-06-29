@@ -40,6 +40,7 @@ export default function RowCarousel({
   return (
     <div className={`mb-4 mt-2 relative w-full  px-10 ${heightMap[height ?? 'medium']} `}>
       <button
+        aria-label="이전 슬라이드로 이동"
         onClick={() => scroll('left')}
         className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black bg-opacity-50 text-white p-2"
       >
@@ -58,6 +59,7 @@ export default function RowCarousel({
       </div>
 
       <button
+        aria-label="다음 슬라이드로 이동"
         onClick={() => scroll('right')}
         className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black bg-opacity-50 text-white p-2"
       >

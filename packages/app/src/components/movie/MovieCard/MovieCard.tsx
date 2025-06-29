@@ -29,9 +29,9 @@ function MovieCard({ item, movieList = false, height, onClick }: TProps) {
 
       <div className="relative group flex-grow overflow-hidden">
         <img
-          src={`https://image.tmdb.org/t/p/w500${item.posterPath}`}
+          src={`https://image.tmdb.org/t/p/w300${item.posterPath}`}
           alt={`${item.title} Poster`}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-contain"
         />
         <div className="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
