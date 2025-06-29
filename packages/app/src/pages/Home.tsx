@@ -6,6 +6,7 @@ import RowCarousel from '@/components/movie/Carousel/RowCarousel';
 import { useMoviePopularQuery } from '@/hooks/movie/useMoviePopularQuery';
 import { MOVIE_GENRES } from '@/constants/movie';
 import PaginatedCarousel from '@/components/movie/PaginatedCarousel';
+import LazyCarousel from '@/components/movie/LazyCarousel';
 
 import { tv } from 'tailwind-variants';
 import { useNavigate } from 'react-router-dom';
@@ -102,9 +103,10 @@ function Home() {
             ))
           : []}
       </RowCarousel> */}
-      <PaginatedCarousel title="인기 콘텐츠" endpoint="movie/popular" queryKey={['popular']} />
-      <PaginatedCarousel title="최고 평점" endpoint="movie/top_rated" queryKey={['topRated']} />
-      <PaginatedCarousel title="개봉 예정" endpoint="movie/upcoming" queryKey={['upcoming']} />
+      <LazyCarousel title="인기 콘텐츠" endpoint="movie/popular" queryKey={['popular']} />
+      <LazyCarousel title="최고 평점" endpoint="movie/top_rated" queryKey={['topRated']} />
+      <LazyCarousel title="개봉 예정" endpoint="movie/upcoming" queryKey={['upcoming']} />
+      {/* <PaginatedCarousel title="개봉 예정" endpoint="movie/upcoming" queryKey={['upcoming']} /> */}
     </div>
   );
 }
