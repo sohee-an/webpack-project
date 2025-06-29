@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { TMovie } from '@/hooks/movie/useKeywords';
+import { TMovie } from '@/types/movie';
 import PaginatedCarousel from '@/components/share/PaginatedCarousel';
-import { useMoviePopular } from '@/hooks/movie/useMoviePopular';
+import { useMoviePopularQuery } from '@/hooks/movie/useMoviePopularQuery';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useSearchMovies } from '@/hooks/movie/useKeywords';
+import { useSearchMoviesQuery } from '@/hooks/movie/useKeywordsQuery';
 
 type RankingItemProps = {
   movie: TMovie;
-  index: number;
+  rank: number;
   onClick: () => void;
 };
 
-const RankingItem = ({ movie, index, onClick }: RankingItemProps) => (
+const RankingItem = ({ movie, rank, onClick }: RankingItemProps) => (
   <div
     onClick={onClick}
     className="flex items-center space-x-3 p-3 rounded-lg cursor-pointer transition-all duration-200 hover: group"
   >
     <span className="text-2xl font-bold text-red-500 w-8 group-hover:scale-110 transition-transform duration-200">
-      {index + 1}
+      {rank + 1}
     </span>
     <span className="text-white text-lg group-hover:scale-105 group-hover:text-gray-200 transition-all duration-200">
       {movie.title}
@@ -42,7 +42,7 @@ function Search() {
     data: popularData,
     isLoading: popularLoading,
     error: popularError,
-  } = useMoviePopular({
+  } = useMoviePopularQuery({
     language: 'ko-KR',
     page: 1,
   });
@@ -51,7 +51,7 @@ function Search() {
     data: keywordData,
     isLoading: keywordsLoading,
     error: keywordsError,
-  } = useSearchMovies({
+  } = useSearchMoviesQuery({
     language: 'ko-KR',
     page: 1,
     keywords,
@@ -87,9 +87,9 @@ function Search() {
                   className="cursor-pointer group"
                 >
                   <div className="aspect-[2/3] bg-gray-800 rounded-lg overflow-hidden mb-2">
-                    {movie.poster_path ? (
+                    {movie.posterPath ? (
                       <img
-                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                        src={`https://image.tmdb.org/t/p/w500${movie.posterPath}`}
                         alt={movie.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
                       />
@@ -125,7 +125,7 @@ function Search() {
                 onClick={() => handleRankClick(movie.id)}
                 key={movie.id}
                 movie={movie}
-                index={index}
+                rank={index}
               />
             ))}
           </div>
@@ -136,7 +136,7 @@ function Search() {
                 onClick={() => handleRankClick(movie.id)}
                 key={movie.id}
                 movie={movie}
-                index={index + 5}
+                rank={index + 5}
               />
             ))}
           </div>

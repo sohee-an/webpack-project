@@ -1,10 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, ReactNode } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { ChevronRight } from 'lucide-react';
-import { useMoviePopular } from '@/hooks/movie/useMoviePopular';
+import { useMoviePopularQuery } from '@/hooks/movie/useMoviePopularQuery';
 
 type Props = {
-  items: React.ReactNode[];
+  items: ReactNode[];
   onClick: (mid: number) => void;
 };
 
@@ -13,7 +13,7 @@ export default function Carousel({ items, onClick }: Props) {
   const [index, setIndex] = useState(0);
   const [width, setWidth] = useState(0);
   const [page, setPage] = useState(1);
-  const { data } = useMoviePopular({ language: 'ko-KR', page });
+  const { data } = useMoviePopularQuery({ language: 'ko-KR', page });
 
   const random = Math.floor(Math.random() * 50) + 1;
 
@@ -64,7 +64,7 @@ export default function Carousel({ items, onClick }: Props) {
               className="flex-shrink-0 w-full h-full flex items-center justify-center px-2"
             >
               <img
-                src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                src={`https://image.tmdb.org/t/p/w500${item.posterPath}`}
                 alt={`${item.title} Poster`}
                 className="h-full w-auto object-fit "
               />

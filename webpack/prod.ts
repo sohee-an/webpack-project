@@ -2,6 +2,7 @@ import { merge } from 'webpack-merge';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import Dotenv from 'dotenv-webpack';
 import commonConfig from './common';
+import TerserPlugin from 'terser-webpack-plugin';
 
 const prodConfig = merge(commonConfig, {
   mode: 'production',
@@ -15,6 +16,18 @@ const prodConfig = merge(commonConfig, {
     }),
   ],
   optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            drop_console: true, //  콘솔 로그 제거
+            drop_debugger: true, //  디버거 제거
+          },
+        },
+        extractComments: false, // 주석 제거
+      }),
+    ],
     splitChunks: {
       chunks: 'all',
       cacheGroups: {

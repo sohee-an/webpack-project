@@ -19,7 +19,7 @@ type TParams = {
   language?: string;
 };
 
-export const useMovieVideos = ({ mid, language = 'ko-KR' }: TParams) => {
+export const useMovieVideosQuery = ({ mid, language = 'ko-KR' }: TParams) => {
   return useQuery<TVideoResponse>({
     queryKey: ['movieVideos', mid, language],
     queryFn: () => fetcher(`movie/${mid}/videos?language=${language}`),

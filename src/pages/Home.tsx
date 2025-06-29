@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Carousel from '@/components/share/Carousel/Carousel';
 import MovieCard from '@/components/share/MovieCard/MovieCard';
 import RowCarousel from '@/components/share/Carousel/RowCarousel';
-import { useMoviePopular } from '@/hooks/movie/useMoviePopular';
+import { useMoviePopularQuery } from '@/hooks/movie/useMoviePopularQuery';
 import { MOVIE_GENRES } from '@/constants/movie';
 import PaginatedCarousel from '@/components/share/PaginatedCarousel';
 
@@ -17,7 +17,7 @@ function Home() {
     data: popularData,
     isLoading: popularLoading,
     error: popularError,
-  } = useMoviePopular({
+  } = useMoviePopularQuery({
     language: 'ko-KR',
     page: 1,
   });
