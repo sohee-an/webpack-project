@@ -1,9 +1,8 @@
 {
-  "name": "@shared",
+  "name": "@packages/shared",
   "version": "1.0.0",
   "private": true,
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./src/index.ts",
   "sideEffects": false,
   "scripts": {
     "build": "tsc",
@@ -11,9 +10,30 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js",
+      "import": "./src/index.ts",
+      "require": "./src/index.ts",
       "types": "./dist/index.d.ts"
+    },
+    "./utils": {
+      "require": "./src/utils/index.ts",
+      "import": "./src/utils/index.ts"
+    },
+  
+    "./package.json":"./package.json"
+  },
+  "publishConfig": {
+    "main": "./dist/index.js",
+    "exports": {
+      ".": {
+        "import": "./dist/index.js",
+        "require": "./dist/index.cjs", 
+        "types": "./dist/index.d.ts"
+      },
+      "./utils": {
+        "import": "./dist/utils/index.js",
+        "require": "./dist/utils/index.cjs",
+        "types": "./dist/utils/index.d.ts"
+      }
     }
   },
   "dependencies": {

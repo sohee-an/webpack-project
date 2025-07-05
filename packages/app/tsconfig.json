@@ -6,12 +6,12 @@
       "@/*": ["src/*"],
       "@hooks/*": ["src/hooks/*"],
       "@components/*": ["src/components/*"],
-      "@layouts/*": ["src/layouts/*"],
+      // "@layouts/*": ["src/layouts/*"],
       "@pages/*": ["src/pages/*"],
       "@utils/*": ["src/utils/*"],
       "@typings/*": ["src/typings/*"],
-      "@api/*": ["src/api/*"],
-      "@shared/*": ["../shared/src/*"]
+      "@api/*": ["src/api/*"]
+      // "@shared/*": ["../shared/src/*"]
     }
   },
   "include": ["src/**/*", "webpack/**/*"],

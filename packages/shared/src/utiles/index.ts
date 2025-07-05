@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 
 const toCamel = (str: string) => str.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
 
-export const camelizeKeys = (input: unknown): unknown => {
+ const camelizeKeys = (input: unknown): unknown => {
   if (Array.isArray(input)) {
     return input.map(camelizeKeys);
   }
@@ -27,3 +27,5 @@ export const camelizeKeys = (input: unknown): unknown => {
 
   return input;
 };
+
+export { camelizeKeys } 

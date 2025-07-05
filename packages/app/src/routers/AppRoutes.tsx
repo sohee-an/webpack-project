@@ -1,9 +1,9 @@
 // AppRoutes.tsx
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import Layout from '@shared/components/Layout/Layout';
-import ErrorBoundary from '@shared/components/ErrorBoundary';
-import ErrorFallback from '@shared/components/ErrorFallback';
+import { Layout } from '@packages/shared';
+import { ErrorBoundary } from '@packages/shared';
+import { ErrorFallback } from '@packages/shared';
 import type { FallbackProps } from 'react-error-boundary';
 // import Home from '@/pages/Home';
 const Home = lazy(() => import('../pages/Home'));

@@ -16,7 +16,7 @@ const commonConfig: Configuration = {
       '@pages': path.resolve(__dirname, '../pages'),
       '@utils': path.resolve(__dirname, '../utils'),
       '@typings': path.resolve(__dirname, '../typings'),
-      '@shared': path.resolve(__dirname, '../../shared/dist'),
+      // '@shared': path.resolve(__dirname, '../../shared/dist'),
     },
   },
   module: {

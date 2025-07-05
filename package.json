@@ -9,8 +9,8 @@
     "dev": "pnpm -r run dev",
     "dev:app": "pnpm --filter app run dev",
     "build": "pnpm -r run build",
-    "install:app": "pnpm install --filter app",
-    "install:shared": "pnpm install --filter @shared",
+    "install:app": "pnpm install --filter @packages/app",
+    "install:shared": "pnpm install --filter @packages/shared",
     "build:shared": "pnpm --filter @shared run build"
   },
   "devDependencies": {

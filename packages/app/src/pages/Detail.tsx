@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDetailQuery } from '@/hooks/movie/detail/useDetailQuery';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button } from '@shared/components/share/Button/Button';
+import { Button } from '@packages/shared';
 
 import { useSimilarQuery } from '@/hooks/movie/detail/useSimilarQuery';
 import RowCarousel from '@/components/movie/Carousel/RowCarousel';

@@ -11,9 +11,7 @@
     "skipLibCheck": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
-    "paths": {
-      "@shared/*": ["packages/shared/src/*"]
-    }
+  
   },
   "ts-node": {
     "compilerOptions": {
