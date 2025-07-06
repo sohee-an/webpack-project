@@ -1,9 +1,0 @@
-dist/
-tsconfig.tsbuildinfo
-
-# 전역 node_modules
-node_modules/
-
-# 기타 무시 항목
-.pnpm-debug.log
-.pnpm-store/

@@ -1,19 +1,39 @@
 {
-  "name": "@shared",
+  "name": "@packages/shared",
   "version": "1.0.0",
   "private": true,
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "type": "module",
+  "main": "./src/index.ts",
   "sideEffects": false,
   "scripts": {
     "build": "tsc",
-    "typecheck": "tsc --emitDeclarationOnly"
+    "typecheck": "tsc --emitDeclarationOnly",
+    "lint": "eslint src/**/*.{ts,tsx}"
   },
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./src/index.ts",
+      "require": "./src/index.ts"
+    },
+    "./utils": {
+      "require": "./src/utils/index.ts",
+      "import": "./src/utils/index.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "main": "./dist/index.js",
+    "exports": {
+      ".": {
+        "import": "./dist/index.js",
+        "require": "./dist/index.cjs",
+        "types": "./dist/index.d.ts"
+      },
+      "./utils": {
+        "import": "./dist/utils/index.js",
+        "require": "./dist/utils/index.cjs",
+        "types": "./dist/utils/index.d.ts"
+      }
     }
   },
   "dependencies": {
@@ -30,6 +50,8 @@
   },
   "devDependencies": {
     "@types/react": "^19.1.2",
-    "@types/react-dom": "^18.2.0"
+    "@types/react-dom": "^18.2.0",
+    "@packages/eslint-config": "workspace:*",
+    "@packages/typescript-config": "workspace:*"
   }
 }

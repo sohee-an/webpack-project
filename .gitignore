@@ -9,3 +9,50 @@ env
 storybook-static
 
 .env
+
+# Production builds
+dist/
+build/
+.next/
+out/
+
+# TypeScript 컴파일된 파일들
+**/*.js
+**/*.d.ts
+**/*.js.map
+**/*.d.ts.map
+
+# 단, 원래 JS 파일은 제외 (설정 파일 등)
+!*.config.js
+!*.config.mjs
+!webpack.*.js
+!eslint.config.js
+!eslint.config.mjs
+
+
+
+# Turborepo cache
+.turbo/
+
+# Package-specific ignores
+packages/*/dist/
+packages/*/build/
+apps/*/dist/
+apps/*/.next/
+
+
+# Cache
+.cache/
+.parcel-cache/
+
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+
+# OS files
+.DS_Store
+Thumbs.db

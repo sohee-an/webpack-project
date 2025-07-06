@@ -1,0 +1,18 @@
+{
+  "extends": "@packages/typescript-config/app-web.json",
+  "compilerOptions": {
+    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@components/*": ["src/components/*"],
+      "@pages/*": ["src/pages/*"],
+      "@utils/*": ["src/utils/*"],
+      "@typings/*": ["src/typings/*"],
+      "@api/*": ["../../apps/web/src/api/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "references": [{ "path": "../../packages/shared" }]
+}
