@@ -4,6 +4,7 @@
     "start": "node index.js",
     "dev": "webpack serve --config webpack/dev.ts",
     "build": "webpack --config webpack/prod.ts",
+    "lint": "eslint src/**/*.{ts,tsx}",
     "analyze": "webpack --config webpack/analyze.ts",
     "build:bundle": "cross-env NODE_ENV=production webpack --config webpack.config.ts",
     "preview": "npx serve dist",
