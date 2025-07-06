@@ -1,7 +1,3 @@
-// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
-import storybook from 'eslint-plugin-storybook';
-
-// eslint.config.js
 import js from '@eslint/js';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import parser from '@typescript-eslint/parser';
@@ -31,13 +27,12 @@ export default [
       prettier,
     },
     rules: {
-      ...js.configs.recommended.rules, // 기본 JS 룰
-      ...tseslint.configs.recommended.rules, // 타입스크립트용 룰
+      ...js.configs.recommended.rules,
+      ...tseslint.configs.recommended.rules,
       'prettier/prettier': 'error',
       semi: ['error', 'always'],
       ...prettierConfig.rules,
       'no-undef': 'off',
     },
   },
-  ...storybook.configs['flat/recommended'],
 ];

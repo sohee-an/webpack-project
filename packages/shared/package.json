@@ -2,6 +2,7 @@
   "name": "@packages/shared",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "main": "./src/index.ts",
   "sideEffects": false,
   "scripts": {
@@ -49,6 +50,7 @@
   },
   "devDependencies": {
     "@types/react": "^19.1.2",
-    "@types/react-dom": "^18.2.0"
+    "@types/react-dom": "^18.2.0",
+    "@packages/eslint-config": "workspace:*"
   }
 }

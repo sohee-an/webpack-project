@@ -18,5 +18,3 @@ export const Input = forwardRef<HTMLInputElement, Tprops>(({ icon, ...props }, r
     </div>
   );
 });
-
-

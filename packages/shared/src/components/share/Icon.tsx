@@ -9,6 +9,11 @@ type IconProps = {
   className?: string;
 };
 
-export const Icon = ({ icon: IconComponent, size = 5, color = 'text-gray-700', className }: IconProps) => {
+export const Icon = ({
+  icon: IconComponent,
+  size = 5,
+  color = 'text-gray-700',
+  className,
+}: IconProps) => {
   return <IconComponent className={clsx(`w-${size} h-${size}`, color, className)} />;
 };
