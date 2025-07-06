@@ -1,25 +1,18 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "@packages/typescript-config/app-web.json",
   "compilerOptions": {
+    "composite": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
       "@hooks/*": ["src/hooks/*"],
       "@components/*": ["src/components/*"],
-
       "@pages/*": ["src/pages/*"],
       "@utils/*": ["src/utils/*"],
       "@typings/*": ["src/typings/*"],
       "@api/*": ["../../apps/web/src/api/*"]
     }
   },
-  "include": [
-    "src/**/*"
-
-    // "../../apps/web/src/routers",
-    // "../../apps/web/src/types",
-    // "../../apps/web/src/index.tsx"
-  ],
-  "exclude": ["node_modules", "dist", "build", "**/*.test.ts", "**/__tests__"],
+  "include": ["src/**/*"],
   "references": [{ "path": "../../packages/shared" }]
 }
