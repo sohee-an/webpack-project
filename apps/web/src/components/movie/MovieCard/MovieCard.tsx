@@ -1,4 +1,4 @@
-import { TMovie } from '@/types/movie';
+import { TMovie } from '../../../types/movie';
 import React from 'react';
 
 type TProps = {

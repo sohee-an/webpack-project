@@ -9,7 +9,7 @@
     "dev": "pnpm -r run dev",
     "dev:app": "pnpm --filter app run dev",
     "build": "pnpm -r run build",
-    "install:app": "pnpm install --filter @packages/app",
+    "install:@app/web": "pnpm install --filter @apps/web",
     "install:shared": "pnpm install --filter @packages/shared",
     "build:shared": "pnpm --filter @shared run build"
   },

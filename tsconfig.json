@@ -21,6 +21,6 @@
       "esModuleInterop": true
     }
   },
-  "references": [{ "path": "./packages/shared" }, { "path": "./packages/app" }],
+  "references": [{ "path": "./packages/shared" }, { "path": "./apps/web" }],
   "files": []
 }

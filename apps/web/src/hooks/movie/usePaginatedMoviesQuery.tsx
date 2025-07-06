@@ -1,6 +1,6 @@
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { fetcher } from '@/api/fetcher';
-import { TMovieResult } from '@/types/movie';
+import { TMovieResult } from '../../types/movie';
 
 export const usePaginatedMoviesQuery = (
   endpoint: string,

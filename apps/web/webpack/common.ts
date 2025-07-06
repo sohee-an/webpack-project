@@ -12,11 +12,9 @@ const commonConfig: Configuration = {
       '@': path.resolve(__dirname, '../src'),
       '@hooks': path.resolve(__dirname, '../src/hooks'),
       '@components': path.resolve(__dirname, '../components'),
-      // '@layouts': path.resolve(__dirname, '../../shared/src/layouts'),
       '@pages': path.resolve(__dirname, '../pages'),
       '@utils': path.resolve(__dirname, '../utils'),
       '@typings': path.resolve(__dirname, '../typings'),
-      // '@shared': path.resolve(__dirname, '../../shared/dist'),
     },
   },
   module: {
@@ -24,7 +22,11 @@ const commonConfig: Configuration = {
       {
         test: /\.(ts|tsx|js|jsx)$/,
         exclude: /node_modules/,
-        include: [path.resolve(__dirname, '../src'), path.resolve(__dirname, '../../shared/src')],
+        include: [
+          path.resolve(__dirname, '../src'),
+          // path.resolve(__dirname, '../../packages/shared/src'),
+          path.resolve(__dirname, '../../../packages/shared/src'),
+        ],
         use: {
           loader: 'babel-loader',
           options: {

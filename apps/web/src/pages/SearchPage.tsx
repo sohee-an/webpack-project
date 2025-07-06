@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TMovie } from '@/types/movie';
+import { TMovie } from '../types/movie';
 import PaginatedCarousel from '@/components/movie/PaginatedCarousel';
 import { useMoviePopularQuery } from '@/hooks/movie/useMoviePopularQuery';
 import { useNavigate, useSearchParams } from 'react-router-dom';

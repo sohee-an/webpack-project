@@ -4,7 +4,7 @@ import Carousel from '@/components/movie/Carousel/Carousel';
 import MovieCard from '@/components/movie/MovieCard/MovieCard';
 import RowCarousel from '@/components/movie/Carousel/RowCarousel';
 import { useMoviePopularQuery } from '@/hooks/movie/useMoviePopularQuery';
-import { MOVIE_GENRES } from '@/constants/movie';
+import { MOVIE_GENRES } from '../constants/movie';
 import PaginatedCarousel from '@/components/movie/PaginatedCarousel';
 import LazyCarousel from '@/components/movie/LazyCarousel';
 

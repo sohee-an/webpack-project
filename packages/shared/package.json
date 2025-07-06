@@ -11,8 +11,7 @@
   "exports": {
     ".": {
       "import": "./src/index.ts",
-      "require": "./src/index.ts",
-      "types": "./dist/index.d.ts"
+      "require": "./src/index.ts"
     },
     "./utils": {
       "require": "./src/utils/index.ts",
