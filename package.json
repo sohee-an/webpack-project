@@ -1,6 +1,7 @@
 {
   "name": "my-webpack-monorepo",
   "private": true,
+  "packageManager": "pnpm@9.15.3",
   "version": "1.0.0",
   "workspaces": [
     "packages/*"
@@ -9,13 +10,18 @@
     "dev": "pnpm -r run dev",
     "dev:app": "pnpm --filter app run dev",
     "build": "pnpm -r run build",
-    "install:app": "pnpm install --filter app",
-    "install:shared": "pnpm install --filter @shared",
-    "build:shared": "pnpm --filter @shared run build"
+    "install:@app/web": "pnpm install --filter @apps/web",
+    "install:shared": "pnpm install --filter @packages/shared",
+    "build:shared": "pnpm --filter @shared run build",
+    "turbo:build": "turbo build",
+    "turbo:dev": "turbo dev",
+    "turbo:typecheck": "turbo typecheck",
+    "turbo:lint": "turbo lint"
   },
   "devDependencies": {
     "@tailwindcss/line-clamp": "^0.4.4",
     "globals": "^16.0.0",
-    "lint-staged": "^15.5.2"
+    "lint-staged": "^15.5.2",
+    "turbo": "^2.5.4"
   }
 }
