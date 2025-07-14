@@ -1,7 +1,14 @@
 {
-  "extends": "@packages/typescript-config/library.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "composite": true
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "noEmit": false,
+    "baseUrl": "./src"
   },
-  "include": ["src/**/*"]
+  "include": ["src", "./src/**/*.tsx"],
+  "exclude": ["node_modules", "dist"]
 }

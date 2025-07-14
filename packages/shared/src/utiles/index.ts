@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 
 const toCamel = (str: string) => str.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
 
-const camelizeKeys = (input: unknown): unknown => {
+export const camelizeKeys = (input: unknown): unknown => {
   if (Array.isArray(input)) {
     return input.map(camelizeKeys);
   }
@@ -19,16 +19,11 @@ const camelizeKeys = (input: unknown): unknown => {
     !(input instanceof Map) &&
     !(input instanceof Set)
   ) {
-    return Object.entries(input).reduce(
-      (acc, [key, value]) => {
-        acc[toCamel(key)] = camelizeKeys(value);
-        return acc;
-      },
-      {} as Record<string, unknown>,
-    );
+    return Object.entries(input).reduce((acc, [key, value]) => {
+      acc[toCamel(key)] = camelizeKeys(value);
+      return acc;
+    }, {} as Record<string, unknown>);
   }
 
   return input;
 };
-
-export { camelizeKeys };
