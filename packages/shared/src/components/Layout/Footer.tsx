@@ -1,7 +1,7 @@
 import React from 'react';
 function Footer() {
   return (
-    <footer className="text-gray-400 mt-8 text-sm px-4 py-8 min-h-[180px]">
+    <footer className="text-gray-400 mt-8 text-sm px-4 py-8">
       <p className="flex flex-col gap-1">
         <span>고객센터 : cs@watcha.co.kr</span>
         <span>광고 문의 : ad-sales@watcha.com최신 광고 소개서</span>
