@@ -1,15 +1,15 @@
 import React from 'react';
-import { useDetailQuery } from '@/hooks/movie/detail/useDetailQuery';
+import { useDetailQuery } from '@hooks/movie/detail/useDetailQuery';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@packages/shared';
 
-import { useSimilarQuery } from '@/hooks/movie/detail/useSimilarQuery';
-import RowCarousel from '@/components/movie/Carousel/RowCarousel';
-import MovieCard from '@/components/movie/MovieCard/MovieCard';
-import { useCreditsQuery } from '@/hooks/movie/detail/useCreditsQuery';
-import TrailerSection from '@/components/movie/TrailerSection';
-import OverviewSection from '@/components/movie/OverviewSection';
-import { DetailSkeleton } from '@/components/skeleton/DetailSkeleton';
+import { useSimilarQuery } from '@hooks/movie/detail/useSimilarQuery';
+import RowCarousel from '@components/movie/Carousel/RowCarousel';
+import MovieCard from '@components/movie/MovieCard/MovieCard';
+import { useCreditsQuery } from '@hooks/movie/detail/useCreditsQuery';
+import TrailerSection from '@components/movie/TrailerSection';
+import OverviewSection from '@components/movie/OverviewSection';
+import { DetailSkeleton } from '@components/skeleton/DetailSkeleton';
 
 function Detail() {
   const { mid } = useParams();

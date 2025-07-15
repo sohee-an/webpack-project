@@ -1,7 +1,5 @@
 {
   "extends": "./base.json",
-  "compilerOptions": {
-    "baseUrl": "./src"
-  },
+
   "exclude": ["node_modules", "dist", "build", "**/*.test.ts", "**/__tests__"]
 }

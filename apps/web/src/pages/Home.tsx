@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import Carousel from '@/components/movie/Carousel/Carousel';
+import Carousel from '@components/movie/Carousel/Carousel';
 
-import MovieCard from '@/components/movie/MovieCard/MovieCard';
-import RowCarousel from '@/components/movie/Carousel/RowCarousel';
-import { useMoviePopularQuery } from '@/hooks/movie/useMoviePopularQuery';
+import MovieCard from '@components/movie/MovieCard/MovieCard';
+import RowCarousel from '@components/movie/Carousel/RowCarousel';
+import { useMoviePopularQuery } from '@hooks/movie/useMoviePopularQuery';
 import { MOVIE_GENRES } from '../constants/movie';
-import PaginatedCarousel from '@/components/movie/PaginatedCarousel';
-import LazyCarousel from '@/components/movie/LazyCarousel';
+import PaginatedCarousel from '@components/movie/PaginatedCarousel';
+import LazyCarousel from '@components/movie/LazyCarousel';
 
 import { tv } from 'tailwind-variants';
 import { useNavigate } from 'react-router-dom';

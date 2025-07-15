@@ -1,6 +1,5 @@
 {
   "name": "@apps/web",
-  "type": "module",
   "scripts": {
     "start": "node index.js",
     "dev": "webpack serve --config webpack/dev.ts",

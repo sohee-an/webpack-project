@@ -1,4 +1,0 @@
-{
-  "extends": "@packages/typescript-config/workspace-root.json",
-  "references": [{ "path": "./packages/shared" }, { "path": "./apps/web" }]
-}
