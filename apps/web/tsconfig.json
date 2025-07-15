@@ -12,6 +12,5 @@
       "@api/*": ["api/*"]
     }
   },
-  "include": ["src/**/*"],
-  "references": [{ "path": "../../packages/shared" }]
+  "include": ["src/**/*"]
 }
