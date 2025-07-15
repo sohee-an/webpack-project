@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetcher } from '@/api/fetcher';
+import { fetcher } from '@api/fetcher';
 
 type TVideo = {
   id: string;

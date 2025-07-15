@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetcher } from '@/api/fetcher';
+import { fetcher } from '@api/fetcher';
 import { TMovieResult } from '../../../../../../apps/web/src/types/movie';
 
 type TParmas = {

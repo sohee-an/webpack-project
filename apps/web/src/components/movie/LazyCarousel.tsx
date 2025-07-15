@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import PaginatedCarousel from '@/components/movie/PaginatedCarousel';
+import PaginatedCarousel from '@components/movie/PaginatedCarousel';
 
 export default function LazyCarousel({
   title,
