@@ -55,21 +55,10 @@ const commonConfig: Configuration = {
           },
         },
       },
+
       {
         test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                // plugins: ['tailwindcss', 'autoprefixer'],
-                config: path.resolve(__dirname, '../../../postcss.config.js'),
-              },
-            },
-          },
-        ],
+        use: [], // 나중에 dev, prod에서 override
       },
     ],
   },
