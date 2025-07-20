@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Carousel from '@components/movie/Carousel/Carousel';
 
 import MovieCard from '@components/movie/MovieCard/MovieCard';
@@ -12,8 +12,19 @@ import { tv } from 'tailwind-variants';
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
-  const [generesId, setGeneresId] = useState(0);
   const navigate = useNavigate();
+  const [generesId, setGeneresId] = useState(0);
+  const [page, setPage] = useState(1);
+  const { data } = useMoviePopularQuery({ language: 'ko-KR', page });
+
+  const random = Math.floor(Math.random() * 50) + 1;
+
+  /**
+   * 유명한 영화들 랜덤하게 나오게
+   */
+  useEffect(() => {
+    setPage(random);
+  }, []);
 
   const {
     data: popularData,
@@ -53,11 +64,13 @@ function Home() {
       variant: 'outline',
     },
   });
+  console.log('data', data?.results);
 
   return (
     <div>
       <Carousel
         onClick={handleDetailClick}
+        data={data}
         items={Array.from({ length: 10 }, (_, i) => (
           <div className="w-full h-[630px] bg-white p-4 text-center"> {i + 1}</div>
         ))}

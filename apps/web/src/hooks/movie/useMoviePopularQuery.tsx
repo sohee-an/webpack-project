@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { fetcher } from '@api/fetcher';
 import { TMovieResult } from '../../types/movie';
 
-type TPopularMiviePrameter = {
+export type TPopularMiviePrameter = {
   language: string;
   page: number;
 };

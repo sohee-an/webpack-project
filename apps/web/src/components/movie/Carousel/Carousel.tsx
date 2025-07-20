@@ -1,28 +1,17 @@
 import React, { useRef, useState, useEffect, ReactNode } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { ChevronRight } from 'lucide-react';
-import { useMoviePopularQuery } from '@hooks/movie/useMoviePopularQuery';
-
+import { TMovieResult } from 'types/movie';
 type Props = {
   items: ReactNode[];
   onClick: (mid: number) => void;
+  data?: TMovieResult;
 };
 
-export default function Carousel({ items, onClick }: Props) {
+export default function Carousel({ items, onClick, data }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const [width, setWidth] = useState(0);
-  const [page, setPage] = useState(1);
-  const { data } = useMoviePopularQuery({ language: 'ko-KR', page });
-
-  const random = Math.floor(Math.random() * 50) + 1;
-
-  /**
-   * 랜덤하게 나오게
-   */
-  useEffect(() => {
-    setPage(random);
-  }, []);
 
   useEffect(() => {
     const handleResize = () => {
