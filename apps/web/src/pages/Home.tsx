@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Carousel from '@components/movie/Carousel/Carousel';
-
+import { Carousel } from '@sohee-an/ui-carousel';
 import MovieCard from '@components/movie/MovieCard/MovieCard';
 import RowCarousel from '@components/movie/Carousel/RowCarousel';
 import { useMoviePopularQuery } from '@hooks/movie/useMoviePopularQuery';
@@ -64,17 +63,25 @@ function Home() {
       variant: 'outline',
     },
   });
-  console.log('data', data?.results);
+  if (!data?.results) return <div>Loading...</div>;
 
   return (
     <div>
       <Carousel
-        onClick={handleDetailClick}
-        data={data}
-        items={Array.from({ length: 10 }, (_, i) => (
-          <div className="w-full h-[630px] bg-white p-4 text-center"> {i + 1}</div>
-        ))}
+        items={data.results}
+        containerClassName="bg-black"
+        renderItem={(movie, index) => (
+          <img
+            src={`https://image.tmdb.org/t/p/w400${movie.posterPath}`}
+            alt={`${movie.title} Poster`}
+            loading={index === 0 ? 'eager' : 'lazy'}
+            className="h-full w-auto object-cover"
+          />
+        )}
+        height="620px"
+        className="bg-black rounded-lg"
       />
+
       {/* 인기 영화들 */}
       <RowCarousel height="tall">
         {popularData

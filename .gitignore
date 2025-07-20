@@ -30,6 +30,12 @@ out/
 !eslint.config.mjs
 
 
+*.tgz         
+dist/        
+
+.DS_Store    
+
+
 
 # Turborepo cache
 .turbo/
