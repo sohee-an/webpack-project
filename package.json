@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "pnpm -r run dev",
+    "dev": "pnpm --filter @apps/web run dev",
     "dev:app": "pnpm --filter app run dev",
     "build": "pnpm -r run build",
     "install:@app/web": "pnpm install --filter @apps/web",
@@ -16,7 +16,9 @@
     "turbo:build": "turbo build",
     "turbo:dev": "turbo dev",
     "turbo:typecheck": "turbo typecheck",
-    "turbo:lint": "turbo lint"
+    "turbo:lint": "turbo lint",
+    "type-check": "turbo run type-check",
+    "test:run": "turbo run test:run"
   },
   "devDependencies": {
     "@tailwindcss/line-clamp": "^0.4.4",
