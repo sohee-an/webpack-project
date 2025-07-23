@@ -117,5 +117,10 @@
     "Safari >= 15",
     "iOS >= 15",
     "Opera >= 77"
-  ]
+  ],
+  "pnpm": {
+    "overrides": {
+      "on-headers": "^1.1.0"
+    }
+  }
 }
