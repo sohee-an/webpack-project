@@ -1,5 +1,10 @@
 {
   "name": "@apps/web",
+  "pnpm": {
+    "overrides": {
+      "on-headers": "^1.1.0"
+    }
+  },
   "scripts": {
     "start": "node index.js",
     "dev": "webpack serve --config webpack/dev.ts",
@@ -117,10 +122,5 @@
     "Safari >= 15",
     "iOS >= 15",
     "Opera >= 77"
-  ],
-  "pnpm": {
-    "overrides": {
-      "on-headers": "^1.1.0"
-    }
-  }
+  ]
 }
