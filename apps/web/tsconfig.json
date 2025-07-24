@@ -1,7 +1,6 @@
 {
   "extends": "@packages/typescript-config/app-web.json",
   "compilerOptions": {
-    "types": ["vitest/globals", "@testing-library/jest-dom"],
     "composite": true,
     "baseUrl": "./src",
     "paths": {
