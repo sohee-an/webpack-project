@@ -1,8 +1,6 @@
 import path from 'path';
-import { Configuration } from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import { Configuration } from '@rspack/core';
+import { rspack } from '@rspack/core';
 
 const commonConfig: Configuration = {
   entry: './src/index.tsx',
@@ -25,7 +23,6 @@ const commonConfig: Configuration = {
         exclude: /node_modules/,
         include: [
           path.resolve(__dirname, '../src'),
-          // path.resolve(__dirname, '../../packages/shared/src'),
           path.resolve(__dirname, '../../../packages/shared/src'),
         ],
         use: {
@@ -63,11 +60,12 @@ const commonConfig: Configuration = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({
+    new rspack.HtmlRspackPlugin({
       template: './public/index.html',
     }),
-    new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
-    new ForkTsCheckerWebpackPlugin(),
+    new rspack.CssExtractRspackPlugin({
+      filename: '[name].[contenthash].css',
+    }),
   ],
   output: {
     path: path.resolve(__dirname, '../dist'),
