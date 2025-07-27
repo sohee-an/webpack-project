@@ -2,13 +2,19 @@ import { merge } from 'webpack-merge';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import Dotenv from 'dotenv-webpack';
 import commonConfig from './common';
-import TerserPlugin from 'terser-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { rspack } from '@rspack/core';
 
 const prodConfig = merge(commonConfig, {
   mode: 'production',
   devtool: 'hidden-source-map',
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js', '.json'],
+  },
   plugins: [
+    new rspack.CssExtractRspackPlugin({
+      filename: '[name].[contenthash].css',
+      chunkFilename: '[id].[contenthash].css',
+    }),
     new Dotenv({ path: './.env', systemvars: true }),
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
@@ -20,22 +26,28 @@ const prodConfig = merge(commonConfig, {
     rules: [
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
+        use: [rspack.CssExtractRspackPlugin.loader, 'css-loader', 'postcss-loader'],
       },
     ],
   },
   optimization: {
     minimize: true,
     minimizer: [
-      new TerserPlugin({
-        terserOptions: {
+      // TerserPlugin → SwcJsMinimizerRspackPlugin (훨씬 빠르다고 한다)
+      new rspack.SwcJsMinimizerRspackPlugin({
+        minimizerOptions: {
           compress: {
-            drop_console: true, //  콘솔 로그 제거
-            drop_debugger: true, //  디버거 제거
+            drop_console: true, // 콘솔 로그 제거
+            drop_debugger: true, // 디버거 제거
+            dead_code: true, // 데드 코드 제거
+            unused: true, // 사용하지 않는 변수 제거
           },
+          mangle: true, // 변수명 단축
         },
-        extractComments: false, // 주석 제거
       }),
+
+      //  CSS 압축 추가 (선택사항)
+      new rspack.LightningCssMinimizerRspackPlugin(),
     ],
     splitChunks: {
       chunks: 'all',
@@ -64,5 +76,5 @@ const prodConfig = merge(commonConfig, {
     },
   },
 });
-
+console.log('[entry check]', prodConfig.entry);
 export default prodConfig;

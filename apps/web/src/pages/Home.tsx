@@ -18,6 +18,8 @@ function Home() {
 
   const random = Math.floor(Math.random() * 50) + 1;
 
+  console.log('hihi');
+
   /**
    * 유명한 영화들 랜덤하게 나오게
    */

@@ -1,11 +1,14 @@
 import path from 'path';
 import { Configuration } from '@rspack/core';
 import { rspack } from '@rspack/core';
+import { TsCheckerRspackPlugin } from 'ts-checker-rspack-plugin';
+
+const isDev = process.env.NODE_ENV === 'development';
 
 const commonConfig: Configuration = {
-  entry: './src/index.tsx',
+  entry: path.resolve(__dirname, '../src/index.tsx'),
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+    extensions: ['.tsx', '.js', '.jsx', '.ts', '.json'],
     alias: {
       '@': path.resolve(__dirname, '../src'),
       '@hooks': path.resolve(__dirname, '../src/hooks'),
@@ -26,46 +29,37 @@ const commonConfig: Configuration = {
           path.resolve(__dirname, '../../../packages/shared/src'),
         ],
         use: {
-          loader: 'babel-loader',
+          loader: 'builtin:swc-loader',
           options: {
-            presets: [
-              ['@babel/preset-env'],
-              [
-                '@babel/preset-react',
-                {
+            jsc: {
+              parser: {
+                syntax: 'typescript',
+                tsx: true,
+                decorators: false,
+                dynamicImport: false,
+              },
+              transform: {
+                react: {
                   runtime: 'automatic',
+                  development: isDev,
+                  refresh: isDev,
                 },
-              ],
-              '@babel/preset-typescript',
-            ],
-            plugins: [
-              [
-                '@babel/plugin-transform-runtime',
-                {
-                  corejs: 3,
-                  regenerator: true,
-                  helpers: true,
-                },
-              ],
-            ],
-            cacheDirectory: true,
+              },
+            },
+            env: {
+              targets: 'defaults',
+            },
           },
         },
       },
-
-      {
-        test: /\.css$/,
-        use: [], // 나중에 dev, prod에서 override
-      },
+      // CSS 규칙은 dev/prod에서 각각 정의
     ],
   },
   plugins: [
     new rspack.HtmlRspackPlugin({
-      template: './public/index.html',
+      template: path.resolve(__dirname, '../public/index.html'),
     }),
-    new rspack.CssExtractRspackPlugin({
-      filename: '[name].[contenthash].css',
-    }),
+    new TsCheckerRspackPlugin(),
   ],
   output: {
     path: path.resolve(__dirname, '../dist'),
