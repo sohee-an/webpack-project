@@ -10,6 +10,7 @@ import { useCreditsQuery } from '@hooks/movie/detail/useCreditsQuery';
 import TrailerSection from '@components/movie/TrailerSection';
 import OverviewSection from '@components/movie/OverviewSection';
 import { DetailSkeleton } from '@components/skeleton/DetailSkeleton';
+import { IMAGE_BASE_URL, IMAGE_SIZE } from '@constants/imageBaseUrl';
 
 function Detail() {
   const { mid } = useParams();
@@ -84,7 +85,7 @@ function Detail() {
               <div>
                 <img
                   className="w-[90px] h-[110px] mb-1"
-                  src={`https://image.tmdb.org/t/p/w500${actor.profilePath}`}
+                  src={`${IMAGE_BASE_URL}${IMAGE_SIZE.medium}${actor.profilePath}`}
                 />
                 <div key={actor.id}>{actor.name}</div>
               </div>
@@ -101,7 +102,7 @@ function Detail() {
                 {crew.profilePath ? (
                   <img
                     className="w-[90px] h-[110px] mb-1"
-                    src={`https://image.tmdb.org/t/p/w500${crew.profilePath}`}
+                    src={`${IMAGE_BASE_URL}${IMAGE_SIZE.poster}${crew.profilePath}`}
                   />
                 ) : (
                   <div className="w-[90px] h-[120px] bg-gray-700" />

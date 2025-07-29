@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Carousel } from '@sohee-an/ui-carousel';
 import MovieCard from '@components/movie/MovieCard/MovieCard';
 import RowCarousel from '@components/movie/Carousel/RowCarousel';
@@ -6,9 +6,9 @@ import { useMoviePopularQuery } from '@hooks/movie/useMoviePopularQuery';
 import { MOVIE_GENRES } from '../constants/movie';
 import PaginatedCarousel from '@components/movie/PaginatedCarousel';
 import LazyCarousel from '@components/movie/LazyCarousel';
-
 import { tv } from 'tailwind-variants';
 import { useNavigate } from 'react-router-dom';
+import { IMAGE_BASE_URL, IMAGE_SIZE } from '@constants/imageBaseUrl';
 
 function Home() {
   const navigate = useNavigate();
@@ -72,7 +72,7 @@ function Home() {
         containerClassName="bg-black"
         renderItem={(movie, index) => (
           <img
-            src={`https://image.tmdb.org/t/p/w400${movie.posterPath}`}
+            src={`${IMAGE_BASE_URL}${IMAGE_SIZE.medium}${movie.posterPath}`}
             alt={`${movie.title} Poster`}
             loading={index === 0 ? 'eager' : 'lazy'}
             className="h-full w-auto object-cover"

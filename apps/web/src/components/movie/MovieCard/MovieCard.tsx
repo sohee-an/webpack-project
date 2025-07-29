@@ -1,3 +1,4 @@
+import { IMAGE_BASE_URL, IMAGE_SIZE } from '@constants/imageBaseUrl';
 import { TMovie } from '../../../types/movie';
 import React from 'react';
 
@@ -29,7 +30,7 @@ function MovieCard({ item, movieList = false, height, onClick }: TProps) {
 
       <div className="relative group flex-grow overflow-hidden">
         <img
-          src={`https://image.tmdb.org/t/p/w300${item.posterPath}`}
+          src={`${IMAGE_BASE_URL}${IMAGE_SIZE.small}${item.posterPath}`}
           alt={`${item.title} Poster`}
           className="w-full h-full object-contain"
         />

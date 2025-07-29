@@ -9,7 +9,8 @@
       "@pages/*": ["pages/*"],
       "@utils/*": ["utils/*"],
       "@typings/*": ["typings/*"],
-      "@api/*": ["api/*"]
+      "@api/*": ["api/*"],
+      "@constants/*": ["constants/*"]
     }
   },
   "include": ["src/**/*", "webpack/**/*"]
