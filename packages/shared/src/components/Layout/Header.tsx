@@ -6,8 +6,8 @@ import { Button } from '../share/Button';
 import { useNavigate } from 'react-router-dom';
 
 const TAB_LIST = [
-  { name: '구독', link: '/' },
-  { name: '개별 구매', link: '/' },
+  { key: 0, name: '구독', link: '/' },
+  { key: 1, name: '개별 구매', link: '/' },
 ];
 
 function Header() {

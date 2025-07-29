@@ -1,8 +1,8 @@
-import React, { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 type TProps = {
-  tabs: { name: string; link: string }[];
+  tabs: { name: string; link: string; key: number }[];
 };
 
 function MenuTab({ tabs }: TProps) {
@@ -11,18 +11,22 @@ function MenuTab({ tabs }: TProps) {
   const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0 });
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const currentTab = tabRefs.current[activeIndex];
-    if (currentTab) {
-      const rect = currentTab.getBoundingClientRect();
-      const containerRect = currentTab.parentElement?.getBoundingClientRect();
-      if (containerRect) {
+  useLayoutEffect(() => {
+    const updateUnderline = () => {
+      const currentTab = tabRefs.current[activeIndex];
+      const containerRect = currentTab?.parentElement?.getBoundingClientRect();
+      if (currentTab && containerRect) {
+        const rect = currentTab.getBoundingClientRect();
         setUnderlineStyle({
           left: rect.left - containerRect.left,
           width: rect.width,
         });
       }
-    }
+    };
+
+    updateUnderline(); // 초기 위치 계산
+    window.addEventListener('resize', updateUnderline);
+    return () => window.removeEventListener('resize', updateUnderline);
   }, [activeIndex]);
 
   useEffect(() => {
@@ -39,18 +43,16 @@ function MenuTab({ tabs }: TProps) {
   };
 
   return (
-    <div className="relative w-fit border-b border-gray-700 ">
+    <div className="relative w-fit ">
       <div className="flex">
-        {tabs.map(({ name, link }, index) => (
+        {tabs.map(({ name, link, key }) => (
           <button
             key={name}
             ref={(el) => {
-              tabRefs.current[index] = el;
+              tabRefs.current[key] = el;
             }}
-            onClick={() => handleNavClick(link, index)}
-            className={`px-4 py-2 text-sm ${
-              activeIndex === index ? 'text-white' : 'text-gray-400'
-            }`}
+            onClick={() => handleNavClick(link, key)}
+            className={`px-4 py-2 text-sm ${activeIndex === key ? 'text-white' : 'text-gray-400 '}`}
           >
             {name}
           </button>
@@ -58,7 +60,7 @@ function MenuTab({ tabs }: TProps) {
       </div>
 
       <div
-        className="absolute bottom-0 h-[2px] bg-white transition-all duration-300"
+        className="absolute bottom-0 h-[2px] bg-white transition-all duration-300 z-10"
         style={{
           left: underlineStyle.left,
           width: underlineStyle.width,

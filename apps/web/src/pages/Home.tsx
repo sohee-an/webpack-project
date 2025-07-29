@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Carousel } from '@sohee-an/ui-carousel';
 import MovieCard from '@components/movie/MovieCard/MovieCard';
 import RowCarousel from '@components/movie/Carousel/RowCarousel';
@@ -6,9 +6,9 @@ import { useMoviePopularQuery } from '@hooks/movie/useMoviePopularQuery';
 import { MOVIE_GENRES } from '../constants/movie';
 import PaginatedCarousel from '@components/movie/PaginatedCarousel';
 import LazyCarousel from '@components/movie/LazyCarousel';
-
 import { tv } from 'tailwind-variants';
 import { useNavigate } from 'react-router-dom';
+import { IMAGE_BASE_URL, IMAGE_SIZE } from '@constants/imageBaseUrl';
 
 function Home() {
   const navigate = useNavigate();
@@ -17,8 +17,6 @@ function Home() {
   const { data } = useMoviePopularQuery({ language: 'ko-KR', page });
 
   const random = Math.floor(Math.random() * 50) + 1;
-
-  console.log('hihi');
 
   /**
    * 유명한 영화들 랜덤하게 나오게
@@ -68,13 +66,13 @@ function Home() {
   if (!data?.results) return <div>Loading...</div>;
 
   return (
-    <div>
+    <section>
       <Carousel
         items={data.results}
         containerClassName="bg-black"
         renderItem={(movie, index) => (
           <img
-            src={`https://image.tmdb.org/t/p/w400${movie.posterPath}`}
+            src={`${IMAGE_BASE_URL}${IMAGE_SIZE.medium}${movie.posterPath}`}
             alt={`${movie.title} Poster`}
             loading={index === 0 ? 'eager' : 'lazy'}
             className="h-full w-auto object-cover"
@@ -125,11 +123,11 @@ function Home() {
             ))
           : []}
       </RowCarousel> */}
-      <LazyCarousel title="인기 콘텐츠" endpoint="movie/popular" queryKey={['popular']} />
       <LazyCarousel title="최고 평점" endpoint="movie/top_rated" queryKey={['topRated']} />
+      <LazyCarousel title="인기 콘텐츠" endpoint="movie/popular" queryKey={['popular']} />
       <LazyCarousel title="개봉 예정" endpoint="movie/upcoming" queryKey={['upcoming']} />
       {/* <PaginatedCarousel title="개봉 예정" endpoint="movie/upcoming" queryKey={['upcoming']} /> */}
-    </div>
+    </section>
   );
 }
 

@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect, ReactNode } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { ChevronRight } from 'lucide-react';
 import { TMovieResult } from 'types/movie';
+import { IMAGE_BASE_URL, IMAGE_SIZE } from '@constants/imageBaseUrl';
 type Props = {
   items: ReactNode[];
   onClick: (mid: number) => void;
@@ -54,7 +55,7 @@ export default function Carousel({ items, onClick, data }: Props) {
               className="flex-shrink-0 w-full h-full flex items-center justify-center px-2"
             >
               <img
-                src={`https://image.tmdb.org/t/p/w400${item.posterPath}`}
+                src={`${IMAGE_BASE_URL}${IMAGE_SIZE.medium}${item.posterPath}`}
                 alt={`${item.title} Poster`}
                 loading={i === 0 ? 'eager' : 'lazy'} // 이미지를 얼마나 빨리 가져올지~
                 fetchPriority={i === 0 ? 'high' : 'auto'} // 리소스 요청 우선순위

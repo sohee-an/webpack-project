@@ -17,6 +17,7 @@ const commonConfig: Configuration = {
       '@utils': path.resolve(__dirname, '../src/utils'),
       '@typings': path.resolve(__dirname, '../typings'),
       '@api': path.resolve(__dirname, '../src/api'),
+      '@constants': path.resolve(__dirname, '../src/constants'),
     },
   },
   module: {
@@ -52,6 +53,11 @@ const commonConfig: Configuration = {
           },
         },
       },
+      {
+        test: /\.svg$/i,
+        issuer: /\.[jt]sx?$/,
+        use: ['@svgr/webpack'],
+      },
       // CSS 규칙은 dev/prod에서 각각 정의
     ],
   },
@@ -59,6 +65,7 @@ const commonConfig: Configuration = {
     new rspack.HtmlRspackPlugin({
       template: path.resolve(__dirname, '../public/index.html'),
     }),
+
     new TsCheckerRspackPlugin(),
   ],
   output: {

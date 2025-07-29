@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useMovieVideosQuery } from '@hooks/movie/detail/useMovieVideosQuery';
 import { useDetailQuery } from '@hooks/movie/detail/useDetailQuery';
+import { IMAGE_BASE_URL, IMAGE_SIZE } from '@constants/imageBaseUrl';
 
 export default function TrailerSection() {
   const { mid } = useParams();
@@ -30,7 +31,7 @@ export default function TrailerSection() {
     return (
       <img
         className="w-[300px] h-[400px] object-fit"
-        src={`https://image.tmdb.org/t/p/w500${movieData.posterPath}`}
+        src={`${IMAGE_BASE_URL}${IMAGE_SIZE.medium}${movieData.posterPath}`}
         alt={`${movieData.title} Poster`}
       />
     );

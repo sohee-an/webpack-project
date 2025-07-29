@@ -4,6 +4,7 @@ import PaginatedCarousel from '@components/movie/PaginatedCarousel';
 import { useMoviePopularQuery } from '@hooks/movie/useMoviePopularQuery';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useSearchMoviesQuery } from '@hooks/movie/useKeywordsQuery';
+import { IMAGE_BASE_URL, IMAGE_SIZE } from '@constants/imageBaseUrl';
 
 type RankingItemProps = {
   movie: TMovie;
@@ -89,7 +90,7 @@ function Search() {
                   <div className="aspect-[2/3] bg-gray-800 rounded-lg overflow-hidden mb-2">
                     {movie.posterPath ? (
                       <img
-                        src={`https://image.tmdb.org/t/p/w500${movie.posterPath}`}
+                        src={`${IMAGE_BASE_URL}${IMAGE_SIZE.poster}${movie.posterPath}`}
                         alt={movie.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
                       />
