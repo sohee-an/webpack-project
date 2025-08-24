@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useMovieVideosQuery } from '@/hooks/movie/detail/useMovieVideosQuery';
-import { useDetailQuery } from '@/hooks/movie/detail/useDetailQuery';
+import { useMovieVideosQuery } from '@hooks/movie/detail/useMovieVideosQuery';
+import { useDetailQuery } from '@hooks/movie/detail/useDetailQuery';
 
 export default function TrailerSection() {
   const { mid } = useParams();

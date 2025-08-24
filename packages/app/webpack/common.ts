@@ -11,12 +11,20 @@ const commonConfig: Configuration = {
     alias: {
       '@': path.resolve(__dirname, '../src'),
       '@hooks': path.resolve(__dirname, '../src/hooks'),
+<<<<<<< HEAD:packages/app/webpack/common.ts
       '@components': path.resolve(__dirname, '../components'),
       // '@layouts': path.resolve(__dirname, '../../shared/src/layouts'),
       '@pages': path.resolve(__dirname, '../pages'),
       '@utils': path.resolve(__dirname, '../utils'),
       '@typings': path.resolve(__dirname, '../typings'),
       '@shared': path.resolve(__dirname, '../../shared/dist'),
+=======
+      '@components': path.resolve(__dirname, '../src/components'),
+      '@pages': path.resolve(__dirname, '../src/pages'),
+      '@utils': path.resolve(__dirname, '../src/utils'),
+      '@typings': path.resolve(__dirname, '../typings'),
+      '@api': path.resolve(__dirname, '../src/api'),
+>>>>>>> 177604243b2fea86cf8ff9ef10753661f4c7b92d:apps/web/webpack/common.ts
     },
   },
   module: {
@@ -28,50 +36,14 @@ const commonConfig: Configuration = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [
-              [
-                '@babel/preset-env',
-                {
-                  targets: '> 0.25%, not dead',
-                },
-              ],
-              [
-                '@babel/preset-react',
-                {
-                  runtime: 'automatic',
-                },
-              ],
-              '@babel/preset-typescript',
-            ],
-            plugins: [
-              [
-                '@babel/plugin-transform-runtime',
-                {
-                  corejs: 3,
-                  regenerator: true,
-                  helpers: true,
-                },
-              ],
-            ],
             cacheDirectory: true,
           },
         },
       },
+
       {
         test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                // plugins: ['tailwindcss', 'autoprefixer'],
-                config: path.resolve(__dirname, '../../../postcss.config.js'),
-              },
-            },
-          },
-        ],
+        use: [], // 나중에 dev, prod에서 override
       },
     ],
   },

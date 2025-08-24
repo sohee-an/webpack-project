@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
+<<<<<<< HEAD:packages/app/src/pages/SearchPage.tsx
 import { TMovie } from '@/types/movie';
 import PaginatedCarousel from '@/components/movie/PaginatedCarousel';
 import { useMoviePopularQuery } from '@/hooks/movie/useMoviePopularQuery';
+=======
+import { TMovie } from '../types/movie';
+import PaginatedCarousel from '@components/movie/PaginatedCarousel';
+import { useMoviePopularQuery } from '@hooks/movie/useMoviePopularQuery';
+>>>>>>> 177604243b2fea86cf8ff9ef10753661f4c7b92d:apps/web/src/pages/SearchPage.tsx
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useSearchMoviesQuery } from '@/hooks/movie/useKeywordsQuery';
+import { useSearchMoviesQuery } from '@hooks/movie/useKeywordsQuery';
 
 type RankingItemProps = {
   movie: TMovie;

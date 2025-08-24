@@ -1,3 +1,4 @@
+<<<<<<< HEAD:packages/app/src/pages/Home.tsx
 import React, { useState } from 'react';
 import Carousel from '@/components/movie/Carousel/Carousel';
 
@@ -6,13 +7,34 @@ import RowCarousel from '@/components/movie/Carousel/RowCarousel';
 import { useMoviePopularQuery } from '@/hooks/movie/useMoviePopularQuery';
 import { MOVIE_GENRES } from '@/constants/movie';
 import PaginatedCarousel from '@/components/movie/PaginatedCarousel';
+=======
+import React, { useState, useEffect } from 'react';
+import { Carousel } from '@sohee-an/ui-carousel';
+import MovieCard from '@components/movie/MovieCard/MovieCard';
+import RowCarousel from '@components/movie/Carousel/RowCarousel';
+import { useMoviePopularQuery } from '@hooks/movie/useMoviePopularQuery';
+import { MOVIE_GENRES } from '../constants/movie';
+import PaginatedCarousel from '@components/movie/PaginatedCarousel';
+import LazyCarousel from '@components/movie/LazyCarousel';
+>>>>>>> 177604243b2fea86cf8ff9ef10753661f4c7b92d:apps/web/src/pages/Home.tsx
 
 import { tv } from 'tailwind-variants';
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
-  const [generesId, setGeneresId] = useState(0);
   const navigate = useNavigate();
+  const [generesId, setGeneresId] = useState(0);
+  const [page, setPage] = useState(1);
+  const { data } = useMoviePopularQuery({ language: 'ko-KR', page });
+
+  const random = Math.floor(Math.random() * 50) + 1;
+
+  /**
+   * 유명한 영화들 랜덤하게 나오게
+   */
+  useEffect(() => {
+    setPage(random);
+  }, []);
 
   const {
     data: popularData,
@@ -52,15 +74,25 @@ function Home() {
       variant: 'outline',
     },
   });
+  if (!data?.results) return <div>Loading...</div>;
 
   return (
     <div>
       <Carousel
-        onClick={handleDetailClick}
-        items={Array.from({ length: 10 }, (_, i) => (
-          <div className="w-full h-[630px] bg-white p-4 text-center"> {i + 1}</div>
-        ))}
+        items={data.results}
+        containerClassName="bg-black"
+        renderItem={(movie, index) => (
+          <img
+            src={`https://image.tmdb.org/t/p/w400${movie.posterPath}`}
+            alt={`${movie.title} Poster`}
+            loading={index === 0 ? 'eager' : 'lazy'}
+            className="h-full w-auto object-cover"
+          />
+        )}
+        height="620px"
+        className="bg-black rounded-lg"
       />
+
       {/* 인기 영화들 */}
       <RowCarousel height="tall">
         {popularData
