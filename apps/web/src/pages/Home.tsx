@@ -124,7 +124,7 @@ function Home() {
           : []}
       </RowCarousel> */}
       <LazyCarousel title="최고 평점" endpoint="movie/top_rated" queryKey={['topRated']} />
-      <LazyCarousel title="인기 콘텐츠" endpoint="movie/popular" queryKey={['popular']} />
+      <LazyCarousel title="오늘은 이 영화 어때?" endpoint="movie/popular" queryKey={['popular']} />
       <LazyCarousel title="개봉 예정" endpoint="movie/upcoming" queryKey={['upcoming']} />
       {/* <PaginatedCarousel title="개봉 예정" endpoint="movie/upcoming" queryKey={['upcoming']} /> */}
     </section>

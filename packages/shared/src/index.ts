@@ -1,5 +1,6 @@
 export { default as ErrorBoundary } from './components/ErrorBoundary';
 export { default as ErrorFallback } from './components/ErrorFallback';
+export { default as NotFoundPage } from './components/NotFoundPage';
 
 export { Button } from './components/share';
 export { Icon } from './components/share';

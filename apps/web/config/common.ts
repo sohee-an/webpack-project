@@ -7,6 +7,14 @@ const isDev = process.env.NODE_ENV === 'development';
 
 const commonConfig: Configuration = {
   entry: path.resolve(__dirname, '../src/index.tsx'),
+  devServer: {
+    port: 3000,
+    open: true,
+    historyApiFallback: {
+      disableDotRule: true, // ❗ URL에 .js 들어가도 fallback 처리
+      index: '/index.html', // ❗ 항상 index.html 제공
+    },
+  },
   resolve: {
     extensions: ['.tsx', '.js', '.jsx', '.ts', '.json'],
     alias: {
