@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import RowCarousel from './Carousel/RowCarousel';
 import MovieCard from './MovieCard/MovieCard';
-import { usePaginatedMoviesQuery } from '@/hooks/movie/usePaginatedMoviesQuery';
+import { usePaginatedMoviesQuery } from '@hooks/movie/usePaginatedMoviesQuery';
 
 type Props = {
   endpoint: string;

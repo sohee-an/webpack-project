@@ -6,12 +6,24 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "pnpm -r run dev",
+    "dev": "pnpm --filter @apps/web run dev",
     "dev:app": "pnpm --filter app run dev",
     "build": "pnpm -r run build",
+<<<<<<< HEAD
     "install:app": "pnpm install --filter app",
     "install:shared": "pnpm install --filter @shared",
     "build:shared": "pnpm --filter @shared run build"
+=======
+    "install:@app/web": "pnpm install --filter @apps/web",
+    "install:shared": "pnpm install --filter @packages/shared",
+    "build:shared": "pnpm --filter @shared run build",
+    "turbo:build": "turbo build",
+    "turbo:dev": "turbo dev",
+    "turbo:typecheck": "turbo typecheck",
+    "turbo:lint": "turbo lint",
+    "type-check": "turbo run type-check",
+    "test:run": "turbo run test:run"
+>>>>>>> 177604243b2fea86cf8ff9ef10753661f4c7b92d
   },
   "devDependencies": {
     "@tailwindcss/line-clamp": "^0.4.4",

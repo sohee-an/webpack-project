@@ -3,6 +3,7 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import Dotenv from 'dotenv-webpack';
 import commonConfig from './common';
 import TerserPlugin from 'terser-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 const prodConfig = merge(commonConfig, {
   mode: 'production',
@@ -15,6 +16,14 @@ const prodConfig = merge(commonConfig, {
       reportFilename: 'bundle-report.html',
     }),
   ],
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
+      },
+    ],
+  },
   optimization: {
     minimize: true,
     minimizer: [

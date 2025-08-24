@@ -1,5 +1,14 @@
 {
+<<<<<<< HEAD:packages/app/package.json
   "name": "app",
+=======
+  "name": "@apps/web",
+  "pnpm": {
+    "overrides": {
+      "on-headers": "^1.1.0"
+    }
+  },
+>>>>>>> 177604243b2fea86cf8ff9ef10753661f4c7b92d:apps/web/package.json
   "scripts": {
     "start": "node index.js",
     "dev": "webpack serve --config webpack/dev.ts",
@@ -11,13 +20,25 @@
     "ci:build": "yarn typecheck && yarn build",
     "tw:init": "npx tailwindcss init -p",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@packages/eslint-config": "workspace:*",
+    "@packages/shared": "workspace:*",
+    "@packages/typescript-config": "workspace:*",
     "@radix-ui/react-select": "^2.2.2",
     "@radix-ui/react-slot": "^1.2.0",
     "@radix-ui/themes": "^3.2.1",
+<<<<<<< HEAD:packages/app/package.json
     "@shared": "workspace:*",
+=======
+    "@sohee-an/ui-carousel": "^1.0.0",
+>>>>>>> 177604243b2fea86cf8ff9ef10753661f4c7b92d:apps/web/package.json
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tanstack/react-query": "^5.80.6",
     "class-variance-authority": "^0.7.1",
@@ -50,20 +71,20 @@
     "@storybook/addon-webpack5-compiler-swc": "^3.0.0",
     "@storybook/react": "8",
     "@storybook/react-webpack5": "8.6.14",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
     "@types/dotenv-webpack": "^7.0.8",
-    "@types/node": "^24.0.3",
+    "@types/node": "^24.0.4",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@types/webpack-bundle-analyzer": "^4.7.0",
     "@types/webpack-env": "^1.18.8",
-    "@typescript-eslint/eslint-plugin": "^8.30.1",
-    "@typescript-eslint/parser": "^8.30.1",
     "autoprefixer": "^10.4.21",
     "babel-loader": "^10.0.0",
     "cross-env": "^7.0.3",
     "css-loader": "^7.1.2",
     "dotenv-webpack": "^8.1.0",
-    "eslint": "^9.25.0",
+    "eslint": "8.57.0",
     "eslint-config-prettier": "^10.1.2",
     "eslint-plugin-prettier": "^5.2.6",
     "eslint-plugin-react": "^7.37.5",
@@ -71,6 +92,8 @@
     "fork-ts-checker-webpack-plugin": "^9.1.0",
     "globals": "^16.0.0",
     "html-webpack-plugin": "^5.6.3",
+    "jest": "^30.0.5",
+    "jsdom": "^26.1.0",
     "lint-staged": "^15.5.1",
     "mini-css-extract-plugin": "^2.9.2",
     "postcss": "^8.5.3",

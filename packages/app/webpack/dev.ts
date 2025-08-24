@@ -19,6 +19,14 @@ const devConfig: Configuration & { devServer?: DevServerConfig } = merge(commonC
     hot: true,
     historyApiFallback: true,
   },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
+      },
+    ],
+  },
 });
 
 export default devConfig;
