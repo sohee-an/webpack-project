@@ -1,5 +1,10 @@
 {
   "name": "@apps/web",
+  "pnpm": {
+    "overrides": {
+      "on-headers": "^1.1.0"
+    }
+  },
   "scripts": {
     "start": "node index.js",
     "dev": "webpack serve --config webpack/dev.ts",
@@ -80,6 +85,7 @@
     "fork-ts-checker-webpack-plugin": "^9.1.0",
     "globals": "^16.0.0",
     "html-webpack-plugin": "^5.6.3",
+    "jest": "^30.0.5",
     "jsdom": "^26.1.0",
     "lint-staged": "^15.5.1",
     "mini-css-extract-plugin": "^2.9.2",
