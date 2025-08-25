@@ -1,6 +1,7 @@
 {
   "name": "my-webpack-monorepo",
   "private": true,
+  "type": "module",
   "packageManager": "pnpm@9.15.3",
   "version": "1.0.0",
   "workspaces": [
