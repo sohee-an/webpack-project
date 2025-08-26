@@ -4,7 +4,7 @@ env
 
 # 빌드
 /dist
-
+**/tsconfig.tsbuildinfo
 *storybook.log
 storybook-static
 
