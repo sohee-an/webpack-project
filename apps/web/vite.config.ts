@@ -32,14 +32,14 @@ export default defineConfig(({ mode }) => ({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, '../src'),
-      '@hooks': path.resolve(__dirname, '../src/hooks'),
-      '@components': path.resolve(__dirname, '../src/components'),
-      '@pages': path.resolve(__dirname, '../src/pages'),
-      '@utils': path.resolve(__dirname, '../src/utils'),
-      '@typings': path.resolve(__dirname, '../typings'),
-      '@api': path.resolve(__dirname, '../src/api'),
-      '@constants': path.resolve(__dirname, '../src/constants'),
+      '@': path.resolve(__dirname, './src'),
+      '@hooks': path.resolve(__dirname, './src/hooks'),
+      '@components': path.resolve(__dirname, './src/components'),
+      '@pages': path.resolve(__dirname, './src/pages'),
+      '@utils': path.resolve(__dirname, './src/utils'),
+      '@typings': path.resolve(__dirname, './typings'),
+      '@api': path.resolve(__dirname, './src/api'),
+      '@constants': path.resolve(__dirname, './src/constants'),
     },
   },
 }));

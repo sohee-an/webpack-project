@@ -4,7 +4,6 @@ import App from './App';
 import './global.css';
 
 const container = document.getElementById('root');
-console.log('container', container);
 
 if (!container) {
   throw new Error('💥 root element not found!');
