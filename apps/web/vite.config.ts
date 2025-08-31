@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import path from 'path';
-import react from '@vitejs/plugin-react';
+import react from '@vitejs/plugin-react-swc';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import svgr from 'vite-plugin-svgr';
 import checker from 'vite-plugin-checker';
@@ -26,7 +26,7 @@ const groups: Record<string, string[]> = {
     'class-variance-authority',
     'tailwind-merge',
     'tailwind-variants',
-    'lucide-react', // here
+    'lucide-react',
   ],
   'vendor-ui': ['@sohee-an/ui-carousel'],
 };
