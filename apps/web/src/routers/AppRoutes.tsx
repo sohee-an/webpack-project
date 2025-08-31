@@ -6,10 +6,11 @@ import { ErrorBoundary } from '@packages/shared';
 import { ErrorFallback } from '@packages/shared';
 import type { FallbackProps } from 'react-error-boundary';
 import { NotFoundPage } from '@packages/shared';
-// import Home from '@/pages/Home';
-const Home = lazy(() => import('../pages/Home'));
-const Search = lazy(() => import('../pages/SearchPage'));
-const Detail = lazy(() => import('../pages/Detail'));
+
+import { lazyWithPreload } from '../utils/lazyWithPreload';
+const Home = lazyWithPreload(() => import('../pages/Home'));
+const Search = lazyWithPreload(() => import('../pages/SearchPage'));
+const Detail = lazyWithPreload(() => import('../pages/Detail'));
 
 function AppRoutes() {
   const navigate = useNavigate();
@@ -27,11 +28,7 @@ function AppRoutes() {
             <Route path="/search" element={<Search />} />
             <Route path="/:mid" element={<Detail />} />
             <Route path="/search/*" element={<NotFoundPage />} />
-            {/* <Route path="*" element={<NotFoundPage />} /> */}
-            <Route
-              path="*"
-              element={<div style={{ color: 'red', fontSize: '24px' }}>🔥 Not Found</div>}
-            />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Layout>
       </Suspense>
