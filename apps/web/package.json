@@ -3,11 +3,11 @@
   "scripts": {
     "start": "node index.js",
     "dev": "vite",
-    "build": "cross-env NODE_ENV=production rspack build --config ./config/prod.ts",
+    "build": "vite build",
+    "preview": "vite preview --port 5173 --host",
     "lint": "eslint src/**/*.{ts,tsx}",
     "analyze": "webpack --config webpack/analyze.ts",
     "build:bundle": "cross-env NODE_ENV=production webpack --config webpack.config.ts",
-    "preview": "npx serve dist",
     "typecheck": "tsc -p ./tsconfig.build.json",
     "ci:build": "yarn typecheck && yarn build",
     "tw:init": "npx tailwindcss init -p",

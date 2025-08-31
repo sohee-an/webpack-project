@@ -1,4 +1,3 @@
-// AppRoutes.tsx
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Layout } from '@packages/shared';
