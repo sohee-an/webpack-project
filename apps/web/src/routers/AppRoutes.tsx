@@ -7,9 +7,9 @@ import type { FallbackProps } from 'react-error-boundary';
 import { NotFoundPage } from '@packages/shared';
 
 import { lazyWithPreload } from '../utils/lazyWithPreload';
-const Home = lazyWithPreload(() => import('../pages/Home'));
-const Search = lazyWithPreload(() => import('../pages/SearchPage'));
-const Detail = lazyWithPreload(() => import('../pages/Detail'));
+const Home = lazy(() => import('../pages/Home'));
+const Search = lazy(() => import('../pages/SearchPage'));
+const Detail = lazy(() => import('../pages/Detail'));
 
 function AppRoutes() {
   const navigate = useNavigate();
