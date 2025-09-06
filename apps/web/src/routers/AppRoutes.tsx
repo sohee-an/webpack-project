@@ -1,4 +1,3 @@
-// AppRoutes.tsx
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Layout } from '@packages/shared';
@@ -6,7 +5,8 @@ import { ErrorBoundary } from '@packages/shared';
 import { ErrorFallback } from '@packages/shared';
 import type { FallbackProps } from 'react-error-boundary';
 import { NotFoundPage } from '@packages/shared';
-// import Home from '@/pages/Home';
+
+import { lazyWithPreload } from '../utils/lazyWithPreload';
 const Home = lazy(() => import('../pages/Home'));
 const Search = lazy(() => import('../pages/SearchPage'));
 const Detail = lazy(() => import('../pages/Detail'));
@@ -27,11 +27,7 @@ function AppRoutes() {
             <Route path="/search" element={<Search />} />
             <Route path="/:mid" element={<Detail />} />
             <Route path="/search/*" element={<NotFoundPage />} />
-            {/* <Route path="*" element={<NotFoundPage />} /> */}
-            <Route
-              path="*"
-              element={<div style={{ color: 'red', fontSize: '24px' }}>🔥 Not Found</div>}
-            />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Layout>
       </Suspense>
