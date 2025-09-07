@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+@source "../../../../packages/shared/src/**/*.{js,ts,jsx,tsx}";
+@source "../../../../packages/shared/dist/**/*.{js,jsx}";
 
 body {
   margin: 0;
