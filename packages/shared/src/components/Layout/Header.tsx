@@ -1,51 +1,83 @@
-import React, { FormEventHandler } from 'react';
-import MenuTab from './MenuTab';
-import { Search } from 'lucide-react';
+import React from 'react';
+import { Search as SearchIcon } from 'lucide-react';
+import MenuTab, { type MenuTabItem } from './MenuTab';
 import { Input } from '../share/Input';
-import { Button } from '../share/Button';
+import { LinkButton } from '../share/LinkButton';
 
-const TAB_LIST = [
-  { key: 0, name: '구독', link: '/' },
-  { key: 1, name: '개별 구매', link: '/' },
-];
+export type LinkProps = {
+  href: string;
+  children: React.ReactNode;
+  className?: string;
+  target?: string;
+  rel?: string;
+};
 
-function Header() {
-  const searchInputRef = React.useRef<HTMLInputElement>(null);
-  // const navigate = useNavigate();
+export type HeaderProps = {
+  LinkComponent: React.ComponentType<LinkProps>;
+  tabs: MenuTabItem[];
+  currentPath?: string;
 
-  const handleSearch = () => {
-    // navigate('/search');
-    searchInputRef.current?.focus();
-  };
+  loginHref?: string;
+  signupHref?: string;
 
-  const handleSubmit: FormEventHandler = (e) => {
-    e.preventDefault();
-    const inputValue = searchInputRef.current?.value || '';
-    if (inputValue.trim()) {
-      // navigate(`/search?query=${encodeURIComponent(inputValue)}&domain=all`);
-    }
-  };
+  makeSearchHref?: (q: string) => string;
+  defaultQuery?: string;
+
+  /** ✅ 포커스 시 라우팅을 앱에서 수행 */
+  onSearchFocus?: () => void;
+};
+
+export default function Header({
+  LinkComponent,
+  tabs,
+  currentPath = '/',
+  loginHref = '/login',
+  signupHref = '/signup',
+
+  defaultQuery = '',
+  onSearchFocus,
+}: HeaderProps) {
+  const [q, setQ] = React.useState(defaultQuery);
 
   return (
-    <header className=" flex items-center justify-between p-2 border-b border-gray-700">
-      <MenuTab tabs={TAB_LIST} />
+    <header className="flex items-center justify-between p-2 border-b border-gray-700 bg-black text-white">
+      <MenuTab tabs={tabs} currentPath={currentPath} LinkComponent={LinkComponent} />
+
       <div className="flex gap-2">
-        <form onSubmit={handleSubmit} className="flex items-center space-x-4">
-          <Input
-            ref={searchInputRef}
-            onFocus={handleSearch}
-            placeholder="검색어를 입력하세요"
-            icon={<Search className="w-4 h-4 text-white mr-2" />}
-          />
+        <form action="/search" method="GET" className="flex items-center gap-3">
+          <div className="flex items-center rounded px-2">
+            <Input
+              name="query"
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              placeholder="검색어를 입력하세요"
+              onFocus={onSearchFocus}
+              icon={<SearchIcon className="w-4 h-4 text-white mr-2" />}
+            />
+            <input type="hidden" name="domain" value="all" />
+          </div>
         </form>
 
-        <Button size="sm" variant="ghost">
+        <LinkButton
+          LinkComponent={LinkComponent}
+          href={loginHref}
+          variant="ghost"
+          size="sm"
+          className="hover:bg-white/10"
+        >
           로그인
-        </Button>
-        <Button size="sm">회원가입</Button>
+        </LinkButton>
+
+        <LinkButton
+          LinkComponent={LinkComponent}
+          href={signupHref}
+          variant="primary"
+          size="sm"
+          className="bg-white/10 hover:bg-white/20"
+        >
+          회원가입
+        </LinkButton>
       </div>
     </header>
   );
 }
-
-export default Header;

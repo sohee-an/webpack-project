@@ -1,4 +1,3 @@
-// pages/_app.tsx
 import type { AppProps } from 'next/app';
 import { useState } from 'react';
 import {
@@ -9,7 +8,7 @@ import {
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import '@/styles/globals.css';
-import { Layout } from '@packages/shared';
+import LayoutAdapter from '@/components/LayoutAdapter';
 
 export default function MyApp({
   Component,
@@ -19,9 +18,9 @@ export default function MyApp({
   return (
     <QueryClientProvider client={queryClient}>
       <HydrationBoundary state={pageProps.dehydratedState}>
-        <Layout>
+        <LayoutAdapter>
           <Component {...pageProps} />
-        </Layout>
+        </LayoutAdapter>
       </HydrationBoundary>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
