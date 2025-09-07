@@ -6,7 +6,7 @@ function Layout({ children }: { children?: ReactNode }) {
   return (
     <div className="h-m-screen min-w-screen flex flex-col bg-black">
       <Header />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 text-white">{children}</main>
       <Footer />
     </div>
   );
