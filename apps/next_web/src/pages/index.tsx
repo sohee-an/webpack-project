@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-
+import Image from 'next/image';
 import { Carousel } from '@sohee-an/ui-carousel';
 import MovieCard from '@components/movie/MovieCard/MovieCard';
 import RowCarousel from '@components/movie/Carousel/RowCarousel';
@@ -72,11 +72,13 @@ export default function Home() {
             items={data.results}
             containerClassName="bg-black"
             renderItem={(movie, index) => (
-              <img
+              <Image
                 src={`${IMAGE_BASE_URL}${IMAGE_SIZE.medium}${movie.posterPath}`}
                 alt={`${movie.title} Poster`}
-                loading={index === 0 ? 'eager' : 'lazy'}
-                className="h-full w-auto object-cover"
+                fill
+                sizes="100vw"
+                priority={index === 0}
+                className="object-contain object-center"
               />
             )}
             height="620px"

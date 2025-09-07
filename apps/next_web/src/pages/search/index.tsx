@@ -5,6 +5,7 @@ import { useMoviePopularQuery } from '@hooks/movie/useMoviePopularQuery';
 import { useRouter } from 'next/router';
 import { useSearchMoviesQuery } from '@hooks/movie/useKeywordsQuery';
 import { IMAGE_BASE_URL, IMAGE_SIZE } from '@constants/imageBaseUrl';
+import Image from 'next/image';
 
 type RankingItemProps = {
   movie: TMovie;
@@ -89,10 +90,12 @@ function Search() {
                 >
                   <div className="aspect-[2/3] bg-gray-800 rounded-lg overflow-hidden mb-2">
                     {movie.posterPath ? (
-                      <img
+                      <Image
                         src={`${IMAGE_BASE_URL}${IMAGE_SIZE.poster}${movie.posterPath}`}
                         alt={movie.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                        fill
+                        sizes="(max-width: 768px) 50vw, (max-width: 1280px) 25vw, 16vw"
+                        className="object-cover transition-transform duration-200 group-hover:scale-105"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-gray-400">

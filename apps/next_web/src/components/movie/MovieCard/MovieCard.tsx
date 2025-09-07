@@ -1,5 +1,6 @@
 import { IMAGE_BASE_URL, IMAGE_SIZE } from '@constants/imageBaseUrl';
 import { TMovie } from '../../../types/movie';
+import Image from 'next/image';
 import React from 'react';
 
 type TProps = {
@@ -29,11 +30,14 @@ function MovieCard({ item, movieList = false, height, onClick }: TProps) {
       )}
 
       <div className="relative group flex-grow overflow-hidden">
-        <img
+        <Image
           src={`${IMAGE_BASE_URL}${IMAGE_SIZE.small}${item.posterPath}`}
           alt={`${item.title} Poster`}
-          className="w-full h-full object-contain"
+          fill
+          sizes="(max-width: 768px) 50vw, (max-width: 1280px) 25vw, 16vw"
+          className="object-contain"
         />
+
         <div className="absolute inset-0 bg-black/40 bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
     </div>
