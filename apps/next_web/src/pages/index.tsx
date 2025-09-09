@@ -12,8 +12,38 @@ import PaginatedCarousel from '@components/movie/PaginatedCarousel';
 import LazyCarousel from '@components/movie/LazyCarousel';
 import { tv } from 'tailwind-variants';
 import { IMAGE_BASE_URL, IMAGE_SIZE } from '@constants/imageBaseUrl';
+import { TMovieResult } from '@/types/movie';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { camelizeKeys } from '@packages/shared';
 
-export default function Home() {
+type HomeProps = {
+  popularData: TMovieResult;
+  topRatedData: TMovieResult;
+  upcomingData: TMovieResult;
+};
+
+//ssg로 하기
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  async function fetchMovieData<T>(endpoint: string, page = 1): Promise<T> {
+    const res = await fetch(
+      `https://api.themoviedb.org/3/${endpoint}?language=ko-KR&page=${page}`,
+      { headers: { Authorization: `Bearer ${process.env.TMDB_API_TOKEN}` } },
+    );
+    if (!res.ok) throw new Error(`TMDB error: ${res.status} ${res.statusText}`);
+    const json = await res.json();
+    return camelizeKeys<T>(json);
+  }
+
+  const [popularData, topRatedData, upcomingData] = await Promise.all([
+    fetchMovieData<TMovieResult>('movie/popular', 1),
+    fetchMovieData<TMovieResult>('movie/top_rated', 1),
+    fetchMovieData<TMovieResult>('movie/upcoming', 1),
+  ]);
+
+  return { props: { popularData, topRatedData, upcomingData } };
+};
+
+export default function Home({ popularData }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter();
   const [generesId, setGeneresId] = useState(0);
   const [page, setPage] = useState(1);
@@ -28,11 +58,11 @@ export default function Home() {
   const { data } = useMoviePopularQuery({ language: 'ko-KR', page });
 
   // 인기영화 리스트용
-  const {
-    data: popularData,
-    isLoading: popularLoading,
-    error: popularError,
-  } = useMoviePopularQuery({ language: 'ko-KR', page: 1 });
+  // const {
+  //   data: popularData,
+  //   isLoading: popularLoading,
+  //   error: popularError,
+  // } = useMoviePopularQuery({ language: 'ko-KR', page: 1 });
 
   const handleDetailClick = (mid: number) => {
     router.push(`/${mid}`);
@@ -54,9 +84,10 @@ export default function Home() {
     () => import('@sohee-an/ui-carousel').then((m) => m.Carousel ?? m.default),
     { ssr: false },
   );
+  console.log('res', popularData);
 
-  if (popularLoading) return <p>로딩 중...</p>;
-  if (popularError) return <p>에러 발생!</p>;
+  // if (popularLoading) return <p>로딩 중...</p>;
+  // if (popularError) return <p>에러 발생!</p>;
 
   return (
     <>
