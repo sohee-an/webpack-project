@@ -15,35 +15,55 @@ import { IMAGE_BASE_URL, IMAGE_SIZE } from '@constants/imageBaseUrl';
 import { TMovieResult } from '@/types/movie';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { camelizeKeys } from '@packages/shared';
+import { QueryClient, dehydrate } from '@tanstack/react-query';
 
-type HomeProps = {
-  popularData: TMovieResult;
-  topRatedData: TMovieResult;
-  upcomingData: TMovieResult;
-};
+import { movieKeys } from '@/lib/queyr-keys';
+import { tmdbGetServer } from '@/lib/tmdb-server';
 
 //ssg로 하기
-export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  async function fetchMovieData<T>(endpoint: string, page = 1): Promise<T> {
-    const res = await fetch(
-      `https://api.themoviedb.org/3/${endpoint}?language=ko-KR&page=${page}`,
-      { headers: { Authorization: `Bearer ${process.env.TMDB_API_TOKEN}` } },
-    );
-    if (!res.ok) throw new Error(`TMDB error: ${res.status} ${res.statusText}`);
-    const json = await res.json();
-    return camelizeKeys<T>(json);
-  }
+export const getStaticProps: GetStaticProps = async () => {
+  const qc = new QueryClient();
+  const base = { language: ' KR', page: 1 };
 
-  const [popularData, topRatedData, upcomingData] = await Promise.all([
-    fetchMovieData<TMovieResult>('movie/popular', 1),
-    fetchMovieData<TMovieResult>('movie/top_rated', 1),
-    fetchMovieData<TMovieResult>('movie/upcoming', 1),
-  ]);
+  await qc.prefetchQuery({
+    queryKey: movieKeys.popular(base),
+    queryFn: () => tmdbGetServer<TMovieResult>('movie/popular', base),
+  });
 
-  return { props: { popularData, topRatedData, upcomingData } };
+  await qc.prefetchQuery({
+    queryKey: movieKeys.topRated(base),
+    queryFn: () => tmdbGetServer<TMovieResult>('movie/top_rated', base),
+  });
+
+  await qc.prefetchQuery({
+    queryKey: movieKeys.upcoming(base),
+    queryFn: () => tmdbGetServer<TMovieResult>('movie/upcoming', base),
+  });
+
+  return { props: { dehydratedState: dehydrate(qc) } };
 };
 
-export default function Home({ popularData }: InferGetStaticPropsType<typeof getStaticProps>) {
+// export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+//   async function fetchMovieData<T>(endpoint: string, page = 1): Promise<T> {
+//     const res = await fetch(
+//       `https://api.themoviedb.org/3/${endpoint}?language=ko-KR&page=${page}`,
+//       { headers: { Authorization: `Bearer ${process.env.TMDB_API_TOKEN}` } },
+//     );
+//     if (!res.ok) throw new Error(`TMDB error: ${res.status} ${res.statusText}`);
+//     const json = await res.json();
+//     return camelizeKeys<T>(json);
+//   }
+
+//   const [popularData, topRatedData, upcomingData] = await Promise.all([
+//     fetchMovieData<TMovieResult>('movie/popular', 1),
+//     fetchMovieData<TMovieResult>('movie/top_rated', 1),
+//     fetchMovieData<TMovieResult>('movie/upcoming', 1),
+//   ]);
+
+//   return { props: { popularData, topRatedData, upcomingData } };
+// };
+
+export default function Home() {
   const router = useRouter();
   const [generesId, setGeneresId] = useState(0);
   const [page, setPage] = useState(1);
@@ -84,8 +104,8 @@ export default function Home({ popularData }: InferGetStaticPropsType<typeof get
     () => import('@sohee-an/ui-carousel').then((m) => m.Carousel ?? m.default),
     { ssr: false },
   );
-  console.log('res', popularData);
-
+  const { data: popularData } = useMoviePopularQuery({ language: 'ko-KR', page: 1 });
+  console.log('data', popularData);
   // if (popularLoading) return <p>로딩 중...</p>;
   // if (popularError) return <p>에러 발생!</p>;
 
@@ -139,14 +159,14 @@ export default function Home({ popularData }: InferGetStaticPropsType<typeof get
           ))}
         </div>
 
-        <PaginatedCarousel endpoint="movie/popular" queryKey={['']} />
+        {/* <PaginatedCarousel endpoint="movie/popular" queryKey={['']} />
         <LazyCarousel title="최고 평점" endpoint="movie/top_rated" queryKey={['topRated']} />
         <LazyCarousel
           title="오늘은 이 영화 어때?"
           endpoint="movie/popular"
           queryKey={['popular']}
         />
-        <LazyCarousel title="개봉 예정" endpoint="movie/upcoming" queryKey={['upcoming']} />
+        <LazyCarousel title="개봉 예정" endpoint="movie/upcoming" queryKey={['upcoming']} /> */}
       </section>
     </>
   );

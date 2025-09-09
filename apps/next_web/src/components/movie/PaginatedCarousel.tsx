@@ -10,7 +10,7 @@ type Props = {
   params?: Record<string, string>;
 };
 
-export default function PaginatedCarousel({ endpoint, queryKey, title, params }: Props) {
+function PaginatedCarousel({ endpoint, queryKey, title, params }: Props) {
   const [page, setPage] = useState(1);
   const { data } = usePaginatedMoviesQuery(endpoint, page, queryKey, params);
 
@@ -41,3 +41,5 @@ export default function PaginatedCarousel({ endpoint, queryKey, title, params }:
     </div>
   );
 }
+
+export default React.memo(PaginatedCarousel);
