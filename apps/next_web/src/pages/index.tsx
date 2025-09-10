@@ -14,16 +14,14 @@ import { tv } from 'tailwind-variants';
 import { IMAGE_BASE_URL, IMAGE_SIZE } from '@constants/imageBaseUrl';
 import { TMovieResult } from '@/types/movie';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { camelizeKeys } from '@packages/shared';
 import { QueryClient, dehydrate } from '@tanstack/react-query';
-
 import { movieKeys } from '@/lib/queyr-keys';
 import { tmdbGetServer } from '@/lib/tmdb-server';
 
 //ssg로 하기
 export const getStaticProps: GetStaticProps = async () => {
   const qc = new QueryClient();
-  const base = { language: ' KR', page: 1 };
+  const base = { language: ' ko-KR', page: 1 };
 
   await qc.prefetchQuery({
     queryKey: movieKeys.popular(base),

@@ -1,7 +1,6 @@
 import { camelizeKeys } from '@packages/shared';
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'https://api.themoviedb.org/3';
-// ⚠️ 클라이언트에서는 비밀키(TMDB_API_TOKEN) 절대 쓰지 말고,
 // 꼭 공개용 API 키(NEXT_PUBLIC_TMDB_API_KEY)나 프록시 서버 사용
 const PUBLIC_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
