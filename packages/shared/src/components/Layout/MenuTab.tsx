@@ -51,7 +51,11 @@ export default function MenuTab({
           return (
             <div
               key={t.key ?? t.link ?? i}
-              ref={(el) => el && (itemRefs.current[i] = el)}
+              ref={(el) => {
+                if (el) {
+                  itemRefs.current[i] = el;
+                }
+              }}
               className="px-4 py-2"
             >
               <LinkComponent

@@ -99,7 +99,7 @@ export default function Home() {
     defaultVariants: { variant: 'outline' },
   });
   const Carousel = dynamic(
-    () => import('@sohee-an/ui-carousel').then((m) => m.Carousel ?? m.default),
+    () => import('@sohee-an/ui-carousel').then((m) => ({ default: m.Carousel })),
     { ssr: false },
   );
   const { data: popularData } = useMoviePopularQuery({ language: 'ko-KR', page: 1 });
