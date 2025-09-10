@@ -2,7 +2,7 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-
+  output: 'export',
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
   },
 
   //  모노레포(shared) 소스도 함께 트랜스파일
-  transpilePackages: ['@packages/shared'],
+  transpilePackages: ['@packages/shared', '@sohee-an/ui-carousel'],
 
   // 모노레포 외부 디렉토리 read 허용
   experimental: { externalDir: true },

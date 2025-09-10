@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "static": "next build && next export",
+    "preview": "npx serve out"
   },
   "dependencies": {
     "@packages/eslint-config": "workspace:*",
