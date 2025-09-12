@@ -13,7 +13,7 @@ import LazyCarousel from '@components/movie/LazyCarousel';
 import { tv } from 'tailwind-variants';
 import { IMAGE_BASE_URL, IMAGE_SIZE } from '@constants/imageBaseUrl';
 import { TMovieResult } from '@/types/movie';
-import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { GetStaticProps } from 'next';
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { movieKeys } from '@/lib/queyr-keys';
 import { tmdbGetServer } from '@/lib/tmdb-server';
@@ -137,14 +137,14 @@ export default function Home() {
           ))}
         </div>
 
-        {/* <PaginatedCarousel endpoint="movie/popular" queryKey={['']} />
+        <PaginatedCarousel endpoint="movie/popular" queryKey={['']} />
         <LazyCarousel title="최고 평점" endpoint="movie/top_rated" queryKey={['topRated']} />
         <LazyCarousel
           title="오늘은 이 영화 어때?"
           endpoint="movie/popular"
           queryKey={['popular']}
         />
-        <LazyCarousel title="개봉 예정" endpoint="movie/upcoming" queryKey={['upcoming']} /> */}
+        <LazyCarousel title="개봉 예정" endpoint="movie/upcoming" queryKey={['upcoming']} />
       </section>
     </>
   );

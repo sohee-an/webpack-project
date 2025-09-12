@@ -15,3 +15,11 @@ export const movieKeys = {
   detail: (id: number | string, extra?: Record<string, unknown>) =>
     [...movieKeys.all, 'detail', { id, ...(extra ?? {}) }] as const,
 };
+
+export const ENDPOINT_KEY_MAP = {
+  'movie/popular': (params: MovieListParams) => movieKeys.popular(params),
+  'movie/top_rated': (params: MovieListParams) => movieKeys.topRated(params),
+  'movie/upcoming': (params: MovieListParams) => movieKeys.upcoming(params),
+} as const;
+
+export type SupportedEndpoint = keyof typeof ENDPOINT_KEY_MAP;

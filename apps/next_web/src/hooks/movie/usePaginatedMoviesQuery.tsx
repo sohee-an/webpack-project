@@ -1,6 +1,7 @@
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { fetcher } from '@api/fetcher';
 import { TMovieResult } from '../../types/movie';
+import { ENDPOINT_KEY_MAP, movieKeys } from '@/lib/queyr-keys';
 
 export const usePaginatedMoviesQuery = (
   endpoint: string,
@@ -8,9 +9,13 @@ export const usePaginatedMoviesQuery = (
   queryKey: string[],
   params: Record<string, string> = {},
 ) => {
-  const queryParams = new URLSearchParams({ page: String(page), language: 'ko-KR', ...params });
+  const queryParams = { page, language: 'ko-KR', ...params };
+  const keyGenerator = ENDPOINT_KEY_MAP[endpoint as keyof typeof ENDPOINT_KEY_MAP];
+  const finalQueryKey = keyGenerator ? keyGenerator(queryParams) : [...queryKey, page];
+
+  // const queryParams = new URLSearchParams({ page: String(page), language: 'ko-KR', ...params });
   return useQuery<TMovieResult>({
-    queryKey: [...queryKey, page],
+    queryKey: finalQueryKey,
     queryFn: () => fetcher(`${endpoint}?${queryParams.toString()}`),
     placeholderData: keepPreviousData,
   });
