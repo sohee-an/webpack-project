@@ -17,6 +17,7 @@ import { GetStaticProps } from 'next';
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { movieKeys } from '@/lib/queyr-keys';
 import { tmdbGetServer } from '@/lib/tmdb-server';
+import { CarouselSkeleton } from '@/components/skeleton/CarouselSkeleton';
 
 //ssg로 하기
 export const getStaticProps: GetStaticProps = async () => {
@@ -83,7 +84,7 @@ export default function Home() {
     { ssr: false },
   );
   const { data: popularData } = useMoviePopularQuery({ language: 'ko-KR', page: 1 });
-  console.log('data', popularData);
+
   // if (popularLoading) return <p>로딩 중...</p>;
   // if (popularError) return <p>에러 발생!</p>;
 
@@ -96,24 +97,31 @@ export default function Home() {
 
       <section>
         {/* 상단 캐러셀 */}
-        {data?.results && data.results.length > 0 && (
-          <Carousel
-            items={data.results}
-            containerClassName="bg-black"
-            renderItem={(movie, index) => (
-              <Image
-                src={`${IMAGE_BASE_URL}${IMAGE_SIZE.medium}${movie.posterPath}`}
-                alt={`${movie.title} Poster`}
-                fill
-                sizes="100vw"
-                priority={index === 0}
-                className="object-contain object-center"
+
+        <div className="h-[620px] bg-black rounded-lg">
+          {data?.results && data.results.length > 0 ? (
+            <div className="animate-fade-in">
+              <Carousel
+                items={data.results}
+                containerClassName="bg-black"
+                renderItem={(movie, index) => (
+                  <Image
+                    src={`${IMAGE_BASE_URL}${IMAGE_SIZE.medium}${movie.posterPath}`}
+                    alt={`${movie.title} Poster`}
+                    fill
+                    sizes="100vw"
+                    priority={index === 0}
+                    className="object-contain object-center"
+                  />
+                )}
+                height="620px"
+                className="bg-black rounded-lg"
               />
-            )}
-            height="620px"
-            className="bg-black rounded-lg"
-          />
-        )}
+            </div>
+          ) : (
+            <CarouselSkeleton />
+          )}
+        </div>
 
         {/* 인기 영화들 */}
         <RowCarousel height="tall">
