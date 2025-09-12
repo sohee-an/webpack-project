@@ -41,26 +41,6 @@ export const getStaticProps: GetStaticProps = async () => {
   return { props: { dehydratedState: dehydrate(qc) } };
 };
 
-// export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-//   async function fetchMovieData<T>(endpoint: string, page = 1): Promise<T> {
-//     const res = await fetch(
-//       `https://api.themoviedb.org/3/${endpoint}?language=ko-KR&page=${page}`,
-//       { headers: { Authorization: `Bearer ${process.env.TMDB_API_TOKEN}` } },
-//     );
-//     if (!res.ok) throw new Error(`TMDB error: ${res.status} ${res.statusText}`);
-//     const json = await res.json();
-//     return camelizeKeys<T>(json);
-//   }
-
-//   const [popularData, topRatedData, upcomingData] = await Promise.all([
-//     fetchMovieData<TMovieResult>('movie/popular', 1),
-//     fetchMovieData<TMovieResult>('movie/top_rated', 1),
-//     fetchMovieData<TMovieResult>('movie/upcoming', 1),
-//   ]);
-
-//   return { props: { popularData, topRatedData, upcomingData } };
-// };
-
 export default function Home() {
   const router = useRouter();
   const [generesId, setGeneresId] = useState(0);
