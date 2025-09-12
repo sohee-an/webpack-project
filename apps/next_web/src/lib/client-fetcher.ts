@@ -1,21 +1,9 @@
 import { camelizeKeys } from '@packages/shared';
+import { Query, withQuery } from './withQuery';
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'https://api.themoviedb.org/3';
 // 꼭 공개용 API 키(NEXT_PUBLIC_TMDB_API_KEY)나 프록시 서버 사용
 const PUBLIC_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
-
-export type Query = Record<string, string | number | boolean | null | undefined>;
-
-function withQuery(path: string, q?: Query) {
-  const url = new URL(path.startsWith('/') ? path.slice(1) : path, BASE_URL);
-  if (q) {
-    Object.entries(q).forEach(([k, v]) => {
-      if (v !== undefined && v !== null) url.searchParams.set(k, String(v));
-    });
-  }
-
-  return url.toString();
-}
 
 /** 브라우저에서만 실행할 fetcher */
 export async function clientFetcher<T>(
@@ -23,7 +11,7 @@ export async function clientFetcher<T>(
   query?: Query,
   init?: RequestInit,
 ): Promise<T> {
-  const res = await fetch(withQuery(path, query), {
+  const res = await fetch(withQuery(path, BASE_URL, query), {
     ...init,
     headers: {
       'Content-Type': 'application/json',
