@@ -13,9 +13,7 @@ function withQuery(path: string, q?: Query) {
       if (v !== undefined && v !== null) url.searchParams.set(k, String(v));
     });
   }
-  if (PUBLIC_KEY) {
-    url.searchParams.set('api_key', PUBLIC_KEY);
-  }
+
   return url.toString();
 }
 
@@ -29,6 +27,7 @@ export async function clientFetcher<T>(
     ...init,
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${PUBLIC_KEY}`,
       ...(init?.headers ?? {}),
     },
   });

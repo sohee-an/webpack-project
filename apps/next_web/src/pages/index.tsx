@@ -21,7 +21,7 @@ import { tmdbGetServer } from '@/lib/tmdb-server';
 //ssg로 하기
 export const getStaticProps: GetStaticProps = async () => {
   const qc = new QueryClient();
-  const base = { language: ' ko-KR', page: 1 };
+  const base = { language: 'ko-KR', page: 1 };
 
   await qc.prefetchQuery({
     queryKey: movieKeys.popular(base),

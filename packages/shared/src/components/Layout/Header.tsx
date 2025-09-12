@@ -23,7 +23,7 @@ export type HeaderProps = {
   makeSearchHref?: (q: string) => string;
   defaultQuery?: string;
 
-  /** ✅ 포커스 시 라우팅을 앱에서 수행 */
+  /**  포커스 시 라우팅을 앱에서 수행 */
   onSearchFocus?: () => void;
 };
 
