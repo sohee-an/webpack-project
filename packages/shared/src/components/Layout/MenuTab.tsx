@@ -1,73 +1,78 @@
-import { useRef, useState, useEffect, useLayoutEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
 
-type TProps = {
-  tabs: { name: string; link: string; key: number }[];
+export type MenuTabItem = { key: string | number; name: string; link: string };
+
+export type MenuTabProps = {
+  tabs: MenuTabItem[];
+  currentPath?: string;
+  LinkComponent: React.ComponentType<{
+    href: string;
+    children: React.ReactNode;
+    className?: string;
+  }>;
+  onActiveChange?: (index: number) => void;
 };
 
-function MenuTab({ tabs }: TProps) {
+export default function MenuTab({
+  tabs,
+  currentPath = '/',
+  LinkComponent,
+  onActiveChange,
+}: MenuTabProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0 });
-  const navigate = useNavigate();
-
-  useLayoutEffect(() => {
-    const updateUnderline = () => {
-      const currentTab = tabRefs.current[activeIndex];
-      const containerRect = currentTab?.parentElement?.getBoundingClientRect();
-      if (currentTab && containerRect) {
-        const rect = currentTab.getBoundingClientRect();
-        setUnderlineStyle({
-          left: rect.left - containerRect.left,
-          width: rect.width,
-        });
-      }
-    };
-
-    updateUnderline(); // 초기 위치 계산
-    window.addEventListener('resize', updateUnderline);
-    return () => window.removeEventListener('resize', updateUnderline);
-  }, [activeIndex]);
+  const itemRefs = useRef<HTMLDivElement[]>([]);
+  const [underline, setUnderline] = useState({ left: 0, width: 0 });
 
   useEffect(() => {
-    const currentPath = location.pathname;
-    const index = tabs.findIndex((tab) => tab.link === currentPath);
-    if (index !== -1 && index !== activeIndex) {
-      setActiveIndex(index);
+    const idx = tabs.findIndex((t) => t.link === currentPath);
+    if (idx !== -1 && idx !== activeIndex) {
+      setActiveIndex(idx);
+      onActiveChange?.(idx);
     }
-  }, [location.pathname, tabs]);
+  }, [currentPath, tabs, activeIndex, onActiveChange]);
 
-  const handleNavClick = (link: string, index: number) => {
-    setActiveIndex(index);
-    navigate(link);
-  };
+  useEffect(() => {
+    const update = () => {
+      const el = itemRefs.current[activeIndex];
+      const parent = el?.parentElement?.getBoundingClientRect();
+      const rect = el?.getBoundingClientRect();
+      if (rect && parent) setUnderline({ left: rect.left - parent.left, width: rect.width });
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, [activeIndex, tabs.length]);
 
   return (
-    <div className="relative w-fit ">
+    <div className="relative w-fit">
       <div className="flex">
-        {tabs.map(({ name, link, key }) => (
-          <button
-            key={name}
-            ref={(el) => {
-              tabRefs.current[key] = el;
-            }}
-            onClick={() => handleNavClick(link, key)}
-            className={`px-4 py-2 text-sm ${activeIndex === key ? 'text-white' : 'text-gray-400 '}`}
-          >
-            {name}
-          </button>
-        ))}
+        {tabs.map((t, i) => {
+          const active = i === activeIndex;
+          return (
+            <div
+              key={t.key ?? t.link ?? i}
+              ref={(el) => {
+                if (el) {
+                  itemRefs.current[i] = el;
+                }
+              }}
+              className="px-4 py-2"
+            >
+              <LinkComponent
+                href={t.link}
+                className={active ? 'text-white' : 'text-gray-400 hover:text-white transition'}
+              >
+                {t.name}
+              </LinkComponent>
+            </div>
+          );
+        })}
       </div>
 
       <div
         className="absolute bottom-0 h-[2px] bg-white transition-all duration-300 z-10"
-        style={{
-          left: underlineStyle.left,
-          width: underlineStyle.width,
-        }}
+        style={{ left: underline.left, width: underline.width }}
       />
     </div>
   );
 }
-
-export default MenuTab;

@@ -1,0 +1,49 @@
+import { IMAGE_BASE_URL, IMAGE_SIZE } from '@constants/imageBaseUrl';
+import { TMovie } from '../../../types/movie';
+import Image from 'next/image';
+import React from 'react';
+
+type TProps = {
+  item: TMovie;
+  movieList?: boolean;
+  height: 'short' | 'medium' | 'tall';
+  onClick: (mid: number) => void;
+};
+
+const heightMap = {
+  short: 'h-48',
+  medium: 'h-72',
+  tall: 'h-[620px]',
+};
+
+function MovieCard({ item, movieList = false, height, onClick }: TProps) {
+  console.log('item1', item);
+  console.log('item', item.posterPath);
+  return (
+    <div
+      onClick={() => onClick(item.id)}
+      className={`flex flex-col gap-1 text-white cursor-pointer overflow-hidden ${heightMap[height]}`}
+    >
+      {!movieList && (
+        <div className="flex flex-col px-1 pt-1">
+          <div className="text-sm text-gray-400 truncate">{item.title}</div>
+          <div className="text-lg text-bold truncate">{item.originalTitle}</div>
+        </div>
+      )}
+
+      <div className="relative group flex-grow overflow-hidden">
+        <Image
+          src={`${IMAGE_BASE_URL}${IMAGE_SIZE.small}${item.posterPath}`}
+          alt={`${item.title} Poster`}
+          fill
+          sizes="(max-width: 768px) 50vw, (max-width: 1280px) 25vw, 16vw"
+          className="object-contain"
+        />
+
+        <div className="absolute inset-0 bg-black/40 bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      </div>
+    </div>
+  );
+}
+
+export default MovieCard;

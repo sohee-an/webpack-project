@@ -7,9 +7,14 @@ export { Icon } from './components/share';
 export { Input } from './components/share';
 
 export { default as Header } from './components/Layout/Header';
+
 export { default as Footer } from './components/Layout/Footer';
 export { default as Layout } from './components/Layout/Layout';
 export { default as MenuTab } from './components/Layout/MenuTab';
+
+export type { HeaderProps, LinkProps } from './components/Layout/Header';
+
+export type { MenuTabProps, MenuTabItem } from './components/Layout/MenuTab';
 
 export * from './utiles';
 

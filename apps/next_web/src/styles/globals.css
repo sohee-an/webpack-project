@@ -1,4 +1,19 @@
 @import 'tailwindcss';
+@source "../../../../packages/shared/src/**/*.{js,ts,jsx,tsx}";
+@source "../../../../packages/shared/dist/**/*.{js,jsx}";
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
 
 body {
   margin: 0;

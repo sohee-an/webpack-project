@@ -11,7 +11,8 @@
       "@utils/*": ["utils/*"],
       "@typings/*": ["typings/*"],
       "@api/*": ["api/*"],
-      "@constants/*": ["constants/*"]
+      "@constants/*": ["constants/*"],
+      "@lib/*": ["lib/*"]
     },
     "allowJs": true,
     "noEmit": true,
