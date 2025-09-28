@@ -60,7 +60,9 @@ export default function MenuTab({
             >
               <LinkComponent
                 href={t.link}
-                className={active ? 'text-white' : 'text-gray-400 hover:text-white transition'}
+                className={`text-lg ${
+                  active ? 'text-white' : 'text-gray-400 hover:text-white transition'
+                }`}
               >
                 {t.name}
               </LinkComponent>
