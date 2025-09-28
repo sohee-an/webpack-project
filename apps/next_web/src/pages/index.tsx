@@ -103,7 +103,7 @@ export default function Home() {
             <div className="animate-fade-in">
               <Carousel
                 items={data.results}
-                containerClassName="bg-black"
+                containerClassName="bg-black "
                 renderItem={(movie, index) => (
                   <Image
                     src={`${IMAGE_BASE_URL}${IMAGE_SIZE.medium}${movie.posterPath}`}
@@ -124,7 +124,7 @@ export default function Home() {
         </div>
 
         {/* 인기 영화들 */}
-        <RowCarousel height="tall">
+        <RowCarousel height="tall" containerClassName="mt-10">
           {popularData
             ? popularData.results.map((item) => (
                 <MovieCard onClick={handleDetailClick} height="tall" key={item.id} item={item} />

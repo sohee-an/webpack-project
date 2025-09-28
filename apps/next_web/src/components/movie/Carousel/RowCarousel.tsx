@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 type Props = {
   children: ReactNode;
+  containerClassName?: string;
   itemClassName?: string;
   height?: 'short' | 'medium' | 'tall';
   onNext?: () => void;
@@ -17,6 +18,7 @@ const heightMap = {
 
 export default function RowCarousel({
   children,
+  containerClassName,
   itemClassName = 'w-2/3 sm:w-1/2 md:w-1/3 lg:w-1/3',
   height,
   onNext,
@@ -38,7 +40,9 @@ export default function RowCarousel({
   };
 
   return (
-    <div className={`mb-4 mt-2 relative w-full  px-10 ${heightMap[height ?? 'medium']} `}>
+    <div
+      className={`mb-4 mt-2 relative w-full  px-10 ${heightMap[height ?? 'medium']} ${containerClassName}`}
+    >
       <button
         aria-label="이전 슬라이드로 이동"
         onClick={() => scroll('left')}
