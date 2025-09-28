@@ -70,11 +70,11 @@ export default function Home() {
   const handleClick = (id: number) => setGeneresId(id);
 
   const buttonVariants = tv({
-    base: 'py-1 px-3 border rounded-full transition-colors duration-200',
+    base: 'py-1 px-3 border rounded-full transition-colors duration-200 text-lg',
     variants: {
       variant: {
         default: 'bg-white text-black border-white',
-        outline: 'text-gray-400 border-gray-400 hover:border-gray-200',
+        outline: 'text-gray-500 border-gray-500 hover:border-gray-200',
       },
     },
     defaultVariants: { variant: 'outline' },
@@ -124,7 +124,7 @@ export default function Home() {
         </div>
 
         {/* 인기 영화들 */}
-        <RowCarousel height="tall" containerClassName="mt-10">
+        <RowCarousel height="tall" containerClassName="mt-10 mb-10">
           {popularData
             ? popularData.results.map((item) => (
                 <MovieCard onClick={handleDetailClick} height="tall" key={item.id} item={item} />
