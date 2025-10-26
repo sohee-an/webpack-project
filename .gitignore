@@ -62,3 +62,7 @@ apps/*/.next/
 # OS files
 .DS_Store
 Thumbs.db
+
+# .gitignore
+*.pem
+*.key

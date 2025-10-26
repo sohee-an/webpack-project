@@ -7,9 +7,8 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  output: 'export',
+
   images: {
-    unoptimized: true, // 정적베포는 이미지 최적화를 할 수 없으므로 끈다
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
