@@ -17,8 +17,8 @@ const heightMap = {
 };
 
 function MovieCard({ item, movieList = false, height, onClick }: TProps) {
-  console.log('item1', item);
-  console.log('item', item.posterPath);
+  // console.log('item1', item);
+  // console.log('item', item.posterPath);
   return (
     <div
       onClick={() => onClick(item.id)}

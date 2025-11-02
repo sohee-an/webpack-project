@@ -31,5 +31,8 @@ export async function tmdbGetServer<T>(
   }
 
   const json = await res.json();
-  return camelizeKeys<T>(json);
+
+  const camel = camelizeKeys<T>(json);
+
+  return camel;
 }
