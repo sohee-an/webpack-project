@@ -11,8 +11,26 @@ import OverviewSection from '@components/movie/OverviewSection';
 import { DetailSkeleton } from '@components/skeleton/DetailSkeleton';
 import { IMAGE_BASE_URL, IMAGE_SIZE } from '@constants/imageBaseUrl';
 import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
 
-function Detail() {
+export const getServerSideProps: GetServerSideProps = async ({ req, params }) => {
+  const protocol = req.headers['x-forwarded-proto'] || 'http';
+  const host = req.headers.host;
+  const baseUrl = `${protocol}://${host}`;
+
+  const mid = params?.mid;
+  const res = await fetch(`${baseUrl}/api/movie/${mid}/aggregate`);
+
+  if (!res.ok) {
+    console.error('SSR Fetch Error:', res.status, res.statusText);
+    return { notFound: true };
+  }
+
+  const aggregateData = await res.json();
+  return { props: { initialData: aggregateData } };
+};
+
+function Detail({ initialData }: { initialData: { detail: any; credits: any } }) {
   const { query } = useRouter();
   const mid = Array.isArray(query.mid) ? query.mid[0] : query.mid;
   const router = useRouter();
@@ -25,16 +43,12 @@ function Detail() {
     language: 'ko-KR',
     mid: mid ?? '',
   });
-  const { data: creditsData } = useCreditsQuery({
-    language: 'ko-KR',
-    mid: mid ?? '',
-  });
 
   const handleDetailClick = (mid: number) => {
     router.push(`/${mid}`);
   };
 
-  if (!data || !similarData || !creditsData) {
+  if (!data || !similarData) {
     return <DetailSkeleton />;
   }
 
@@ -80,8 +94,8 @@ function Detail() {
       <section className="px-4 mb-4">
         <div className="text-white text-[20px] font-bold">출현진들</div>
         <div className="flex gap-4">
-          {creditsData &&
-            creditsData.cast.slice(0, 7).map((actor) => (
+          {initialData.credits &&
+            initialData.credits.cast.slice(0, 7).map((actor) => (
               <div>
                 <img
                   className="w-[90px] h-[110px] mb-1"
@@ -96,8 +110,8 @@ function Detail() {
       <section className="px-4 mb-10">
         <div className="text-white text-[20px] font-bold">감독</div>
         <div className="flex gap-4">
-          {creditsData &&
-            creditsData.crew.slice(0, 2).map((crew) => (
+          {initialData.credits &&
+            initialData.credits.crew.slice(0, 2).map((crew) => (
               <div className="flex flex-col justify-center items-center">
                 {crew.profilePath ? (
                   <img

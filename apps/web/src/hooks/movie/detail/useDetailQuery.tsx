@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetcher } from '@api/fetcher';
 
-type TMovieDetail = {
+export type TMovieDetail = {
   title: string;
   genres: { id: number; name: string }[];
   voteAverage: number;
