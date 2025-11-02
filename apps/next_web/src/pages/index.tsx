@@ -132,8 +132,8 @@ export default function Home({
 
         {/* 인기 영화들 */}
         <RowCarousel height="tall" containerClassName="mt-10 mb-10">
-          {data.popular?.results
-            ? data.popular.results.map((item) => (
+          {initialData.popular?.results
+            ? initialData.popular.results.map((item) => (
                 <MovieCard onClick={handleDetailClick} height="tall" key={item.id} item={item} />
               ))
             : null}
