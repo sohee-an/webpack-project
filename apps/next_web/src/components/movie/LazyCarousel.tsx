@@ -6,7 +6,7 @@ export default function LazyCarousel({
   endpoint,
   queryKey,
 }: {
-  title: string;
+  title?: string;
   endpoint: string;
   queryKey: string[];
 }) {

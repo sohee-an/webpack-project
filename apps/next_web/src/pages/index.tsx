@@ -1,67 +1,66 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { Carousel } from '@sohee-an/ui-carousel';
 import MovieCard from '@components/movie/MovieCard/MovieCard';
 import RowCarousel from '@components/movie/Carousel/RowCarousel';
 import { useMoviePopularQuery } from '@hooks/movie/useMoviePopularQuery';
 import { MOVIE_GENRES } from '@constants/movie';
-import PaginatedCarousel from '@components/movie/PaginatedCarousel';
 import LazyCarousel from '@components/movie/LazyCarousel';
 import { tv } from 'tailwind-variants';
 import { IMAGE_BASE_URL, IMAGE_SIZE } from '@constants/imageBaseUrl';
 import { TMovieResult } from '@/types/movie';
-import { GetStaticProps } from 'next';
-import { QueryClient, dehydrate } from '@tanstack/react-query';
-import { movieKeys } from '@/lib/queyr-keys';
-import { tmdbGetServer } from '@/lib/tmdb-server';
+import { GetServerSideProps } from 'next';
+import { useQuery } from '@tanstack/react-query';
 import { CarouselSkeleton } from '@/components/skeleton/CarouselSkeleton';
 
-//ssg로 하기
-export const getStaticProps: GetStaticProps = async () => {
-  const qc = new QueryClient();
-  const base = { language: 'ko-KR', page: 1 };
+//ssr로 하기
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+//   const res = await fetch(`${baseUrl}/api/home?page=1`);
+//   console.log('res11', res);
+//   const homeData = await res.json();
+//   return { props: { initialData: homeData } };
+// };
 
-  await qc.prefetchQuery({
-    queryKey: movieKeys.popular(base),
-    queryFn: () => tmdbGetServer<TMovieResult>('movie/popular', base),
-  });
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  // 배포 환경에서도 동작하도록 host와 protocol을 감지
+  const protocol = req.headers['x-forwarded-proto'] || 'http';
+  const host = req.headers.host;
+  const baseUrl = `${protocol}://${host}`;
 
-  await qc.prefetchQuery({
-    queryKey: movieKeys.topRated(base),
-    queryFn: () => tmdbGetServer<TMovieResult>('movie/top_rated', base),
-  });
+  // 서버 내부에서 자기 자신에게 요청 (Token은 API Route에서 처리됨)
+  const res = await fetch(`${baseUrl}/api/home?page=1`);
 
-  await qc.prefetchQuery({
-    queryKey: movieKeys.upcoming(base),
-    queryFn: () => tmdbGetServer<TMovieResult>('movie/upcoming', base),
-  });
+  if (!res.ok) {
+    console.error('❌ SSR Fetch Error:', res.status, res.statusText);
+    return { notFound: true };
+  }
 
-  return { props: { dehydratedState: dehydrate(qc) } };
+  const homeData = await res.json();
+
+  return { props: { initialData: homeData } };
 };
 
-export default function Home() {
+export default function Home({
+  initialData,
+}: {
+  initialData: { popular: TMovieResult; topRated: TMovieResult; upcoming: TMovieResult };
+}) {
   const router = useRouter();
   const [generesId, setGeneresId] = useState(0);
+
   const [page, setPage] = useState(1);
 
   // 랜덤 페이지
-  useEffect(() => {
-    const random = Math.floor(Math.random() * 50) + 1;
-    setPage(random);
-  }, []);
+  // useEffect(() => {
 
-  // 상단 캐러셀용
-  const { data } = useMoviePopularQuery({ language: 'ko-KR', page });
-
-  // 인기영화 리스트용
-  // const {
-  //   data: popularData,
-  //   isLoading: popularLoading,
-  //   error: popularError,
-  // } = useMoviePopularQuery({ language: 'ko-KR', page: 1 });
+  //   setPage(random);
+  // }, []);
+  const random = Math.floor(Math.random() * 50) + 1;
+  // 상단 랜덤으로 보여주는 캐러샐용
+  const { data: randomMovie } = useMoviePopularQuery({ language: 'ko-KR', page: random });
 
   const handleDetailClick = (mid: number) => {
     router.push(`/${mid}`);
@@ -83,6 +82,15 @@ export default function Home() {
     () => import('@sohee-an/ui-carousel').then((m) => ({ default: m.Carousel })),
     { ssr: false },
   );
+  const { data, isFetching } = useQuery({
+    queryKey: ['home', page],
+    queryFn: async () => {
+      const res = await fetch(`/api/home?page=${page}`);
+      return res.json();
+    },
+    initialData: page === 1 ? initialData : undefined,
+    // keepPreviousData: true,
+  });
   const { data: popularData } = useMoviePopularQuery({ language: 'ko-KR', page: 1 });
 
   // if (popularLoading) return <p>로딩 중...</p>;
@@ -97,12 +105,11 @@ export default function Home() {
 
       <section>
         {/* 상단 캐러셀 */}
-
         <div className="h-[620px] bg-black rounded-lg">
-          {data?.results && data.results.length > 0 ? (
+          {data.popular?.results && data.popular.results.length > 0 ? (
             <div className="animate-fade-in">
               <Carousel
-                items={data.results}
+                items={data.popular.results}
                 containerClassName="bg-black "
                 renderItem={(movie, index) => (
                   <Image
@@ -125,8 +132,8 @@ export default function Home() {
 
         {/* 인기 영화들 */}
         <RowCarousel height="tall" containerClassName="mt-10 mb-10">
-          {popularData
-            ? popularData.results.map((item) => (
+          {data.popular?.results
+            ? data.popular.results.map((item) => (
                 <MovieCard onClick={handleDetailClick} height="tall" key={item.id} item={item} />
               ))
             : null}
@@ -144,8 +151,8 @@ export default function Home() {
             </button>
           ))}
         </div>
+        <LazyCarousel endpoint="movie/popular" queryKey={['popular']} />
 
-        <PaginatedCarousel endpoint="movie/popular" queryKey={['']} />
         <LazyCarousel title="최고 평점" endpoint="movie/top_rated" queryKey={['topRated']} />
         <LazyCarousel
           title="오늘은 이 영화 어때?"
