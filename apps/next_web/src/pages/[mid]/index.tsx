@@ -1,17 +1,16 @@
 import React from 'react';
 import { useDetailQuery } from '@hooks/movie/detail/useDetailQuery';
 import { Button } from '@packages/shared';
-
 import { useSimilarQuery } from '@hooks/movie/detail/useSimilarQuery';
 import RowCarousel from '@components/movie/Carousel/RowCarousel';
 import MovieCard from '@components/movie/MovieCard/MovieCard';
-import { useCreditsQuery } from '@hooks/movie/detail/useCreditsQuery';
 import TrailerSection from '@components/movie/TrailerSection';
 import OverviewSection from '@components/movie/OverviewSection';
 import { DetailSkeleton } from '@components/skeleton/DetailSkeleton';
 import { IMAGE_BASE_URL, IMAGE_SIZE } from '@constants/imageBaseUrl';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
+import { TCredits, TMovieDetail } from '@/types/movie';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, params }) => {
   const protocol = req.headers['x-forwarded-proto'] || 'http';
@@ -30,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, params }) =>
   return { props: { initialData: aggregateData } };
 };
 
-function Detail({ initialData }: { initialData: { detail: any; credits: any } }) {
+function Detail({ initialData }: { initialData: { detail: TMovieDetail; credits: TCredits } } }) {
   const { query } = useRouter();
   const mid = Array.isArray(query.mid) ? query.mid[0] : query.mid;
   const router = useRouter();
