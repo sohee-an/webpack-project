@@ -57,13 +57,13 @@ function Detail({ initialData }: { initialData: { detail: TMovieDetail; credits:
         <div className="flex justify-between">
           <div className="flex flex-col gap-1 mb-8 w-[50%]">
             <h1>{data.title}</h1>
-            <span>평균: {data.voteAverage}</span>
+            <span>평균 : {data.voteAverage}</span>
             <div className="flex gap-2 text-gray-300">
               {data.genres.map((item) => (
                 <div key={item.id}>{item.name}</div>
               ))}
             </div>
-            <div>러닝타입: {data.runtime}분</div>
+            <div>러닝타입 : {data.runtime}분</div>
             {data.spokenLanguages.length !== 0 ? (
               <div className="flex gap-2">
                 <span>번역 : </span>
