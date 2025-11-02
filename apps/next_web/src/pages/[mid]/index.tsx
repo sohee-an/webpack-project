@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, params }) =>
   return { props: { initialData: aggregateData } };
 };
 
-function Detail({ initialData }: { initialData: { detail: TMovieDetail; credits: TCredits } } }) {
+function Detail({ initialData }: { initialData: { detail: TMovieDetail; credits: TCredits } }) {
   const { query } = useRouter();
   const mid = Array.isArray(query.mid) ? query.mid[0] : query.mid;
   const router = useRouter();

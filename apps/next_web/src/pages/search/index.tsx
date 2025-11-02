@@ -1,11 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { TMovie } from '../../types/movie';
+import { TMovie, TMovieResult } from '../../types/movie';
 import PaginatedCarousel from '@components/movie/PaginatedCarousel';
-import { useMoviePopularQuery } from '@hooks/movie/useMoviePopularQuery';
 import { useRouter } from 'next/router';
 import { useSearchMoviesQuery } from '@hooks/movie/useKeywordsQuery';
 import { IMAGE_BASE_URL, IMAGE_SIZE } from '@constants/imageBaseUrl';
 import Image from 'next/image';
+import { GetServerSideProps } from 'next';
+
+export const getServerSideProps: GetServerSideProps = async ({ req, params }) => {
+  const protocol = req.headers['x-forwarded-proto'] || 'http';
+  const host = req.headers.host;
+  const baseUrl = `${protocol}://${host}`;
+
+  const mid = params?.mid;
+  const res = await fetch(`${baseUrl}/api/movie/popular`);
+
+  if (!res.ok) {
+    console.error('SSR Fetch Error:', res.status, res.statusText);
+    return { notFound: true };
+  }
+
+  const aggregateData = await res.json();
+  return { props: { initialData: aggregateData } };
+};
 
 type RankingItemProps = {
   movie: TMovie;
@@ -27,7 +44,7 @@ const RankingItem = ({ movie, rank, onClick }: RankingItemProps) => (
   </div>
 );
 
-function Search() {
+function Search({ initialData }: { initialData: TMovieResult }) {
   const router = useRouter();
 
   const [keywords, setKeywords] = useState('');
@@ -41,15 +58,6 @@ function Search() {
   }, [router.query]);
 
   const {
-    data: popularData,
-    isLoading: popularLoading,
-    error: popularError,
-  } = useMoviePopularQuery({
-    language: 'ko-KR',
-    page: 1,
-  });
-
-  const {
     data: keywordData,
     isLoading: keywordsLoading,
     error: keywordsError,
@@ -59,7 +67,7 @@ function Search() {
     keywords,
   });
 
-  const top10Movies = popularData?.results?.slice(0, 10) || [];
+  const top10Movies = initialData?.results?.slice(0, 10) || [];
   const leftColumn = top10Movies.slice(0, 5);
   const rightColumn = top10Movies.slice(5, 10);
 
@@ -67,8 +75,8 @@ function Search() {
     router.push(`/${mid}`);
   };
 
-  if (popularLoading) return <div className="text-white">로딩 중...</div>;
-  if (popularError) return <div className="text-red-500">에러가 발생했습니다.</div>;
+  // if (popularLoading) return <div className="text-white">로딩 중...</div>;
+  // if (popularError) return <div className="text-red-500">에러가 발생했습니다.</div>;
 
   return (
     <div className="p-6 min-h-screen">
