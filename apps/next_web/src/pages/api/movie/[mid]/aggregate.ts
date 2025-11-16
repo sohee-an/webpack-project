@@ -1,8 +1,9 @@
 import { tmdbGetServer } from '@/lib/tmdb-server';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import type { TMovieDetail, TMovieResult, TCredits } from '@/types/movie';
+import { withApiErrorLogging } from '@/lib/withApiErrorLogging';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { mid } = req.query;
     const base = { language: 'ko-KR' };
@@ -17,3 +18,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(500).json({ error: 'Failed to fetch aggregated detail' });
   }
 }
+
+export default withApiErrorLogging(handler);

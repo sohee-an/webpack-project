@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { tmdbGetServer } from '@/lib/tmdb-server';
 import type { TMovieResult } from '@/types/movie';
+import { withApiErrorLogging } from '@/lib/withApiErrorLogging';
 
 export type HomeResponse = {
   popular: TMovieResult;
@@ -8,7 +9,7 @@ export type HomeResponse = {
   upcoming: TMovieResult;
 };
 
-export default async function handler(
+async function handler(
   req: NextApiRequest,
   res: NextApiResponse<HomeResponse | { error: string }>,
 ) {
@@ -27,3 +28,5 @@ export default async function handler(
     res.status(500).json({ error: 'Failed to fetch aggregated data' });
   }
 }
+
+export default withApiErrorLogging(handler);

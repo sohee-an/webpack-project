@@ -24,9 +24,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     return { notFound: true };
   }
 
-  // 2) React Query SSR prefetch
   await queryClient.prefetchQuery({
-    queryKey: ['movieDetail', mid], // ⬅ useDetailQuery의 queryKey와 맞춰야 함
+    queryKey: ['movieDetail', mid],
     queryFn: () => fetchDetail(mid),
   });
 
