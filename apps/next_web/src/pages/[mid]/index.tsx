@@ -11,22 +11,31 @@ import { IMAGE_BASE_URL, IMAGE_SIZE } from '@constants/imageBaseUrl';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import { TCredits, TMovieDetail } from '@/types/movie';
+import { fetchDetail } from '@/featcher/detail/apihelper/fetchDetail';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
 
-export const getServerSideProps: GetServerSideProps = async ({ req, params }) => {
-  const protocol = req.headers['x-forwarded-proto'] || 'http';
-  const host = req.headers.host;
-  const baseUrl = `${protocol}://${host}`;
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const queryClient = new QueryClient();
 
-  const mid = params?.mid;
-  const res = await fetch(`${baseUrl}/api/movie/${mid}/aggregate`);
+  const midParam = params?.mid;
+  const mid = Array.isArray(midParam) ? midParam[0] : midParam;
 
-  if (!res.ok) {
-    console.error('SSR Fetch Error:', res.status, res.statusText);
+  if (!mid) {
     return { notFound: true };
   }
 
-  const aggregateData = await res.json();
-  return { props: { initialData: aggregateData } };
+  // 2) React Query SSR prefetch
+  await queryClient.prefetchQuery({
+    queryKey: ['movieDetail', mid], // ⬅ useDetailQuery의 queryKey와 맞춰야 함
+    queryFn: () => fetchDetail(mid),
+  });
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+      mid,
+    },
+  };
 };
 
 function Detail({ initialData }: { initialData: { detail: TMovieDetail; credits: TCredits } }) {

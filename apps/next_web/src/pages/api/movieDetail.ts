@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { tmdbGetServer } from '@/lib/tmdb-server';
 import type { TMovieResult } from '@/types/movie';
 
-type HomeResponse = {
+export type MovieDetailResponse = {
   popular: TMovieResult;
   topRated: TMovieResult;
   upcoming: TMovieResult;
@@ -10,7 +10,7 @@ type HomeResponse = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<HomeResponse | { error: string }>,
+  res: NextApiResponse<MovieDetailResponse | { error: string }>,
 ) {
   try {
     const page = Number(req.query.page) || 1;
