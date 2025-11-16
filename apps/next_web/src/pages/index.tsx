@@ -16,32 +16,32 @@ import { useQuery } from '@tanstack/react-query';
 import { CarouselSkeleton } from '@/components/skeleton/CarouselSkeleton';
 
 //ssr로 하기
-// export const getServerSideProps: GetServerSideProps = async () => {
-//   const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-//   const res = await fetch(`${baseUrl}/api/home?page=1`);
-//   console.log('res11', res);
-//   const homeData = await res.json();
-//   return { props: { initialData: homeData } };
-// };
-
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  // 배포 환경에서도 동작하도록 host와 protocol을 감지
-  const protocol = req.headers['x-forwarded-proto'] || 'http';
-  const host = req.headers.host;
-  const baseUrl = `${protocol}://${host}`;
-
-  // 서버 내부에서 자기 자신에게 요청 (Token은 API Route에서 처리됨)
+export const getServerSideProps: GetServerSideProps = async () => {
+  const baseUrl = process.env.PUBLIC_API_URL || 'http://localhost:3000';
   const res = await fetch(`${baseUrl}/api/home?page=1`);
-
-  if (!res.ok) {
-    console.error('❌ SSR Fetch Error:', res.status, res.statusText);
-    return { notFound: true };
-  }
-
+  console.log('res11', res);
   const homeData = await res.json();
-
   return { props: { initialData: homeData } };
 };
+
+// export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+//   // 배포 환경에서도 동작하도록 host와 protocol을 감지
+//   const protocol = req.headers['x-forwarded-proto'] || 'http';
+//   const host = req.headers.host;
+//   const baseUrl = `${protocol}://${host}`;
+
+//   // 서버 내부에서 자기 자신에게 요청 (Token은 API Route에서 처리됨)
+//   const res = await fetch(`${baseUrl}/api/home?page=1`);
+
+//   if (!res.ok) {
+//     console.error('❌ SSR Fetch Error:', res.status, res.statusText);
+//     return { notFound: true };
+//   }
+
+//   const homeData = await res.json();
+
+//   return { props: { initialData: homeData } };
+// };
 
 export default function Home({
   initialData,
