@@ -51,7 +51,6 @@ export default function Home({ initialPage = 1 }: { initialPage?: number }) {
   const { data, isFetching } = useQuery<HomeResponse>({
     queryKey: ['home', page],
     queryFn: () => fetchHome(page),
-
     // keepPreviousData: true, // 나중에 페이지네이션 부드럽게 하고 싶으면 켜도 됨
   });
 
@@ -84,6 +83,10 @@ export default function Home({ initialPage = 1 }: { initialPage?: number }) {
     () => import('@sohee-an/ui-carousel').then((m) => ({ default: m.Carousel })),
     { ssr: false },
   );
+
+  const handleNext = async () => {
+    setPage((pre) => pre + 1);
+  };
 
   if (isFetching) return <p>로딩 중...</p>;
   // if (popularError) return <p>에러 발생!</p>;
@@ -122,8 +125,8 @@ export default function Home({ initialPage = 1 }: { initialPage?: number }) {
           )}
         </div>
 
-        {/* 인기 영화들 */}
-        <RowCarousel height="tall" containerClassName="mt-10 mb-10">
+        {/* 인기 영화들 중크기 */}
+        <RowCarousel onNext={handleNext} height="tall" containerClassName="mt-10 mb-10">
           {data?.popular?.results
             ? data?.popular.results.map((item) => (
                 <MovieCard onClick={handleDetailClick} height="tall" key={item.id} item={item} />
