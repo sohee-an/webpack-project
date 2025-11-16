@@ -12,46 +12,48 @@ import { tv } from 'tailwind-variants';
 import { IMAGE_BASE_URL, IMAGE_SIZE } from '@constants/imageBaseUrl';
 import { TMovieResult } from '@/types/movie';
 import { GetServerSideProps } from 'next';
-import { useQuery } from '@tanstack/react-query';
+import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import { CarouselSkeleton } from '@/components/skeleton/CarouselSkeleton';
+import { fetchHome } from '@/featcher/home/apihelper/fetchHome';
+import { HomeResponse } from './api/home';
 
 //ssr로 하기
-export const getServerSideProps: GetServerSideProps = async () => {
-  const baseUrl = process.env.PUBLIC_API_URL || 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/home?page=1`);
-  console.log('res11', res);
-  const homeData = await res.json();
-  return { props: { initialData: homeData } };
-};
-
-// export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-//   // 배포 환경에서도 동작하도록 host와 protocol을 감지
-//   const protocol = req.headers['x-forwarded-proto'] || 'http';
-//   const host = req.headers.host;
-//   const baseUrl = `${protocol}://${host}`;
-
-//   // 서버 내부에서 자기 자신에게 요청 (Token은 API Route에서 처리됨)
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   const baseUrl = process.env.PUBLIC_API_URL || 'http://localhost:3000';
 //   const res = await fetch(`${baseUrl}/api/home?page=1`);
-
-//   if (!res.ok) {
-//     console.error('❌ SSR Fetch Error:', res.status, res.statusText);
-//     return { notFound: true };
-//   }
-
 //   const homeData = await res.json();
-
 //   return { props: { initialData: homeData } };
 // };
 
-export default function Home({
-  initialData,
-}: {
-  initialData: { popular: TMovieResult; topRated: TMovieResult; upcoming: TMovieResult };
-}) {
+export const getServerSideProps: GetServerSideProps = async () => {
+  const queryClient = new QueryClient();
+
+  // SSR 시점에 ['home', 1] 데이터를 미리 캐시에 채워둔다
+  await queryClient.prefetchQuery({
+    queryKey: ['home', 1],
+    queryFn: () => fetchHome(1),
+  });
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient), // Hydrate 용 데이터
+      initialPage: 1, // 페이지 상태 초기값 정도만 넘겨둠
+    },
+  };
+};
+
+export default function Home({ initialPage = 1 }: { initialPage?: number }) {
   const router = useRouter();
   const [generesId, setGeneresId] = useState(0);
 
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(initialPage);
+
+  const { data, isFetching } = useQuery<HomeResponse>({
+    queryKey: ['home', page],
+    queryFn: () => fetchHome(page),
+
+    // keepPreviousData: true, // 나중에 페이지네이션 부드럽게 하고 싶으면 켜도 됨
+  });
 
   // 랜덤 페이지
   // useEffect(() => {
@@ -82,18 +84,8 @@ export default function Home({
     () => import('@sohee-an/ui-carousel').then((m) => ({ default: m.Carousel })),
     { ssr: false },
   );
-  const { data, isFetching } = useQuery({
-    queryKey: ['home', page],
-    queryFn: async () => {
-      const res = await fetch(`/api/home?page=${page}`);
-      return res.json();
-    },
-    initialData: page === 1 ? initialData : undefined,
-    // keepPreviousData: true,
-  });
-  const { data: popularData } = useMoviePopularQuery({ language: 'ko-KR', page: 1 });
 
-  // if (popularLoading) return <p>로딩 중...</p>;
+  if (isFetching) return <p>로딩 중...</p>;
   // if (popularError) return <p>에러 발생!</p>;
 
   return (
@@ -106,7 +98,7 @@ export default function Home({
       <section>
         {/* 상단 캐러셀 */}
         <div className="h-[620px] bg-black rounded-lg">
-          {data.popular?.results && data.popular.results.length > 0 ? (
+          {data?.popular?.results && data.popular.results.length > 0 ? (
             <div className="animate-fade-in">
               <Carousel
                 items={data.popular.results}
@@ -132,8 +124,8 @@ export default function Home({
 
         {/* 인기 영화들 */}
         <RowCarousel height="tall" containerClassName="mt-10 mb-10">
-          {initialData.popular?.results
-            ? initialData.popular.results.map((item) => (
+          {data?.popular?.results
+            ? data?.popular.results.map((item) => (
                 <MovieCard onClick={handleDetailClick} height="tall" key={item.id} item={item} />
               ))
             : null}

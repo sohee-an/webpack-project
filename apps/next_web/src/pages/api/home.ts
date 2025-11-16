@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { tmdbGetServer } from '@/lib/tmdb-server';
 import type { TMovieResult } from '@/types/movie';
 
-type HomeResponse = {
+export type HomeResponse = {
   popular: TMovieResult;
   topRated: TMovieResult;
   upcoming: TMovieResult;
